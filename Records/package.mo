@@ -105,7 +105,6 @@ package Records
     parameter Real P_0 = 623.3;
     parameter Real Q_0 = 22.655;
 
-    parameter Real filename;
 
     //AVR parameters
     parameter Real T_R;

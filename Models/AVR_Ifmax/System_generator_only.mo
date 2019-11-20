@@ -38,8 +38,6 @@ model System_generator_only
     annotation (Placement(transformation(extent={{88,-10},{68,10}})));
   Modelica.Blocks.Sources.CombiTimeTable Pout_real(
     tableOnFile=false,
-    tableName="P",
-    fileName=machineData.data.P_file,
     startTime=0,
     columns={2},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
@@ -92,8 +90,6 @@ model System_generator_only
         origin={30,30})));
   Modelica.Blocks.Sources.CombiTimeTable Qout_real(
     tableOnFile=false,
-    tableName="Q",
-    fileName=machineData.data.Q_file,
     startTime=0,
     columns={2},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
@@ -154,8 +150,6 @@ model System_generator_only
         origin={70,30})));
   Modelica.Blocks.Sources.CombiTimeTable Vim_input(
     tableOnFile=false,
-    tableName="vim",
-    fileName=machineData.data.Vim_file,
     startTime=0,
     columns={2},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
@@ -225,8 +219,6 @@ model System_generator_only
         origin={120,18})));
   Modelica.Blocks.Sources.CombiTimeTable Vreal_input(
     tableOnFile=false,
-    tableName="vr",
-    fileName=machineData.data.Vr_file,
     startTime=0,
     columns={2},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,

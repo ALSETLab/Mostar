@@ -1,0 +1,918 @@
+#1
+char Aclass(3,24)
+Adymosim
+1.4
+Modelica experiment file
+
+
+#    Experiment parameters
+double experiment(7,1)
+       0                   # StartTime    Time at which integration starts
+                           #              (and linearization and trimming time)
+       1                   # StopTime     Time at which integration stops
+  1.0000000000000000E-03   # Increment    Communication step size, if > 0
+       0                   # nInterval    Number of communication intervals, if > 0
+  1.0000000000000000E-04   # Tolerance    Relative precision of signals for
+                           #              simulation, linearization and trimming
+       0                   # MaxFixedStep Maximum step size of fixed step size
+                           #              integrators, if > 0.0
+       8                   # Algorithm    Integration algorithm as integer (1...28)
+                           #
+                           #             | model|       |        | dense | state |
+                           # Algorithm   | typ  | stiff | order  | output| event |
+                           # ------------+------+-------+--------+-------+-------+
+                           #  1 | deabm  |  ode |   no  |  1-12  |  yes  |   no  |
+                           #  2 | lsode1 |  ode |   no  |  1-12  |  yes  |   no  |
+                           #  3 | lsode2 |  ode |  yes  |  1-5   |  yes  |   no  |
+                           #  4 | lsodar |  ode |  both |1-12,1-5|  yes  |  yes  |
+                           #  5 | dopri5 |  ode |   no  |   5    |   no  |   no  |
+                           #  6 | dopri8 |  ode |   no  |   8    |   no  |   no  |
+                           #  7 | grk4t  |  ode |  yes  |   4    |   no  |   no  |
+                           #  8 | dassl  |  dae |  yes  |  1-5   |  yes  |  yes  |
+                           #  9 | odassl | hdae |  yes  |  1-5   |  yes  |  yes  |
+                           # 10 | mexx   | hdae |   no  |  2-24  |   no  |   no  |
+                           # 11 | euler  |  ode |   no  |   1    |   no  |  yes  |
+                           # 12 | rkfix2 |  ode |   no  |   2    |   no  |  yes  |
+                           # 13 | rkfix3 |  ode |   no  |   3    |   no  |  yes  |
+                           # 14 | rkfix4 |  ode |   no  |   4    |   no  |  yes  |
+                           #>=14| others |  ode |yes/no |  2-5   |   yes |  yes  |
+                           # ---+--------+------+-------+--------+-------+-------+
+                           # euler and rkfix have fixed stepsize.
+
+
+#    Method tuning parameters
+double method(27,1)
+       1                   # grid     type of communication time grid, defined by
+                           #          = 1: equidistant points ("Increment/nInterval")
+                           #          = 2: vector of grid points ("tgrid")
+                           #          = 3: variable step integrator (automatically)
+                           #          = 4: model (call of "increment" in Dymola, e.g.
+                           #                      incr=Time > 2 then 0 else 0.1
+                           #                      dummy=increment(incr))
+                           #          grid = 1,3 is stopped by "StopTime"
+                           #          grid = 2   is stopped by "tgrid(last)"
+                           #          grid = 4   runs forever (stopped by model)
+       1                   # nt       Use every NT time instant, if grid = 3
+       3                   # dense    1/2/3 restart/step/interpolate GRID points
+       1                   # evgrid   0/1 do not/save event points in comm. time grid
+       1                   # evu      0/1 U-discontinuity does not/trigger events
+       0                   # evuord       U-discontinuity order to consider (0,1,...)
+       0                   # error    0/1/2 One message/warning/error messages
+       0                   # jac      0/1 Compute jacobian numerically/by BLOCKJ
+       0                   # xd0c     0/1 Compute/set XD0
+       0                   # f3       0/1 Ignore/use F3 of HDAE (= index 1)
+       0                   # f4       0/1 Ignore/use F4 of HDAE (= index 2)
+       0                   # f5       0/1 Ignore/use F5 of HDAE (= invar.)
+       0                   # debug    flags for debug information (1<<0 uses pdebug) 
+     100                   # pdebug       priority of debug information (1...100)
+       0                   # fmax     Maximum number of evaluations of BLOCKF, if > 0
+       0                   # ordmax   Maximum allowed integration order, if > 0
+       0                   # hmax     Maximum absolute stepsize, if > 0
+       0                   # hmin     Minimum absolute stepsize, if > 0 (use with care!)
+       0                   # h0       Stepsize to be attempted on first step, if > 0
+  2.0000000000000000E-14   # teps     Bound to check, if 2 equal time instants
+  1.0000000000000000E-10   # eveps    Hysteresis epsilon at event points
+      20                   # eviter   Maximum number of event iterations
+  9.9999999999999995E-07   # delaym   Minimum time increment in delay buffers
+       1                   # fexcep   0/1 floating exception crashes/stops dymosim
+       1                   # tscale   clock-time = tscale*simulation-time, if grid = 5
+                           #          > 1: simulation too slow
+                           #          = 1: simulation-time = real-time
+                           #          < 1: simulation too fast
+       1                   # shared   (not used)
+    2473                   # memkey   (not used)
+
+
+#    Output parameters
+int settings(13,1)
+ 0                         # lprec    0/1 do not/store result data in double
+ 1                         # lx       0/1 do not/store x  (state variables)
+ 1                         # lxd      0/1 do not/store xd (derivative of states)
+ 1                         # lu       0/1 do not/store u  (input     signals)
+ 1                         # ly       0/1 do not/store y  (output    signals)
+ 0                         # lz       0/1 do not/store z  (indicator signals)
+ 1                         # lw       0/1 do not/store w  (auxiliary signals)
+ 1                         # la       0/1 do not/store a  (alias     signals)
+ 0                         # lperf    0/1 do not/store performance indicators
+ 0                         # levent   0/1 do not/store event point
+ 1                         # lres     0/1 do not/store results on result file
+ 0                         # lshare   0/1 do not/store info data for shared memory on dsshare.txt
+ 1                         # lform    0/1 ASCII/Matlab-binary storage format of results
+                           #              (for simulation/linearization; not for trimming)
+
+
+#    Names of initial variables
+char initialName(253,58)
+m
+V
+f
+Lm
+LT
+RT
+RL
+nT
+sineVoltage.m
+sineVoltage.v[1]
+sineVoltage.v[2]
+sineVoltage.v[3]
+sineVoltage.i[1]
+sineVoltage.i[2]
+sineVoltage.i[3]
+sineVoltage.plug_p.m
+sineVoltage.plug_n.m
+sineVoltage.plug_n.pin[1].v
+sineVoltage.plug_n.pin[2].v
+sineVoltage.plug_n.pin[3].v
+sineVoltage.V[1]
+sineVoltage.V[2]
+sineVoltage.V[3]
+sineVoltage.phase[1]
+sineVoltage.phase[2]
+sineVoltage.phase[3]
+sineVoltage.freqHz[1]
+sineVoltage.freqHz[2]
+sineVoltage.freqHz[3]
+sineVoltage.offset[1]
+sineVoltage.offset[2]
+sineVoltage.offset[3]
+sineVoltage.startTime[1]
+sineVoltage.startTime[2]
+sineVoltage.startTime[3]
+sineVoltage.sineVoltage[1].V
+sineVoltage.sineVoltage[1].phase
+sineVoltage.sineVoltage[1].freqHz
+sineVoltage.sineVoltage[1].n.v
+sineVoltage.sineVoltage[1].offset
+sineVoltage.sineVoltage[1].startTime
+sineVoltage.sineVoltage[1].signalSource.amplitude
+sineVoltage.sineVoltage[1].signalSource.freqHz
+sineVoltage.sineVoltage[1].signalSource.phase
+sineVoltage.sineVoltage[1].signalSource.offset
+sineVoltage.sineVoltage[1].signalSource.startTime
+sineVoltage.sineVoltage[2].V
+sineVoltage.sineVoltage[2].phase
+sineVoltage.sineVoltage[2].freqHz
+sineVoltage.sineVoltage[2].n.v
+sineVoltage.sineVoltage[2].offset
+sineVoltage.sineVoltage[2].startTime
+sineVoltage.sineVoltage[2].signalSource.amplitude
+sineVoltage.sineVoltage[2].signalSource.freqHz
+sineVoltage.sineVoltage[2].signalSource.phase
+sineVoltage.sineVoltage[2].signalSource.offset
+sineVoltage.sineVoltage[2].signalSource.startTime
+sineVoltage.sineVoltage[3].V
+sineVoltage.sineVoltage[3].phase
+sineVoltage.sineVoltage[3].freqHz
+sineVoltage.sineVoltage[3].n.v
+sineVoltage.sineVoltage[3].offset
+sineVoltage.sineVoltage[3].startTime
+sineVoltage.sineVoltage[3].signalSource.amplitude
+sineVoltage.sineVoltage[3].signalSource.freqHz
+sineVoltage.sineVoltage[3].signalSource.phase
+sineVoltage.sineVoltage[3].signalSource.offset
+sineVoltage.sineVoltage[3].signalSource.startTime
+starS.m
+starS.plug_p.m
+starS.plug_p.pin[1].v
+starS.plug_p.pin[2].v
+starS.plug_p.pin[3].v
+starS.pin_n.v
+starS.pin_n.i
+groundS.p.v
+idealTransformer.m
+idealTransformer.v2[1]
+idealTransformer.v2[2]
+idealTransformer.v2[3]
+idealTransformer.plug_p1.m
+idealTransformer.plug_p2.m
+idealTransformer.plug_n1.m
+idealTransformer.plug_n1.pin[1].v
+idealTransformer.plug_n1.pin[2].v
+idealTransformer.plug_n1.pin[3].v
+idealTransformer.plug_n2.m
+idealTransformer.plug_n2.pin[1].v
+idealTransformer.plug_n2.pin[2].v
+idealTransformer.plug_n2.pin[3].v
+idealTransformer.n[1]
+idealTransformer.n[2]
+idealTransformer.n[3]
+idealTransformer.considerMagnetization
+idealTransformer.Lm1[1]
+idealTransformer.Lm1[2]
+idealTransformer.Lm1[3]
+idealTransformer.idealTransformer[1].n1.v
+idealTransformer.idealTransformer[1].n2.v
+idealTransformer.idealTransformer[1].n
+idealTransformer.idealTransformer[1].considerMagnetization
+idealTransformer.idealTransformer[1].Lm1
+idealTransformer.idealTransformer[1].im1
+idealTransformer.idealTransformer[1].psim1
+idealTransformer.idealTransformer[2].n1.v
+idealTransformer.idealTransformer[2].n2.v
+idealTransformer.idealTransformer[2].n
+idealTransformer.idealTransformer[2].considerMagnetization
+idealTransformer.idealTransformer[2].Lm1
+idealTransformer.idealTransformer[2].im1
+idealTransformer.idealTransformer[2].psim1
+idealTransformer.idealTransformer[3].n1.v
+idealTransformer.idealTransformer[3].n2.v
+idealTransformer.idealTransformer[3].n
+idealTransformer.idealTransformer[3].considerMagnetization
+idealTransformer.idealTransformer[3].Lm1
+idealTransformer.idealTransformer[3].im1
+idealTransformer.idealTransformer[3].psim1
+starT1.m
+starT1.plug_p.m
+starT1.plug_p.pin[1].v
+starT1.plug_p.pin[2].v
+starT1.plug_p.pin[3].v
+starT1.pin_n.v
+starT1.pin_n.i
+starT2.m
+starT2.plug_p.m
+starT2.plug_p.pin[1].v
+starT2.plug_p.pin[2].v
+starT2.plug_p.pin[3].v
+starT2.pin_n.v
+starT2.pin_n.i
+groundT2.p.v
+transformerR.m
+transformerR.v[1]
+transformerR.v[2]
+transformerR.v[3]
+transformerR.plug_p.m
+transformerR.plug_n.m
+transformerR.plug_n.pin[1].v
+transformerR.plug_n.pin[2].v
+transformerR.plug_n.pin[3].v
+transformerR.R[1]
+transformerR.R[2]
+transformerR.R[3]
+transformerR.T_ref[1]
+transformerR.T_ref[2]
+transformerR.T_ref[3]
+transformerR.alpha[1]
+transformerR.alpha[2]
+transformerR.alpha[3]
+transformerR.mh
+transformerR.useHeatPort
+transformerR.T[1]
+transformerR.T[2]
+transformerR.T[3]
+transformerR.resistor[1].R
+transformerR.resistor[1].T_ref
+transformerR.resistor[1].alpha
+transformerR.resistor[1].v
+transformerR.resistor[1].useHeatPort
+transformerR.resistor[1].T
+transformerR.resistor[1].LossPower
+transformerR.resistor[1].R_actual
+transformerR.resistor[2].R
+transformerR.resistor[2].T_ref
+transformerR.resistor[2].alpha
+transformerR.resistor[2].v
+transformerR.resistor[2].useHeatPort
+transformerR.resistor[2].T
+transformerR.resistor[2].LossPower
+transformerR.resistor[2].R_actual
+transformerR.resistor[3].R
+transformerR.resistor[3].T_ref
+transformerR.resistor[3].alpha
+transformerR.resistor[3].v
+transformerR.resistor[3].useHeatPort
+transformerR.resistor[3].T
+transformerR.resistor[3].LossPower
+transformerR.resistor[3].R_actual
+transformerL.m
+transformerL.v[1]
+transformerL.v[2]
+transformerL.v[3]
+transformerL.plug_p.m
+transformerL.plug_n.m
+transformerL.plug_n.pin[1].v
+transformerL.plug_n.pin[2].v
+transformerL.plug_n.pin[3].v
+transformerL.L[1]
+transformerL.L[2]
+transformerL.L[3]
+transformerL.inductor[1].v
+transformerL.inductor[1].i
+transformerL.inductor[1].der(i)
+transformerL.inductor[1].L
+transformerL.inductor[2].v
+transformerL.inductor[2].i
+transformerL.inductor[2].der(i)
+transformerL.inductor[2].L
+transformerL.inductor[3].v
+transformerL.inductor[3].i
+transformerL.inductor[3].der(i)
+transformerL.inductor[3].L
+loadR.m
+loadR.v[1]
+loadR.v[2]
+loadR.v[3]
+loadR.plug_p.m
+loadR.plug_n.m
+loadR.plug_n.pin[1].v
+loadR.R[1]
+loadR.R[2]
+loadR.R[3]
+loadR.T_ref[1]
+loadR.T_ref[2]
+loadR.T_ref[3]
+loadR.alpha[1]
+loadR.alpha[2]
+loadR.alpha[3]
+loadR.mh
+loadR.useHeatPort
+loadR.T[1]
+loadR.T[2]
+loadR.T[3]
+loadR.resistor[1].R
+loadR.resistor[1].T_ref
+loadR.resistor[1].alpha
+loadR.resistor[1].v
+loadR.resistor[1].useHeatPort
+loadR.resistor[1].T
+loadR.resistor[1].LossPower
+loadR.resistor[1].R_actual
+loadR.resistor[2].R
+loadR.resistor[2].T_ref
+loadR.resistor[2].alpha
+loadR.resistor[2].v
+loadR.resistor[2].useHeatPort
+loadR.resistor[2].T
+loadR.resistor[2].LossPower
+loadR.resistor[2].R_actual
+loadR.resistor[3].R
+loadR.resistor[3].T_ref
+loadR.resistor[3].alpha
+loadR.resistor[3].v
+loadR.resistor[3].useHeatPort
+loadR.resistor[3].T
+loadR.resistor[3].LossPower
+loadR.resistor[3].R_actual
+starL.m
+starL.plug_p.m
+starL.pin_n.i
+groundT1.p.v
+
+double initialValue(253,6)
+  0       3                  0       0                  6   258   # m
+ -1       1                  0       0                  1   280   # V
+ -1       5                  0       0                  1   280   # f
+ -1       1                  0       0                  1   280   # Lm
+ -1  3.0000000000000001E-03  0       0                  1   280   # LT
+ -1  5.0000000000000003E-02  0       0                  1   280   # RT
+ -1       1                  0       0                  1   280   # RL
+ -1       1                  0       0                  1   280   # nT
+  0       3                  1 1.0000000000000000E+100  6   258   # sineVoltage.m
+  0       0                  0       0                  6   256   # sineVoltage.v[1]
+  0       0                  0       0                  6   256   # sineVoltage.v[2]
+  0       0                  0       0                  6   256   # sineVoltage.v[3]
+  0       0                  0       0                  6   256   # sineVoltage.i[1]
+  0       0                  0       0                  6   256   # sineVoltage.i[2]
+  0       0                  0       0                  6   256   # sineVoltage.i[3]
+  0       3                  1 1.0000000000000000E+100  6   262   # sineVoltage.plug_p.m
+  0       3                  1 1.0000000000000000E+100  6   262   # sineVoltage.plug_n.m
+  0       0                  0       0                  6   260   # sineVoltage.plug_n.pin[1].v
+  0       0                  0       0                  6   260   # sineVoltage.plug_n.pin[2].v
+  0       0                  0       0                  6   260   # sineVoltage.plug_n.pin[3].v
+  0       1                  0       0                  6   256   # sineVoltage.V[1]
+  0       1                  0       0                  6   256   # sineVoltage.V[2]
+  0       1                  0       0                  6   256   # sineVoltage.V[3]
+  0       0                  0       0                  6   256   # sineVoltage.phase[1]
+  0 -2.0943951023931953E+00  0       0                  6   256   # sineVoltage.phase[2]
+  0 -4.1887902047863905E+00  0       0                  6   256   # sineVoltage.phase[3]
+  0       1                  0       0                  6   256   # sineVoltage.freqHz[1]
+  0       1                  0       0                  6   256   # sineVoltage.freqHz[2]
+  0       1                  0       0                  6   256   # sineVoltage.freqHz[3]
+ -1       0                  0       0                  1   280   # sineVoltage.offset[1]
+ -1       0                  0       0                  1   280   # sineVoltage.offset[2]
+ -1       0                  0       0                  1   280   # sineVoltage.offset[3]
+ -1       0                  0       0                  1   280   # sineVoltage.startTime[1]
+ -1       0                  0       0                  1   280   # sineVoltage.startTime[2]
+ -1       0                  0       0                  1   280   # sineVoltage.startTime[3]
+  0       1                  0       0                  6   256   # sineVoltage.sineVoltage[1].V
+  0       0                  0       0                  6   256   # sineVoltage.sineVoltage[1].phase
+  0       1                  0       0                  6   256   # sineVoltage.sineVoltage[1].freqHz
+  0       0                  0       0                  6   260   # sineVoltage.sineVoltage[1].n.v
+  0       0                  0       0                  6   256   # sineVoltage.sineVoltage[1].offset
+  0       0                  0       0                  6   256   # sineVoltage.sineVoltage[1].startTime
+  0       0                  0       0                  6   256   # sineVoltage.sineVoltage[1].signalSource.amplitude
+  0       1                  0       0                  6   256   # sineVoltage.sineVoltage[1].signalSource.freqHz
+  0       0                  0       0                  6   256   # sineVoltage.sineVoltage[1].signalSource.phase
+  0       0                  0       0                  6   256   # sineVoltage.sineVoltage[1].signalSource.offset
+  0       0                  0       0                  6   256   # sineVoltage.sineVoltage[1].signalSource.startTime
+  0       1                  0       0                  6   256   # sineVoltage.sineVoltage[2].V
+  0 -2.0943951023931953E+00  0       0                  6   256   # sineVoltage.sineVoltage[2].phase
+  0       1                  0       0                  6   256   # sineVoltage.sineVoltage[2].freqHz
+  0       0                  0       0                  6   260   # sineVoltage.sineVoltage[2].n.v
+  0       0                  0       0                  6   256   # sineVoltage.sineVoltage[2].offset
+  0       0                  0       0                  6   256   # sineVoltage.sineVoltage[2].startTime
+  0       0                  0       0                  6   256   # sineVoltage.sineVoltage[2].signalSource.amplitude
+  0       1                  0       0                  6   256   # sineVoltage.sineVoltage[2].signalSource.freqHz
+  0 -2.0943951023931953E+00  0       0                  6   256   # sineVoltage.sineVoltage[2].signalSource.phase
+  0       0                  0       0                  6   256   # sineVoltage.sineVoltage[2].signalSource.offset
+  0       0                  0       0                  6   256   # sineVoltage.sineVoltage[2].signalSource.startTime
+  0       1                  0       0                  6   256   # sineVoltage.sineVoltage[3].V
+  0 -4.1887902047863905E+00  0       0                  6   256   # sineVoltage.sineVoltage[3].phase
+  0       1                  0       0                  6   256   # sineVoltage.sineVoltage[3].freqHz
+  0       0                  0       0                  6   260   # sineVoltage.sineVoltage[3].n.v
+  0       0                  0       0                  6   256   # sineVoltage.sineVoltage[3].offset
+  0       0                  0       0                  6   256   # sineVoltage.sineVoltage[3].startTime
+  0       0                  0       0                  6   256   # sineVoltage.sineVoltage[3].signalSource.amplitude
+  0       1                  0       0                  6   256   # sineVoltage.sineVoltage[3].signalSource.freqHz
+  0 -4.1887902047863905E+00  0       0                  6   256   # sineVoltage.sineVoltage[3].signalSource.phase
+  0       0                  0       0                  6   256   # sineVoltage.sineVoltage[3].signalSource.offset
+  0       0                  0       0                  6   256   # sineVoltage.sineVoltage[3].signalSource.startTime
+  0       3                  1 1.0000000000000000E+100  6   258   # starS.m
+  0       3                  1 1.0000000000000000E+100  6   262   # starS.plug_p.m
+  0       0                  0       0                  6   260   # starS.plug_p.pin[1].v
+  0       0                  0       0                  6   260   # starS.plug_p.pin[2].v
+  0       0                  0       0                  6   260   # starS.plug_p.pin[3].v
+  0       0                  0       0                  6   260   # starS.pin_n.v
+  0       0                  0       0                  6   388   # starS.pin_n.i
+  0       0                  0       0                  6   260   # groundS.p.v
+  0       3                  1 1.0000000000000000E+100  6   258   # idealTransformer.m
+  0       0                  0       0                  6   256   # idealTransformer.v2[1]
+  0       0                  0       0                  6   256   # idealTransformer.v2[2]
+  0       0                  0       0                  6   256   # idealTransformer.v2[3]
+  0       3                  1 1.0000000000000000E+100  6   262   # idealTransformer.plug_p1.m
+  0       3                  1 1.0000000000000000E+100  6   262   # idealTransformer.plug_p2.m
+  0       3                  1 1.0000000000000000E+100  6   262   # idealTransformer.plug_n1.m
+  0       0                  0       0                  6   260   # idealTransformer.plug_n1.pin[1].v
+  0       0                  0       0                  6   260   # idealTransformer.plug_n1.pin[2].v
+  0       0                  0       0                  6   260   # idealTransformer.plug_n1.pin[3].v
+  0       3                  1 1.0000000000000000E+100  6   262   # idealTransformer.plug_n2.m
+  0       0                  0       0                  6   260   # idealTransformer.plug_n2.pin[1].v
+  0       0                  0       0                  6   260   # idealTransformer.plug_n2.pin[2].v
+  0       0                  0       0                  6   260   # idealTransformer.plug_n2.pin[3].v
+  0       1                  0       0                  6   256   # idealTransformer.n[1]
+  0       1                  0       0                  6   256   # idealTransformer.n[2]
+  0       1                  0       0                  6   256   # idealTransformer.n[3]
+  0       0                  0       0                  6   257   # idealTransformer.considerMagnetization
+  0       1                  0       0                  6   256   # idealTransformer.Lm1[1]
+  0       1                  0       0                  6   256   # idealTransformer.Lm1[2]
+  0       1                  0       0                  6   256   # idealTransformer.Lm1[3]
+  0       0                  0       0                  6   260   # idealTransformer.idealTransformer[1].n1.v
+  0       0                  0       0                  6   260   # idealTransformer.idealTransformer[1].n2.v
+  0       1                  0       0                  6   256   # idealTransformer.idealTransformer[1].n
+  0       0                  0       0                  6   257   # idealTransformer.idealTransformer[1].considerMagnetization
+  0       1                  0       0                  6   256   # idealTransformer.idealTransformer[1].Lm1
+  0       0                  0       0                  6  1280   # idealTransformer.idealTransformer[1].im1
+  0       0                  0       0                  6  1280   # idealTransformer.idealTransformer[1].psim1
+  0       0                  0       0                  6   260   # idealTransformer.idealTransformer[2].n1.v
+  0       0                  0       0                  6   260   # idealTransformer.idealTransformer[2].n2.v
+  0       1                  0       0                  6   256   # idealTransformer.idealTransformer[2].n
+  0       0                  0       0                  6   257   # idealTransformer.idealTransformer[2].considerMagnetization
+  0       1                  0       0                  6   256   # idealTransformer.idealTransformer[2].Lm1
+  0       0                  0       0                  6  1280   # idealTransformer.idealTransformer[2].im1
+  0       0                  0       0                  6  1280   # idealTransformer.idealTransformer[2].psim1
+  0       0                  0       0                  6   260   # idealTransformer.idealTransformer[3].n1.v
+  0       0                  0       0                  6   260   # idealTransformer.idealTransformer[3].n2.v
+  0       1                  0       0                  6   256   # idealTransformer.idealTransformer[3].n
+  0       0                  0       0                  6   257   # idealTransformer.idealTransformer[3].considerMagnetization
+  0       1                  0       0                  6   256   # idealTransformer.idealTransformer[3].Lm1
+  0       0                  0       0                  6  1280   # idealTransformer.idealTransformer[3].im1
+  0       0                  0       0                  6  1280   # idealTransformer.idealTransformer[3].psim1
+  0       3                  1 1.0000000000000000E+100  6   258   # starT1.m
+  0       3                  1 1.0000000000000000E+100  6   262   # starT1.plug_p.m
+  0       0                  0       0                  6   260   # starT1.plug_p.pin[1].v
+  0       0                  0       0                  6   260   # starT1.plug_p.pin[2].v
+  0       0                  0       0                  6   260   # starT1.plug_p.pin[3].v
+  0       0                  0       0                  6   260   # starT1.pin_n.v
+  0       0                  0       0                  6   388   # starT1.pin_n.i
+  0       3                  1 1.0000000000000000E+100  6   258   # starT2.m
+  0       3                  1 1.0000000000000000E+100  6   262   # starT2.plug_p.m
+  0       0                  0       0                  6   260   # starT2.plug_p.pin[1].v
+  0       0                  0       0                  6   260   # starT2.plug_p.pin[2].v
+  0       0                  0       0                  6   260   # starT2.plug_p.pin[3].v
+  0       0                  0       0                  6   260   # starT2.pin_n.v
+  0       0                  0       0                  6   388   # starT2.pin_n.i
+  0       0                  0       0                  6   260   # groundT2.p.v
+  0       3                  1 1.0000000000000000E+100  6   258   # transformerR.m
+  0       0                  0       0                  6   256   # transformerR.v[1]
+  0       0                  0       0                  6   256   # transformerR.v[2]
+  0       0                  0       0                  6   256   # transformerR.v[3]
+  0       3                  1 1.0000000000000000E+100  6   262   # transformerR.plug_p.m
+  0       3                  1 1.0000000000000000E+100  6   262   # transformerR.plug_n.m
+  0       0                  0       0                  6   260   # transformerR.plug_n.pin[1].v
+  0       0                  0       0                  6   260   # transformerR.plug_n.pin[2].v
+  0       0                  0       0                  6   260   # transformerR.plug_n.pin[3].v
+  0       1                  0       0                  6   256   # transformerR.R[1]
+  0       1                  0       0                  6   256   # transformerR.R[2]
+  0       1                  0       0                  6   256   # transformerR.R[3]
+ -1  3.0014999999999998E+02  0 1.0000000000000000E+100  1   280   # transformerR.T_ref[1]
+ -1  3.0014999999999998E+02  0 1.0000000000000000E+100  1   280   # transformerR.T_ref[2]
+ -1  3.0014999999999998E+02  0 1.0000000000000000E+100  1   280   # transformerR.T_ref[3]
+ -1       0                  0       0                  1   280   # transformerR.alpha[1]
+ -1       0                  0       0                  1   280   # transformerR.alpha[2]
+ -1       0                  0       0                  1   280   # transformerR.alpha[3]
+  0       3                  1 1.0000000000000000E+100  6   258   # transformerR.mh
+  0       0                  0       0                  6   769   # transformerR.useHeatPort
+  0  2.8814999999999998E+02  0 1.0000000000000000E+100  6   256   # transformerR.T[1]
+  0  2.8814999999999998E+02  0 1.0000000000000000E+100  6   256   # transformerR.T[2]
+  0  2.8814999999999998E+02  0 1.0000000000000000E+100  6   256   # transformerR.T[3]
+  0       1                  0       0                  6   256   # transformerR.resistor[1].R
+  0  2.8814999999999998E+02  0 1.0000000000000000E+100  6   256   # transformerR.resistor[1].T_ref
+  0       0                  0       0                  6   256   # transformerR.resistor[1].alpha
+  0       0                  0       0                  6   256   # transformerR.resistor[1].v
+  0       0                  0       0                  6   769   # transformerR.resistor[1].useHeatPort
+  0  2.8814999999999998E+02  0 1.0000000000000000E+100  6   256   # transformerR.resistor[1].T
+  0       0                  0       0                  6   256   # transformerR.resistor[1].LossPower
+  0       0                  0       0                  6   256   # transformerR.resistor[1].R_actual
+  0       1                  0       0                  6   256   # transformerR.resistor[2].R
+  0  2.8814999999999998E+02  0 1.0000000000000000E+100  6   256   # transformerR.resistor[2].T_ref
+  0       0                  0       0                  6   256   # transformerR.resistor[2].alpha
+  0       0                  0       0                  6   256   # transformerR.resistor[2].v
+  0       0                  0       0                  6   769   # transformerR.resistor[2].useHeatPort
+  0  2.8814999999999998E+02  0 1.0000000000000000E+100  6   256   # transformerR.resistor[2].T
+  0       0                  0       0                  6   256   # transformerR.resistor[2].LossPower
+  0       0                  0       0                  6   256   # transformerR.resistor[2].R_actual
+  0       1                  0       0                  6   256   # transformerR.resistor[3].R
+  0  2.8814999999999998E+02  0 1.0000000000000000E+100  6   256   # transformerR.resistor[3].T_ref
+  0       0                  0       0                  6   256   # transformerR.resistor[3].alpha
+  0       0                  0       0                  6   256   # transformerR.resistor[3].v
+  0       0                  0       0                  6   769   # transformerR.resistor[3].useHeatPort
+  0  2.8814999999999998E+02  0 1.0000000000000000E+100  6   256   # transformerR.resistor[3].T
+  0       0                  0       0                  6   256   # transformerR.resistor[3].LossPower
+  0       0                  0       0                  6   256   # transformerR.resistor[3].R_actual
+  0       3                  1 1.0000000000000000E+100  6   258   # transformerL.m
+  0       0                  0       0                  6   256   # transformerL.v[1]
+  0       0                  0       0                  6   256   # transformerL.v[2]
+  0       0                  0       0                  6   256   # transformerL.v[3]
+  0       3                  1 1.0000000000000000E+100  6   262   # transformerL.plug_p.m
+  0       3                  1 1.0000000000000000E+100  6   262   # transformerL.plug_n.m
+  0       0                  0       0                  6   260   # transformerL.plug_n.pin[1].v
+  0       0                  0       0                  6   260   # transformerL.plug_n.pin[2].v
+  0       0                  0       0                  6   260   # transformerL.plug_n.pin[3].v
+  0       1                  0       0                  6   256   # transformerL.L[1]
+  0       1                  0       0                  6   256   # transformerL.L[2]
+  0       1                  0       0                  6   256   # transformerL.L[3]
+  0       0                  0       0                  6   256   # transformerL.inductor[1].v
+  0       0                  0       0                  6   256   # transformerL.inductor[1].i
+  0       0                  0       0                  6   256   # transformerL.inductor[1].der(i)
+  0       1                  0       0                  6   256   # transformerL.inductor[1].L
+  0       0                  0       0                  6   256   # transformerL.inductor[2].v
+ -1       0                  0       0                  2   272   # transformerL.inductor[2].i
+  0       0                  0       0                  3   256   # transformerL.inductor[2].der(i)
+  0       1                  0       0                  6   256   # transformerL.inductor[2].L
+  0       0                  0       0                  6   256   # transformerL.inductor[3].v
+ -1       0                  0       0                  2   272   # transformerL.inductor[3].i
+  0       0                  0       0                  3   256   # transformerL.inductor[3].der(i)
+  0       1                  0       0                  6   256   # transformerL.inductor[3].L
+  0       3                  1 1.0000000000000000E+100  6   258   # loadR.m
+  0       0                  0       0                  6   256   # loadR.v[1]
+  0       0                  0       0                  6   256   # loadR.v[2]
+  0       0                  0       0                  6   256   # loadR.v[3]
+  0       3                  1 1.0000000000000000E+100  6   262   # loadR.plug_p.m
+  0       3                  1 1.0000000000000000E+100  6   262   # loadR.plug_n.m
+  0       0                  0       0                  6   260   # loadR.plug_n.pin[1].v
+  0       1                  0       0                  6   256   # loadR.R[1]
+  0       1                  0       0                  6   256   # loadR.R[2]
+  0       1                  0       0                  6   256   # loadR.R[3]
+ -1  3.0014999999999998E+02  0 1.0000000000000000E+100  1   280   # loadR.T_ref[1]
+ -1  3.0014999999999998E+02  0 1.0000000000000000E+100  1   280   # loadR.T_ref[2]
+ -1  3.0014999999999998E+02  0 1.0000000000000000E+100  1   280   # loadR.T_ref[3]
+ -1       0                  0       0                  1   280   # loadR.alpha[1]
+ -1       0                  0       0                  1   280   # loadR.alpha[2]
+ -1       0                  0       0                  1   280   # loadR.alpha[3]
+  0       3                  1 1.0000000000000000E+100  6   258   # loadR.mh
+  0       0                  0       0                  6   769   # loadR.useHeatPort
+  0  2.8814999999999998E+02  0 1.0000000000000000E+100  6   256   # loadR.T[1]
+  0  2.8814999999999998E+02  0 1.0000000000000000E+100  6   256   # loadR.T[2]
+  0  2.8814999999999998E+02  0 1.0000000000000000E+100  6   256   # loadR.T[3]
+  0       1                  0       0                  6   256   # loadR.resistor[1].R
+  0  2.8814999999999998E+02  0 1.0000000000000000E+100  6   256   # loadR.resistor[1].T_ref
+  0       0                  0       0                  6   256   # loadR.resistor[1].alpha
+  0       0                  0       0                  6   256   # loadR.resistor[1].v
+  0       0                  0       0                  6   769   # loadR.resistor[1].useHeatPort
+  0  2.8814999999999998E+02  0 1.0000000000000000E+100  6   256   # loadR.resistor[1].T
+  0       0                  0       0                  6   256   # loadR.resistor[1].LossPower
+  0       0                  0       0                  6   256   # loadR.resistor[1].R_actual
+  0       1                  0       0                  6   256   # loadR.resistor[2].R
+  0  2.8814999999999998E+02  0 1.0000000000000000E+100  6   256   # loadR.resistor[2].T_ref
+  0       0                  0       0                  6   256   # loadR.resistor[2].alpha
+  0       0                  0       0                  6   256   # loadR.resistor[2].v
+  0       0                  0       0                  6   769   # loadR.resistor[2].useHeatPort
+  0  2.8814999999999998E+02  0 1.0000000000000000E+100  6   256   # loadR.resistor[2].T
+  0       0                  0       0                  6   256   # loadR.resistor[2].LossPower
+  0       0                  0       0                  6   256   # loadR.resistor[2].R_actual
+  0       1                  0       0                  6   256   # loadR.resistor[3].R
+  0  2.8814999999999998E+02  0 1.0000000000000000E+100  6   256   # loadR.resistor[3].T_ref
+  0       0                  0       0                  6   256   # loadR.resistor[3].alpha
+  0       0                  0       0                  6   256   # loadR.resistor[3].v
+  0       0                  0       0                  6   769   # loadR.resistor[3].useHeatPort
+  0  2.8814999999999998E+02  0 1.0000000000000000E+100  6   256   # loadR.resistor[3].T
+  0       0                  0       0                  6   256   # loadR.resistor[3].LossPower
+  0       0                  0       0                  6   256   # loadR.resistor[3].R_actual
+  0       3                  1 1.0000000000000000E+100  6   258   # starL.m
+  0       3                  1 1.0000000000000000E+100  6   262   # starL.plug_p.m
+  0       0                  0       0                  6   388   # starL.pin_n.i
+  0       0                  0       0                  6   260   # groundT1.p.v
+
+
+# Matrix with 6 columns defining the initial value calculation
+# (columns 5 and 6 are not utilized for the calculation but are
+#  reported by dymosim via dymosim -i for user convenience):
+#
+# column 1: Type of initial value
+#           = -2: special case: for continuing simulation (column 2 = value)
+#           = -1: fixed value (column 2 = fixed value)
+#           =  0: free value, i.e., no restriction (column 2 = initial value)
+#           >  0: desired value (column 1 = weight for optimization
+#                                column 2 = desired value)
+#                 use weight=1, since automatic scaling usually
+#                 leads to equally weighted terms
+# column 2: fixed, free or desired value according to column 1.
+# column 3: Minimum value (ignored, if Minimum >= Maximum).
+# column 4: Maximum value (ignored, if Minimum >= Maximum).
+#           Minimum and maximum restrict the search range in initial
+#           value calculation. They might also be used for scaling.
+# column 5: Category of variable.
+#           = 1: parameter.
+#           = 2: state.
+#           = 3: state derivative.
+#           = 4: output.
+#           = 5: input.
+#           = 6: auxiliary variable.
+# column 6: Data type of variable and flags according to dsBaseType
+#  <value>&3= 0: real.
+#  <value>&3= 1: boolean.
+#  <value>&3= 2: integer.
+#
+# Initial values are calculated according to the following procedure:
+#
+# - If parameters, states and inputs are FIXED, and other variables
+#   are FREE, no special action takes place (default setting).
+#
+# - If there are only FIXED and FREE variables and the number of
+#   FREE parameters, states and inputs is IDENTICAL to the number of
+#   FIXED state derivatives, outputs and auxiliary variables, a non-linear
+#   equation is solved to determine a consistent set of initial conditions.
+#
+# - In all other cases the following optimization problem is solved:
+#      min( sum( weight(i)*( (value(i) - DESIRED(i))/scale(i) )^2 ) )
+#   under the constraint that the differential equation is fulfilled
+#   at the initial time. In most cases weight(i)=1 is sufficient, due
+#   to the automatic scaling (if DESIRED(i) is not close to zero,
+#   scale(i) = DESIRED(i). Otherwise, the scaling is based on the
+#   nominal value (and maybe minimum and maximum values given in 
+#   column 3 and 4). If these values are zero, scale(i)=1 is used).
+#
+char initialDescription(253,90)
+Number of phases [:#(type=Integer)]
+Amplitude of Star-Voltage [V]
+Frequency [Hz]
+Transformer main inductance [H]
+Transformer stray inductance [H]
+Transformer resistance [Ohm]
+Load Resistance [Ohm]
+Transformer ratio
+Number of phases [:#(type=Integer)]
+Voltage drops of the two polyphase plugs [V]
+Voltage drops of the two polyphase plugs [V]
+Voltage drops of the two polyphase plugs [V]
+Currents flowing into positive polyphase plugs [A]
+Currents flowing into positive polyphase plugs [A]
+Currents flowing into positive polyphase plugs [A]
+Number of phases [:#(type=Integer)]
+Number of phases [:#(type=Integer)]
+Potential at the pin [V]
+Potential at the pin [V]
+Potential at the pin [V]
+Amplitudes of sine waves [V]
+Amplitudes of sine waves [V]
+Amplitudes of sine waves [V]
+Phases of sine waves [rad|deg]
+Phases of sine waves [rad|deg]
+Phases of sine waves [rad|deg]
+Frequencies of sine waves [Hz]
+Frequencies of sine waves [Hz]
+Frequencies of sine waves [Hz]
+Voltage offsets [V]
+Voltage offsets [V]
+Voltage offsets [V]
+Time offsets [s]
+Time offsets [s]
+Time offsets [s]
+Amplitude of sine wave [V]
+Phase of sine wave [rad|deg]
+Frequency of sine wave [Hz]
+Potential at the pin [V]
+Voltage offset [V]
+Time offset [s]
+Amplitude of sine wave [V]
+Frequency of sine wave [Hz]
+Phase of sine wave [rad|deg]
+Offset of output signal y [V]
+Output y = offset for time < startTime [s]
+Amplitude of sine wave [V]
+Phase of sine wave [rad|deg]
+Frequency of sine wave [Hz]
+Potential at the pin [V]
+Voltage offset [V]
+Time offset [s]
+Amplitude of sine wave [V]
+Frequency of sine wave [Hz]
+Phase of sine wave [rad|deg]
+Offset of output signal y [V]
+Output y = offset for time < startTime [s]
+Amplitude of sine wave [V]
+Phase of sine wave [rad|deg]
+Frequency of sine wave [Hz]
+Potential at the pin [V]
+Voltage offset [V]
+Time offset [s]
+Amplitude of sine wave [V]
+Frequency of sine wave [Hz]
+Phase of sine wave [rad|deg]
+Offset of output signal y [V]
+Output y = offset for time < startTime [s]
+Number of phases [:#(type=Integer)]
+Number of phases [:#(type=Integer)]
+Potential at the pin [V]
+Potential at the pin [V]
+Potential at the pin [V]
+Potential at the pin [V]
+Current flowing into the pin [A]
+Potential at the pin [V]
+Number of phases [:#(type=Integer)]
+Voltage drops of port 2 [V]
+Voltage drops of port 2 [V]
+Voltage drops of port 2 [V]
+Number of phases [:#(type=Integer)]
+Number of phases [:#(type=Integer)]
+Number of phases [:#(type=Integer)]
+Potential at the pin [V]
+Potential at the pin [V]
+Potential at the pin [V]
+Number of phases [:#(type=Integer)]
+Potential at the pin [V]
+Potential at the pin [V]
+Potential at the pin [V]
+Turns ratio primary:secondary voltage
+Turns ratio primary:secondary voltage
+Turns ratio primary:secondary voltage
+Choice of considering magnetization [:#(type=Boolean)]
+Magnetization inductances w.r.t. primary side [H]
+Magnetization inductances w.r.t. primary side [H]
+Magnetization inductances w.r.t. primary side [H]
+Potential at the pin [V]
+Potential at the pin [V]
+Turns ratio primary:secondary voltage [1]
+Choice of considering magnetization [:#(type=Boolean)]
+Magnetization inductance w.r.t. primary side [H]
+Magnetization current w.r.t. primary side [A]
+Magnetic flux w.r.t. primary side [Wb]
+Potential at the pin [V]
+Potential at the pin [V]
+Turns ratio primary:secondary voltage [1]
+Choice of considering magnetization [:#(type=Boolean)]
+Magnetization inductance w.r.t. primary side [H]
+Magnetization current w.r.t. primary side [A]
+Magnetic flux w.r.t. primary side [Wb]
+Potential at the pin [V]
+Potential at the pin [V]
+Turns ratio primary:secondary voltage [1]
+Choice of considering magnetization [:#(type=Boolean)]
+Magnetization inductance w.r.t. primary side [H]
+Magnetization current w.r.t. primary side [A]
+Magnetic flux w.r.t. primary side [Wb]
+Number of phases [:#(type=Integer)]
+Number of phases [:#(type=Integer)]
+Potential at the pin [V]
+Potential at the pin [V]
+Potential at the pin [V]
+Potential at the pin [V]
+Current flowing into the pin [A]
+Number of phases [:#(type=Integer)]
+Number of phases [:#(type=Integer)]
+Potential at the pin [V]
+Potential at the pin [V]
+Potential at the pin [V]
+Potential at the pin [V]
+Current flowing into the pin [A]
+Potential at the pin [V]
+Number of phases [:#(type=Integer)]
+Voltage drops of the two polyphase plugs [V]
+Voltage drops of the two polyphase plugs [V]
+Voltage drops of the two polyphase plugs [V]
+Number of phases [:#(type=Integer)]
+Number of phases [:#(type=Integer)]
+Potential at the pin [V]
+Potential at the pin [V]
+Potential at the pin [V]
+Resistances R_ref at temperatures T_ref [Ohm]
+Resistances R_ref at temperatures T_ref [Ohm]
+Resistances R_ref at temperatures T_ref [Ohm]
+Reference temperatures [K|degC]
+Reference temperatures [K|degC]
+Reference temperatures [K|degC]
+Temperature coefficients of resistances at reference temperatures [1/K]
+Temperature coefficients of resistances at reference temperatures [1/K]
+Temperature coefficients of resistances at reference temperatures [1/K]
+Number of heatPorts=number of phases [:#(type=Integer)]
+=true, if all heat ports are enabled [:#(type=Boolean)]
+Fixed device temperatures if useHeatPort = false [K|degC]
+Fixed device temperatures if useHeatPort = false [K|degC]
+Fixed device temperatures if useHeatPort = false [K|degC]
+Resistance at temperature T_ref [Ohm]
+Reference temperature [K|degC]
+Temperature coefficient of resistance (R_actual = R*(1 + alpha*(T_heatPort - T_ref)) [1/K]
+Voltage drop of the two pins (= p.v - n.v) [V]
+=true, if heatPort is enabled [:#(type=Boolean)]
+Fixed device temperature if useHeatPort = false [K|degC]
+Loss power leaving component via heatPort [W]
+Actual resistance = R*(1 + alpha*(T_heatPort - T_ref)) [Ohm]
+Resistance at temperature T_ref [Ohm]
+Reference temperature [K|degC]
+Temperature coefficient of resistance (R_actual = R*(1 + alpha*(T_heatPort - T_ref)) [1/K]
+Voltage drop of the two pins (= p.v - n.v) [V]
+=true, if heatPort is enabled [:#(type=Boolean)]
+Fixed device temperature if useHeatPort = false [K|degC]
+Loss power leaving component via heatPort [W]
+Actual resistance = R*(1 + alpha*(T_heatPort - T_ref)) [Ohm]
+Resistance at temperature T_ref [Ohm]
+Reference temperature [K|degC]
+Temperature coefficient of resistance (R_actual = R*(1 + alpha*(T_heatPort - T_ref)) [1/K]
+Voltage drop of the two pins (= p.v - n.v) [V]
+=true, if heatPort is enabled [:#(type=Boolean)]
+Fixed device temperature if useHeatPort = false [K|degC]
+Loss power leaving component via heatPort [W]
+Actual resistance = R*(1 + alpha*(T_heatPort - T_ref)) [Ohm]
+Number of phases [:#(type=Integer)]
+Voltage drops of the two polyphase plugs [V]
+Voltage drops of the two polyphase plugs [V]
+Voltage drops of the two polyphase plugs [V]
+Number of phases [:#(type=Integer)]
+Number of phases [:#(type=Integer)]
+Potential at the pin [V]
+Potential at the pin [V]
+Potential at the pin [V]
+Inductance [H]
+Inductance [H]
+Inductance [H]
+Voltage drop of the two pins (= p.v - n.v) [V]
+Current flowing from pin p to pin n [A]
+der(Current flowing from pin p to pin n) [A/s]
+Inductance [H]
+Voltage drop of the two pins (= p.v - n.v) [V]
+Current flowing from pin p to pin n [A]
+der(Current flowing from pin p to pin n) [A/s]
+Inductance [H]
+Voltage drop of the two pins (= p.v - n.v) [V]
+Current flowing from pin p to pin n [A]
+der(Current flowing from pin p to pin n) [A/s]
+Inductance [H]
+Number of phases [:#(type=Integer)]
+Voltage drops of the two polyphase plugs [V]
+Voltage drops of the two polyphase plugs [V]
+Voltage drops of the two polyphase plugs [V]
+Number of phases [:#(type=Integer)]
+Number of phases [:#(type=Integer)]
+Potential at the pin [V]
+Resistances R_ref at temperatures T_ref [Ohm]
+Resistances R_ref at temperatures T_ref [Ohm]
+Resistances R_ref at temperatures T_ref [Ohm]
+Reference temperatures [K|degC]
+Reference temperatures [K|degC]
+Reference temperatures [K|degC]
+Temperature coefficients of resistances at reference temperatures [1/K]
+Temperature coefficients of resistances at reference temperatures [1/K]
+Temperature coefficients of resistances at reference temperatures [1/K]
+Number of heatPorts=number of phases [:#(type=Integer)]
+=true, if all heat ports are enabled [:#(type=Boolean)]
+Fixed device temperatures if useHeatPort = false [K|degC]
+Fixed device temperatures if useHeatPort = false [K|degC]
+Fixed device temperatures if useHeatPort = false [K|degC]
+Resistance at temperature T_ref [Ohm]
+Reference temperature [K|degC]
+Temperature coefficient of resistance (R_actual = R*(1 + alpha*(T_heatPort - T_ref)) [1/K]
+Voltage drop of the two pins (= p.v - n.v) [V]
+=true, if heatPort is enabled [:#(type=Boolean)]
+Fixed device temperature if useHeatPort = false [K|degC]
+Loss power leaving component via heatPort [W]
+Actual resistance = R*(1 + alpha*(T_heatPort - T_ref)) [Ohm]
+Resistance at temperature T_ref [Ohm]
+Reference temperature [K|degC]
+Temperature coefficient of resistance (R_actual = R*(1 + alpha*(T_heatPort - T_ref)) [1/K]
+Voltage drop of the two pins (= p.v - n.v) [V]
+=true, if heatPort is enabled [:#(type=Boolean)]
+Fixed device temperature if useHeatPort = false [K|degC]
+Loss power leaving component via heatPort [W]
+Actual resistance = R*(1 + alpha*(T_heatPort - T_ref)) [Ohm]
+Resistance at temperature T_ref [Ohm]
+Reference temperature [K|degC]
+Temperature coefficient of resistance (R_actual = R*(1 + alpha*(T_heatPort - T_ref)) [1/K]
+Voltage drop of the two pins (= p.v - n.v) [V]
+=true, if heatPort is enabled [:#(type=Boolean)]
+Fixed device temperature if useHeatPort = false [K|degC]
+Loss power leaving component via heatPort [W]
+Actual resistance = R*(1 + alpha*(T_heatPort - T_ref)) [Ohm]
+Number of phases [:#(type=Integer)]
+Number of phases [:#(type=Integer)]
+Current flowing into the pin [A]
+Potential at the pin [V]
+

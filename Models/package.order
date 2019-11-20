@@ -1,2 +1,13 @@
 AVR_Ifmax
 AVR_IGLim_Inductive
+AVR_IGLim_Capacitive
+PQLim00
+PQLim02
+PQLim04
+PQLim06
+PSS_off
+PSS_on
+Qizb_inductive
+RR_Step10
+Step5
+Synchronizing

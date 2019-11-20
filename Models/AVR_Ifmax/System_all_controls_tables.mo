@@ -18,9 +18,7 @@ model System_all_controls_tables
             {100,60}})));
   VoltageSource voltageSource
     annotation (Placement(transformation(extent={{22,-10},{2,10}})));
-  OpenIPSL.Electrical.Controls.PSSE.PSS.PSS2B pSS2B(M=1, N=1)
-    annotation (Placement(transformation(extent={{-24,-48},{-44,-42}})));
-  Data2Model.Ifmax.Ifmax
+  Data2Model.Ifmax.Ifmax2
     machineData annotation (Placement(transformation(extent={{-70,38},{
             -50,58}})));
   Modelica.Blocks.Sources.CombiTimeTable Pout_real(
@@ -307,24 +305,43 @@ model System_all_controls_tables
     T_OB2=machineData.data.T_OB2)
                      annotation (Placement(transformation(extent={{-50,-38},
             {-70,-20}})));
+  OpenIPSL.Electrical.Controls.PSSE.PSS.PSS2B pSS2B(
+    T_w1=machineData.data.T_w1,
+    T_w2=machineData.data.T_w2,
+    T_6=machineData.data.T_6,
+    T_w3=machineData.data.T_w3,
+    T_w4=machineData.data.T_w4,
+    T_7=machineData.data.T_7,
+    K_S2=machineData.data.K_S2,
+    K_S3=machineData.data.K_S3,
+    T_8=machineData.data.T_8,
+    T_9=machineData.data.T_9,
+    K_S1=machineData.data.K_S1,
+    T_1=machineData.data.T_1,
+    T_2=machineData.data.T_2,
+    T_3=machineData.data.T_3,
+    T_4=machineData.data.T_4,
+    T_10=machineData.data.T_10,
+    T_11=machineData.data.T_11,
+    V_S1MAX=machineData.data.V_S1MAX,
+    V_S1MIN=machineData.data.V_S1MIN,
+    V_S2MAX=machineData.data.V_S2MAX,
+    V_S2MIN=machineData.data.V_S2MIN,
+    V_STMAX=machineData.data.V_STMAX,
+    V_STMIN=machineData.data.V_STMIN,
+    M=machineData.data.M,
+    N=machineData.data.N)
+    annotation (Placement(transformation(extent={{-10,-42},{-30,-36}})));
 equation
   Pout = Gen.P;
   Qout = Gen.Q;
   connect(Gen.p, bus.p)
     annotation (Line(points={{-48,0},{-18,0}},color={0,0,255}));
-  connect(pSS2B.V_S1, Gen.ETERM) annotation (Line(points={{-24.3158,-43.5},
-          {-20,-43.5},{-20,-28},{-40,-28},{-40,-3.6},{-46.8,-3.6}},
-                                                        color={0,0,127}));
-  connect(pSS2B.V_S2, Gen.ETERM) annotation (Line(points={{-24.3158,-46.5},
-          {-20,-46.5},{-20,-28},{-40,-28},{-40,-3.6},{-46.8,-3.6}},
-                                                        color={0,0,127}));
   connect(Gen.PMECH, Gen.PMECH0) annotation (Line(points={{-74.4,6},{-82,
           6},{-82,16},{-40,16},{-40,6},{-46.8,6}},
                                            color={0,0,127}));
   connect(sT5B.EFD, Gen.EFD) annotation (Line(points={{-70.5,-28},{-82,
           -28},{-82,-6},{-74.4,-6}}, color={0,0,127}));
-  connect(pSS2B.VOTHSG, sT5B.VOTHSG) annotation (Line(points={{-44.3158,
-          -45},{-46,-45},{-46,-23.5},{-50,-23.5}}, color={0,0,127}));
   connect(sT5B.VOEL, const1.y) annotation (Line(points={{-56.5,-38},{-56,
           -38},{-56,-51},{-69.5,-51}}, color={0,0,127}));
   connect(sT5B.VUEL, const.y) annotation (Line(points={{-53.5,-38},{-54,
@@ -333,8 +350,8 @@ equation
           -28},{-40,-3.6},{-46.8,-3.6}}, color={0,0,127}));
   connect(sT5B.EFD0, Gen.EFD0) annotation (Line(points={{-50,-34.5},{-44,
           -34.5},{-44,-34},{-42,-34},{-42,-6},{-46.8,-6}}, color={0,0,127}));
-  connect(sT5B.XADIFD, Gen.XADIFD) annotation (Line(points={{-64.5,-37.8},
-          {-44,-37.8},{-44,-20},{-47.04,-20},{-47.04,-10.8}}, color={0,0,
+  connect(sT5B.XADIFD, Gen.XADIFD) annotation (Line(points={{-50,-31},{-44,-31},
+          {-44,-20},{-47.04,-20},{-47.04,-10.8}},             color={0,0,
           127}));
   connect(Vim_input.y[1], voltageSource.u1)
     annotation (Line(points={{49,4},{24,4}}, color={0,0,127}));
@@ -342,6 +359,13 @@ equation
           24,-4},{40,-4},{40,-28},{47,-28}}, color={0,0,127}));
   connect(voltageSource.p, bus.p)
     annotation (Line(points={{1,0},{-18,0}}, color={0,0,255}));
+  connect(sT5B.VOTHSG, pSS2B.VOTHSG) annotation (Line(points={{-50,-23.5},{-40,
+          -23.5},{-40,-39},{-30.3333,-39}}, color={0,0,127}));
+  connect(pSS2B.V_S1, Gen.ETERM) annotation (Line(points={{-10,-37.5},{-4,-37.5},
+          {-4,-20},{-40,-20},{-40,-3.6},{-46.8,-3.6}}, color={0,0,127}));
+  connect(pSS2B.V_S2, Gen.ETERM) annotation (Line(points={{-10,-40.5},{-8,-40.5},
+          {-8,-40},{-4,-40},{-4,-20},{-40,-20},{-40,-3.6},{-46.8,-3.6}}, color=
+          {0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -80},{100,60}}),
         graphics={
