@@ -1,14 +1,31 @@
 %% =========Set up the parallelization experiments========
+n = 2; %Number of experiments to be run
+x = 1; %Number of parameters to be analyzed
+referencedata = {'Ifmax.mat','IG_Lim_Inductive.mat'}; %List of reference data for experiments
+addAttachedFiles(gcp,{'C:\dev\RaPId\rapid\core\algos\pso\own_pso.m','C:\dev\RaPId\rapid\core\algos\pso\pso_algo.m','C:\dev\RaPId\rapid\core\algos\pso\psoSettings.m','C:\dev\RaPId\rapid\core\functions\generateOrganisedSwarm.m'});
+parfor k=1:n
+% Create a rapidSettings (optional but recommended - will work with just a structure)
+rapidSettings=RaPIdClass();
 
-n = 2;
-referencedata = {'Ifmax.mat','IG_Lim_Inductive.mat'};
-model = {'Ifmax.mdl','IG_Lim_Inductive.mdl'};
-fmu = {'Ifmax.fmu','IG_Lim_Inductive.fmu'};
+%% ==========Experiment settings==========
+%General settings 
+rapidSettings.experimentSettings.tf = 100; %Simulation length
+rapidSettings.experimentSettings.ts = 0.05; %Sampling time
+rapidSettings.experimentSettings.t_fitness_start = 0; %Start calculating fintess function after t_fintess_start
+rapidSettings.experimentSettings.timeOut = 500; %Seconds before simulation timeout
+rapidSettings.experimentSettings.integrationMethod = 'ode23s'; %Solver selection
+rapidSettings.experimentSettings.solverMode = 'Simulink';
+rapidSettings.experimentSettings.optimizationAlgorithm = 'pso'; % %Selection of optimization algorithm
+rapidSettings.experimentSettings.maxIterations = 1000; %Maximum number of estimation iterations
+rapidSettings.experimentSettings.verbose = 1; %Can trigger more data for debugging
+rapidSettings.experimentSettings.saveHist = 0; %Don't save history
+%Fitness function settings
+rapidSettings.experimentSettings.cost_type = 1; %Fitness function selection
+rapidSettings.experimentSettings.objective_weights = [1,8,1]; %Weights of the output signals for fitness function
 
 
 %% ==========FMU parameters, inputs and outputs==========
-% %Estimation parameter settings
-x=19;
+% Estimation parameter settings
 p_0 =[0.638725     0.017637/(10.5^2/30)      2.48769     0.5760927     0.7374009      1.643226      1.610766     0.3053918      13.18433      4.996813     0.9492813 ...
       0.3781603      16.90188      5.998681        119.82      2.169126      54.04706      167.4166      27.39111]; %Maximum values of parameters
 p_min = [0.01,0.000001,1,0.1,0.01,0.1,0.1,0.1,1,0.1,0.1,0.01,...
@@ -26,48 +43,6 @@ parameters = {'machineData.data.Xd','machineData.data.R_a','machineData.data.H',
 rapidSettings.parameterNames = parameters(1:x);
 rapidSettings.fmuInputNames = {'Vim','Vreal'}; %Input variable names
 rapidSettings.fmuOutputNames = {'Pout','Qout'}; %Output variable names
-addAttachedFiles(gcp,{'C:\dev\RaPId\rapid\core\algos\pso\own_pso.m','C:\dev\RaPId\rapid\core\algos\pso\pso_algo.m','C:\dev\RaPId\rapid\core\algos\pso\psoSettings.m','C:\dev\RaPId\rapid\core\functions\generateOrganisedSwarm.m'});
-
-parfor k=1:n
-%% ==========Reference data settings==========
-% Create a rapidSettings (optional but recommended - will work with just a structure)
-rapidSettings=RaPIdClass();
-
-%Output data
-rapidSettings.experimentData.pathToReferenceData = char(referencedata(k));%Data file name
-rapidSettings.experimentData.expressionReferenceTime = 'time'; %Time variable name
-rapidSettings.experimentData.expressionReferenceData = 'signal'; %Data variable name
-
-%Input data
-rapidSettings.experimentData.pathToInData = char(referencedata(k));
-rapidSettings.experimentData.expressionInDataTime = 'time'; %Time variable name
-rapidSettings.experimentData.expressionInData = 'signal_in'; %Data variable name
-
-block = erase(char(fmu(k)),'.fmu');
-%Model related settings
-rapidSettings.experimentSettings.pathToSimulinkModel = char(model(k)); %Simulink model file name
-rapidSettings.experimentSettings.pathToFMUModel = char(fmu(k)); %FMU file name
-rapidSettings.experimentSettings.modelName = block; %Simulink model name
-rapidSettings.experimentSettings.blockName = strcat(block,'/FMUme'); %FMU name
-rapidSettings.experimentSettings.scopeName = 'simout'; %Result sink name
-rapidSettings.experimentSettings.displayMode = 'Show';
-
-%% ==========Experiment settings==========
-%General settings 
-rapidSettings.experimentSettings.tf = 100; %Simulation length
-rapidSettings.experimentSettings.ts = 0.05; %Sampling time
-rapidSettings.experimentSettings.t_fitness_start = 0; %Start calculating fintess function after t_fintess_start
-rapidSettings.experimentSettings.timeOut = 500; %Seconds before simulation timeout
-rapidSettings.experimentSettings.integrationMethod = 'ode23'; %Solver selection
-rapidSettings.experimentSettings.solverMode = 'Simulink';
-rapidSettings.experimentSettings.optimizationAlgorithm = 'pso'; % %Selection of optimization algorithm
-rapidSettings.experimentSettings.maxIterations = 1000; %Maximum number of estimation iterations
-rapidSettings.experimentSettings.verbose = 1; %Can trigger more data for debugging
-rapidSettings.experimentSettings.saveHist = 0; %Don't save history
-%Fitness function settings
-rapidSettings.experimentSettings.cost_type = 1; %Fitness function selection
-rapidSettings.experimentSettings.objective_weights = [1,8,1]; %Weights of the output signals for fitness function
-
 %% ==========Optimization Algorithm settings==========
 switch lower(rapidSettings.experimentSettings.optimizationAlgorithm) % use lower to add robustness
     case 'pso'
@@ -85,7 +60,24 @@ switch lower(rapidSettings.experimentSettings.optimizationAlgorithm) % use lower
     case 'fmincon'
        rapidSettings.fminconSettings = 'optimset(''FinDiffRelStep'',1e-12)';
 end
+%% ==========Reference data settings==========
+%Output data
+rapidSettings.experimentData.pathToReferenceData = char(referencedata(k));%Data file name
+rapidSettings.experimentData.expressionReferenceTime = 'time'; %Time variable name
+rapidSettings.experimentData.expressionReferenceData = 'signal'; %Data variable name
 
+%Input data
+rapidSettings.experimentData.pathToInData = char(referencedata(k));
+rapidSettings.experimentData.expressionInDataTime = 'time'; %Time variable name
+rapidSettings.experimentData.expressionInData = 'signal_in'; %Data variable name
+
+%Model related settings
+rapidSettings.experimentSettings.pathToSimulinkModel = 'Mostar.mdl'; %Simulink model file name
+rapidSettings.experimentSettings.pathToFMUModel = 'Mostarfmu.fmu'; %FMU file name
+rapidSettings.experimentSettings.modelName = 'Mostar'; %Simulink model name
+rapidSettings.experimentSettings.blockName = 'Mostar/FMUme'; %FMU name
+rapidSettings.experimentSettings.scopeName = 'simout'; %Result sink name
+rapidSettings.experimentSettings.displayMode = 'Show';
 %% ==========Running the computation==========
 %Opening simulink model
 open_system(rapidSettings.experimentSettings.pathToSimulinkModel); %Opening the simulink model
@@ -96,6 +88,4 @@ rapidObject=Rapid(rapidSettings);
 %Starting the estimation process
 [sol, hist] = rapidObject.runIdentification();
 sprintf('Vector of estimated parameters is: %s',mat2str(sol,3)) 
-
-
-end;
+end
