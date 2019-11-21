@@ -1,29 +1,69 @@
-Log-file of program ./dymosim
-(generated: Mon Nov 11 17:12:49 2019)
-
-dymosim started
-Model: Mostar.Models.AVR_Ifmax.System_all_controls_tables
-... "dsin.txt" loading (dymosim input file)
-... "System_all_controls_tables.mat" creating (simulation result file)
-
-Integration started at T = 0 using integration method DASSL
-(DAE multi-step solver (dassl/dasslrt of Petzold modified by Dassault Systemes))
-Integration terminated successfully at T = 95
-   CPU-time for integration                : 0.516 seconds
-   CPU-time for one grid interval          : 0.103 milliseconds
-   CPU-time for initialization             : 1.71 seconds
-   Number of result points                 : 5002
-   Number of grid points                   : 5001
-   Number of accepted steps                : 1242
-   Number of f-evaluations (dynamics)      : 2614
-   Number of crossing function evaluations : 6242
-   Number of Jacobian-evaluations          : 115
-   Number of model time events             : 0
-   Number of input time events             : 0
-   Number of state events                  : 0
-   Number of step events                   : 0
-   Minimum integration stepsize            : 1.9e-005
-   Maximum integration stepsize            : 0.48
-   Maximum integration order               : 5
-Calling terminal section
-... "dsfinal.txt" creating (final states)
+Building FMU (Visual C++) 
+64-bit mode activated. 
+**********************************************************************
+** Visual Studio 2017 Developer Command Prompt v15.9.15
+** Copyright (c) 2017 Microsoft Corporation
+**********************************************************************
+[vcvarsall.bat] Environment initialized for: 'x64'
+Compiling the model (Visual C++) with FMI. 
+ 
+fmi2Functions.c
+dsmodel.c
+C:/Program Files/Dymola 2020\source\matrixop.h(249): warning C4267: 'function': conversion from 'size_t' to 'SizeType', possible loss of data
+C:/Program Files/Dymola 2020\source\matrixop.h(1085): warning C4267: 'function': conversion from 'size_t' to 'SizeType', possible loss of data
+c:\program files\dymola 2020\source\matrixop.c(172): warning C4090: 'function': different 'const' qualifiers
+c:\program files\dymola 2020\source\matrixop.c(3145): warning C4267: 'function': conversion from 'size_t' to 'SizeType', possible loss of data
+c:\program files\dymola 2020\source\matrixop.c(3601): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\program files\dymola 2020\source\matrixop.c(3649): warning C4267: 'function': conversion from 'size_t' to 'SizeType', possible loss of data
+c:\program files\dymola 2020\source\matrixop.c(3659): warning C4267: 'function': conversion from 'size_t' to 'SizeType', possible loss of data
+c:\program files\dymola 2020\source\matrixop.c(3668): warning C4267: 'function': conversion from 'size_t' to 'SizeType', possible loss of data
+c:\program files\dymola 2020\source\matrixop.c(3677): warning C4267: 'function': conversion from 'size_t' to 'SizeType', possible loss of data
+c:\program files\dymola 2020\source\matrixop.c(3689): warning C4267: 'function': conversion from 'size_t' to 'SizeType', possible loss of data
+c:\program files\dymola 2020\source\matrixop.c(3699): warning C4267: 'function': conversion from 'size_t' to 'SizeType', possible loss of data
+c:\program files\dymola 2020\source\matrixop.c(3709): warning C4267: 'function': conversion from 'size_t' to 'SizeType', possible loss of data
+c:\program files\dymola 2020\source\matrixop.c(3794): warning C4267: 'function': conversion from 'size_t' to 'SizeType', possible loss of data
+Generating Code...
+   Creating library ~FMUOutput\binaries\win64\Ifmax.lib and object ~FMUOutput\binaries\win64\Ifmax.exp
+**********************************************************************
+** Visual Studio 2017 Developer Command Prompt v15.9.15
+** Copyright (c) 2017 Microsoft Corporation
+**********************************************************************
+[vcvarsall.bat] Environment initialized for: 'x86'
+Compiling the model (Visual C++) with FMI. 
+ 
+fmi2Functions.c
+dsmodel.c
+c:\program files\dymola 2020\source\matrixop.c(172): warning C4090: 'function': different 'const' qualifiers
+Generating Code...
+   Creating library ~FMUOutput\binaries\win32\Ifmax.lib and object ~FMUOutput\binaries\win32\Ifmax.exp
+Adding [modelDescription.xml] ... OK
+Adding [binaries\win32\Ifmax.dll] ... OK
+Adding [binaries\win64\Ifmax.dll] ... OK
+Adding [documentation\index.html] ... OK
+Adding [documentation\LICENSE_CVODE.txt] ... OK
+Adding [documentation\LICENSE_f2c.txt] ... OK
+Adding [documentation\LICENSE_FMI.txt] ... OK
+Adding [documentation\LICENSE_HDF5.txt] ... OK
+Adding [documentation\LICENSE_LAPACK.txt] ... OK
+Adding [documentation\LICENSE_ModelicaFFT.txt] ... OK
+Adding [documentation\LICENSE_ModelicaInternal.txt] ... OK
+Adding [documentation\LICENSE_ModelicaIO.txt] ... OK
+Adding [documentation\LICENSE_ModelicaMatIO.txt] ... OK
+Adding [documentation\LICENSE_ModelicaRandom.txt] ... OK
+Adding [documentation\LICENSE_ModelicaStandardTables.txt] ... OK
+Adding [documentation\LICENSE_ModelicaStrings.txt] ... OK
+Adding [documentation\LICENSE_ModelicaUtilities.txt] ... OK
+Adding [documentation\LICENSE_MSL.txt] ... OK
+Adding [documentation\LICENSE_snprintf.txt] ... OK
+Adding [documentation\LICENSE_SUNDIALS.txt] ... OK
+Adding [documentation\LICENSE_SuperLU_MT.txt] ... OK
+Adding [documentation\LICENSE_TPL.txt] ... OK
+Adding [documentation\LICENSE_uthash.txt] ... OK
+Adding [documentation\LICENSE_win32_dirent.txt] ... OK
+Adding [documentation\LICENSE_ZLIB.txt] ... OK
+Adding [documentation\_main.html] ... OK
+Adding [documentation\_opensource.html] ... OK
+Adding [model.png] ... OK
+ 
+Successful creation of Ifmax.fmu. 
+ 
