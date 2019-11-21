@@ -2,7 +2,7 @@ n = 2;
 referencedata = {'AVR_MR_Ifmax_short2.mat'};
 model = {'Ifmax.mdl'};
 fmu = {'Ifmax.fmu'};
-
+parfor i = 1:n
 %% ==========Reference data settings==========
 
 % Create a rapidSettings (optional but recommended - will work with just a structure)
@@ -97,5 +97,5 @@ rapidObject=Rapid(rapidSettings);
 [sol, hist] = rapidObject.runIdentification();
 sprintf('Vector of estimated parameters is: %s',mat2str(sol,3)) 
 
-
+end
 
