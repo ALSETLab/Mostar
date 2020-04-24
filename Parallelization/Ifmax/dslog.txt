@@ -1,6 +1,0 @@
-Log-file of program .\dymosim.exe
-(generated: Fri Nov 22 15:07:37 2019)
-
-dymosim.exe started
-Model: CHEETA.Aircraft.Electrical.FuelCell.FullSystemSOFC
-... "dsin.txt" creating (dymosim input file).
