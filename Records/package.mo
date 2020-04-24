@@ -29,10 +29,6 @@ package Records
     parameter Real P_0 = 623.3;
     parameter Real Q_0 = 22.655;
 
-    constant String Vr_file = Modelica.Utilities.Files.loadResource("modelica://MyPackage");
-    constant String Vim_file = Modelica.Utilities.Files.loadResource("modelica://MyPackage");
-    constant String P_file = Modelica.Utilities.Files.loadResource("modelica://MyPackage");
-    constant String Q_file = Modelica.Utilities.Files.loadResource("modelica://MyPackage");
 
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)));

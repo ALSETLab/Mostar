@@ -6,14 +6,6 @@ model System_all_controls_tables
   Modelica.Blocks.Sources.Constant const(k=-Modelica.Constants.inf)
                                                   annotation (Placement(transformation(extent={{-80,-74},
             {-70,-64}})));
-  OpenIPSL.Electrical.Controls.PSSE.ES.ST5B sT5B(
-    T_C1=1.071137,
-    T_B1=10.7561,
-    T_C2=3.414283,
-    T_B2=1.701033,
-    K_R=358.6086,
-    T_1=0.004361481) annotation (Placement(transformation(extent={{-54,-38},{-74,
-            -20}})));
   Modelica.Blocks.Sources.Constant const1(k=Modelica.Constants.inf)
                                                   annotation (Placement(transformation(extent={{-80,-56},
             {-70,-46}})));
@@ -21,8 +13,6 @@ model System_all_controls_tables
             {140,60}})));
   VoltageSource voltageSource
     annotation (Placement(transformation(extent={{66,-10},{46,10}})));
-  Data2Model.IG_Lim_Inductive.init machineData
-    annotation (Placement(transformation(extent={{-48,30},{-28,50}})));
   Modelica.Blocks.Sources.CombiTimeTable Pout_real(
     tableOnFile=false,
     startTime=0,
@@ -129,7 +119,7 @@ model System_all_controls_tables
       Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={10,30})));
+        origin={164,-2})));
   Modelica.Blocks.Sources.CombiTimeTable Qout_real(
     tableOnFile=false,
     startTime=0,
@@ -237,7 +227,7 @@ model System_all_controls_tables
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={50,30})));
+        origin={164,-60})));
   Modelica.Blocks.Sources.CombiTimeTable Vim_input(
     tableOnFile=false,
     startTime=0,
@@ -527,39 +517,85 @@ model System_all_controls_tables
     R_a=machineData.data.R_a,
     H=machineData.data.H,
     angle_0=machineData.data.A_0,
-    Q_0=0.07332*30,
+    Q_0=machineData.data.Q_0,
     V_0=machineData.data.V_0,
     P_0=machineData.data.P_0)
     annotation (Placement(transformation(extent={{-72,-12},{-48,12}})));
   Modelica.Blocks.Interfaces.RealOutput Pout
-    annotation (Placement(transformation(extent={{48,-54},{56,-46}}),  iconTransformation(
-          extent={{48,-54},{56,-46}})));
+    annotation (Placement(transformation(extent={{138,24},{146,32}}),  iconTransformation(
+          extent={{138,24},{146,32}})));
   Modelica.Blocks.Interfaces.RealOutput Qout
-    annotation (Placement(transformation(extent={{64,-54},{72,-46}})));
-  Modelica.Blocks.Sources.Constant const3(k=0.983690311612942)
-    annotation (Placement(transformation(extent={{164,-26},{144,-6}})));
-  Modelica.Blocks.Sources.Constant const2(k=0)
-    annotation (Placement(transformation(extent={{164,4},{144,24}})));
-  Modelica.Blocks.Sources.Constant const4(k=0)
-    annotation (Placement(transformation(extent={{-44,-22},{-50,-16}})));
+    annotation (Placement(transformation(extent={{138,-36},{146,-28}})));
+  OpenIPSL.Electrical.Loads.PSSE.Load load(
+    V_0=machineData.data.V_0,
+    angle_0=machineData.data.A_0,
+    P_0=machineData.data.P_0,
+    Q_0=machineData.data.Q_0,
+    PQBRAK=0.7)
+    annotation (Placement(transformation(extent={{2,-44},{16,-32}})));
+  OpenIPSL.Electrical.Controls.PSSE.PSS.PSS2B pSS2B(
+    T_w1=machineData.data.T_w1,
+    T_w2=machineData.data.T_w2,
+    T_6=machineData.data.T_6,
+    T_w3=machineData.data.T_w3,
+    T_w4=machineData.data.T_w4,
+    T_7=machineData.data.T_7,
+    K_S2=machineData.data.K_S2,
+    K_S3=machineData.data.K_S3,
+    T_8=machineData.data.T_8,
+    T_9=machineData.data.T_9,
+    K_S1=machineData.data.K_S1,
+    T_1=machineData.data.T_1,
+    T_2=machineData.data.T_2,
+    T_3=machineData.data.T_3,
+    T_4=machineData.data.T_4,
+    T_10=machineData.data.T_10,
+    T_11=machineData.data.T_11,
+    V_S1MAX=machineData.data.V_S1MAX,
+    V_S1MIN=machineData.data.V_S1MIN,
+    V_S2MAX=machineData.data.V_S2MAX,
+    V_S2MIN=machineData.data.V_S2MIN,
+    V_STMAX=machineData.data.V_STMAX,
+    V_STMIN=machineData.data.V_STMIN,
+    M=machineData.data.M,
+    N=machineData.data.N)
+    annotation (Placement(transformation(extent={{-12,-50},{-32,-44}})));
+  Modelica.Blocks.Discrete.Sampler Psampler(samplePeriod=0.5)
+    annotation (Placement(transformation(extent={{154,18},{174,38}})));
+  Modelica.Blocks.Discrete.Sampler Qsampler(samplePeriod=0.5)
+    annotation (Placement(transformation(extent={{154,-42},{174,-22}})));
+  Modelica.Blocks.Math.Feedback feedback
+    annotation (Placement(transformation(extent={{184,18},{204,38}})));
+  Modelica.Blocks.Math.Feedback feedback1
+    annotation (Placement(transformation(extent={{186,-42},{206,-22}})));
+  OpenIPSL.Electrical.Controls.PSSE.ES.ST5B sT5B(
+    T_R=machineData.data.T_R,
+    T_C1=machineData.data.T_C1,
+    T_B1=machineData.data.T_B1,
+    T_C2=machineData.data.T_C2,
+    T_B2=machineData.data.T_B2,
+    K_R=machineData.data.K_R,
+    V_RMAX=machineData.data.V_RMAX,
+    V_RMIN=machineData.data.V_RMIN,
+    T_1=machineData.data.T_1_AVR,
+    K_C=machineData.data.K_C,
+    T_UC1=machineData.data.T_UC1,
+    T_UB1=machineData.data.T_UB1,
+    T_UC2=machineData.data.T_UC2,
+    T_UB2=machineData.data.T_UB2,
+    T_OC1=machineData.data.T_OC1,
+    T_OB1=machineData.data.T_OB1,
+    T_OC2=machineData.data.T_OC2,
+    T_OB2=machineData.data.T_OB2)
+                     annotation (Placement(transformation(extent={{-50,-40},{
+            -70,-22}})));
+  Data2Model.IG_Lim_Inductive.init machineData
+    annotation (Placement(transformation(extent={{-56,28},{-36,48}})));
 equation
   Pout = Gen.P;
   Qout = Gen.Q;
-  connect(const.y, sT5B.VUEL) annotation (Line(points={{-69.5,-69},{-57.5,-69},{
-          -57.5,-38}},                                                                          color={0,0,127}));
-  connect(const1.y, sT5B.VOEL) annotation (Line(points={{-69.5,-51},{-60.5,-51},
-          {-60.5,-38}},                                                                          color={0,0,127}));
   connect(Gen.p, bus.p)
     annotation (Line(points={{-48,0},{-8,0}}, color={0,0,255}));
-  connect(sT5B.ECOMP, Gen.ETERM) annotation (Line(points={{-54,-28},{-40,
-          -28},{-40,-3.6},{-46.8,-3.6}},
-                               color={0,0,127}));
-  connect(sT5B.XADIFD, Gen.XADIFD) annotation (Line(points={{-54,-31},{
-          -42,-31},{-42,-10.8},{-47.04,-10.8}},
-                                       color={0,0,127}));
-  connect(sT5B.EFD0, Gen.EFD0) annotation (Line(points={{-54,-34.5},{-34,
-          -34.5},{-34,-6},{-46.8,-6}},
-                                color={0,0,127}));
   connect(Gen.PMECH, Gen.PMECH0) annotation (Line(points={{-74.4,6},{-86,
           6},{-86,16},{-36,16},{-36,6},{-46.8,6}},
                                            color={0,0,127}));
@@ -568,16 +604,42 @@ equation
   connect(Vim_input.y[1], voltageSource.u1) annotation (Line(points={{109,18},
           {100,18},{100,4},{68,4}},
                                color={0,0,127}));
-  connect(Gen.EFD, sT5B.EFD) annotation (Line(points={{-74.4,-6},{-80,-6},
-          {-80,-28},{-74.5,-28}}, color={0,0,127}));
-  connect(sT5B.VOTHSG, const4.y) annotation (Line(points={{-54,-23.5},{
-          -52,-23.5},{-52,-19},{-50.3,-19}}, color={0,0,127}));
   connect(voltageSource.p, bus.p)
     annotation (Line(points={{45,0},{-8,0}}, color={0,0,255}));
+  connect(load.p, bus.p) annotation (Line(points={{9,-32},{10,-32},{10,0},{-8,0}},
+        color={0,0,255}));
+  connect(Gen.ETERM, pSS2B.V_S2) annotation (Line(points={{-46.8,-3.6},{-10,
+          -3.6},{-10,-48.5},{-12,-48.5}}, color={0,0,127}));
+  connect(pSS2B.V_S1, pSS2B.V_S2) annotation (Line(points={{-12,-45.5},{-10,
+          -45.5},{-10,-48.5},{-12,-48.5}}, color={0,0,127}));
+  connect(Psampler.y,feedback. u1)
+    annotation (Line(points={{175,28},{186,28}}, color={0,0,127}));
+  connect(Qsampler.y,feedback1. u1)
+    annotation (Line(points={{175,-32},{188,-32}}, color={0,0,127}));
+  connect(Psampler.u, Pout)
+    annotation (Line(points={{152,28},{142,28}}, color={0,0,127}));
+  connect(Qsampler.u, Qout)
+    annotation (Line(points={{152,-32},{142,-32}}, color={0,0,127}));
+  connect(feedback.u2, Pout_real.y[1])
+    annotation (Line(points={{194,20},{194,-2},{175,-2}}, color={0,0,127}));
+  connect(feedback1.u2, Qout_real.y[1])
+    annotation (Line(points={{196,-40},{196,-60},{175,-60}}, color={0,0,127}));
+  connect(sT5B.EFD, Gen.EFD) annotation (Line(points={{-70.5,-30},{-82,-30},{
+          -82,-6},{-74.4,-6}}, color={0,0,127}));
+  connect(sT5B.VOEL, const1.y) annotation (Line(points={{-56.5,-40},{-56,-40},{
+          -56,-51},{-69.5,-51}}, color={0,0,127}));
+  connect(sT5B.VUEL, const.y) annotation (Line(points={{-53.5,-40},{-52,-40},{
+          -52,-69},{-69.5,-69}}, color={0,0,127}));
+  connect(pSS2B.VOTHSG, sT5B.VOTHSG) annotation (Line(points={{-32.3333,-47},{
+          -32.3333,-26.5},{-50,-26.5},{-50,-25.5}}, color={0,0,127}));
+  connect(sT5B.ECOMP, pSS2B.V_S2) annotation (Line(points={{-50,-30},{-10,-30},
+          {-10,-48.5},{-12,-48.5}}, color={0,0,127}));
+  connect(sT5B.XADIFD, Gen.XADIFD) annotation (Line(points={{-50,-33},{-46,-33},
+          {-46,-10.8},{-47.04,-10.8}}, color={0,0,127}));
+  connect(sT5B.EFD0, Gen.EFD0) annotation (Line(points={{-50,-36.5},{-42,-36.5},
+          {-42,-6},{-46.8,-6}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -80},{140,60}}),
-        graphics={
-        Rectangle(extent={{42,-42},{76,-58}}, lineColor={28,108,200})}),
+            -80},{220,60}})),
       experiment(StopTime=213.5, __Dymola_NumberOfIntervals=5000),
-    Icon(coordinateSystem(extent={{-100,-80},{140,60}})));
+    Icon(coordinateSystem(extent={{-100,-80},{220,60}})));
 end System_all_controls_tables;

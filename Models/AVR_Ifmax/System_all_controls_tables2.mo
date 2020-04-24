@@ -2621,7 +2621,7 @@ model System_all_controls_tables2
     N=machineData.data.N)
     annotation (Placement(transformation(extent={{-10,-42},{-30,-36}})));
   OpenIPSL.Electrical.Loads.PSSE.Load load(
-    V_0=0.97042,
+    V_0=machineData.data.V_0,
     angle_0=machineData.data.A_0,
     P_0=machineData.data.P_0,
     Q_0=machineData.data.Q_0,

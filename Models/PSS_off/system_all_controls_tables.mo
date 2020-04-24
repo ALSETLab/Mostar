@@ -162,7 +162,7 @@ model System_all_controls_tables
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={120,18})));
+        origin={120,20})));
   Modelica.Blocks.Sources.CombiTimeTable Vreal_input(
     tableOnFile=false,
     startTime=0,
@@ -216,7 +216,7 @@ model System_all_controls_tables
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={120,-20})));
+        origin={120,-18})));
   OpenIPSL.Electrical.Machines.PSSE.GENSAL Gen(
     M_b=30,
     Tpd0=machineData.data.Tpd0,
@@ -270,10 +270,10 @@ equation
   connect(Gen.PMECH, Gen.PMECH0) annotation (Line(points={{-74.4,6},{-86,
           6},{-86,16},{-36,16},{-36,6},{-46.8,6}},
                                            color={0,0,127}));
-  connect(Vreal_input.y[1], voltageSource.u2) annotation (Line(points={{109,-20},
-          {100,-20},{100,-4},{68,-4}}, color={0,0,127}));
-  connect(Vim_input.y[1], voltageSource.u1) annotation (Line(points={{109,18},
-          {100,18},{100,4},{68,4}},
+  connect(Vreal_input.y[1], voltageSource.u2) annotation (Line(points={{109,-18},
+          {100,-18},{100,-4},{68,-4}}, color={0,0,127}));
+  connect(Vim_input.y[1], voltageSource.u1) annotation (Line(points={{109,20},{
+          100,20},{100,4},{68,4}},
                                color={0,0,127}));
   connect(Gen.EFD, sT5B.EFD) annotation (Line(points={{-74.4,-6},{-80,-6},
           {-80,-28},{-74.5,-28}}, color={0,0,127}));

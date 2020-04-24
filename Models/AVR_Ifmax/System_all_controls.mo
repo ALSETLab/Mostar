@@ -78,8 +78,8 @@ equation
           {-80,16},{-42,16},{-42,6},{-46.8,6}},                                                                                 color={0,0,127}));
   connect(gENSAL.EFD0, sT5B.EFD0) annotation (Line(points={{-46.8,-6},{-42,-6},{
           -42,-34.5},{-54,-34.5}},                                                                                  color={0,0,127}));
-  connect(sT5B.XADIFD, gENSAL.XADIFD) annotation (Line(points={{-54,-31},{-40,-31},
-          {-40,-10.8},{-47.04,-10.8}},                                                                                  color={0,0,127}));
+  connect(sT5B.XADIFD, gENSAL.XADIFD) annotation (Line(points={{-54,-31},{-40,
+          -31},{-40,-10.8},{-47.04,-10.8}},                                                                             color={0,0,127}));
   connect(bus1.p, voltageSource.p)
     annotation (Line(points={{50,0},{67,0}}, color={0,0,255}));
   connect(sT5B.ECOMP, gENSAL.ETERM) annotation (Line(points={{-54,-28},{-32,
@@ -88,11 +88,11 @@ equation
           96,4},{96,22},{103,22}},        color={0,0,127}));
   connect(sT5B.VOTHSG, pSS2B.VOTHSG) annotation (Line(points={{-54,-23.5},{-46,
           -23.5},{-46,-47},{-44.3333,-47}},     color={0,0,127}));
-  connect(pSS2B.V_S1, gENSAL.ETERM) annotation (Line(points={{-24,-45.5},{
-          -22,-45.5},{-22,-28},{-32,-28},{-32,-3.6},{-46.8,-3.6}}, color={0,
+  connect(pSS2B.V_S1, gENSAL.ETERM) annotation (Line(points={{-24,-45.5},{-22,
+          -45.5},{-22,-28},{-32,-28},{-32,-3.6},{-46.8,-3.6}},     color={0,
           0,127}));
-  connect(pSS2B.V_S2, gENSAL.ETERM) annotation (Line(points={{-24,-48.5},{
-          -22,-48.5},{-22,-28},{-32,-28},{-32,-3.6},{-46.8,-3.6}}, color={0,
+  connect(pSS2B.V_S2, gENSAL.ETERM) annotation (Line(points={{-24,-48.5},{-22,
+          -48.5},{-22,-28},{-32,-28},{-32,-3.6},{-46.8,-3.6}},     color={0,
           0,127}));
   connect(voltageSource.u2, combiTimeTable1.y[1]) annotation (Line(points={
           {90,-4},{96,-4},{96,-10},{103,-10}}, color={0,0,127}));

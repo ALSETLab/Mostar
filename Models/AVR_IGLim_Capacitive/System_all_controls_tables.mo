@@ -542,6 +542,13 @@ model System_all_controls_tables
     annotation (Placement(transformation(extent={{164,4},{144,24}})));
   Modelica.Blocks.Sources.Constant const4(k=0)
     annotation (Placement(transformation(extent={{-44,-22},{-50,-16}})));
+  OpenIPSL.Electrical.Loads.PSSE.Load load(
+    V_0=machineData.data.V_0,
+    angle_0=machineData.data.A_0,
+    P_0=machineData.data.P_0,
+    Q_0=machineData.data.Q_0,
+    PQBRAK=0.7)
+    annotation (Placement(transformation(extent={{2,-44},{16,-32}})));
 equation
   Pout = Gen.P;
   Qout = Gen.Q;
@@ -554,9 +561,8 @@ equation
   connect(sT5B.ECOMP, Gen.ETERM) annotation (Line(points={{-54,-28},{-40,
           -28},{-40,-3.6},{-46.8,-3.6}},
                                color={0,0,127}));
-  connect(sT5B.XADIFD, Gen.XADIFD) annotation (Line(points={{-54,-31},{
-          -42,-31},{-42,-10.8},{-47.04,-10.8}},
-                                       color={0,0,127}));
+  connect(sT5B.XADIFD, Gen.XADIFD) annotation (Line(points={{-54,-31},{-42,-31},
+          {-42,-10.8},{-47.04,-10.8}}, color={0,0,127}));
   connect(sT5B.EFD0, Gen.EFD0) annotation (Line(points={{-54,-34.5},{-34,
           -34.5},{-34,-6},{-46.8,-6}},
                                 color={0,0,127}));
@@ -574,6 +580,8 @@ equation
           -52,-23.5},{-52,-19},{-50.3,-19}}, color={0,0,127}));
   connect(voltageSource.p, bus.p)
     annotation (Line(points={{45,0},{-8,0}}, color={0,0,255}));
+  connect(load.p, bus.p)
+    annotation (Line(points={{9,-32},{10,0},{-8,0}}, color={0,0,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -80},{140,60}}),
         graphics={

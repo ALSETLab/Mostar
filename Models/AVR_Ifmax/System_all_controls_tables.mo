@@ -72,7 +72,7 @@ model System_all_controls_tables
       Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={-30,30})));
+        origin={16,-84})));
   Modelica.Blocks.Sources.CombiTimeTable Qout_real(
     tableOnFile=false,
     startTime=0,
@@ -123,7 +123,7 @@ model System_all_controls_tables
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={10,30})));
+        origin={138,-86})));
   Modelica.Blocks.Sources.CombiTimeTable Vim_input(
     tableOnFile=false,
     startTime=0,
@@ -280,10 +280,10 @@ model System_all_controls_tables
     P_0=machineData.data.P_0)
     annotation (Placement(transformation(extent={{-72,-12},{-48,12}})));
   Modelica.Blocks.Interfaces.RealOutput Pout
-    annotation (Placement(transformation(extent={{44,-66},{52,-58}}),  iconTransformation(
-          extent={{44,-66},{52,-58}})));
+    annotation (Placement(transformation(extent={{-8,-62},{0,-54}}),   iconTransformation(
+          extent={{-8,-62},{0,-54}})));
   Modelica.Blocks.Interfaces.RealOutput Qout
-    annotation (Placement(transformation(extent={{60,-66},{68,-58}})));
+    annotation (Placement(transformation(extent={{114,-64},{122,-56}})));
   OpenIPSL.Electrical.Controls.PSSE.ES.ST5B sT5B(
     T_R=machineData.data.T_R,
     T_C1=machineData.data.T_C1,
@@ -332,9 +332,18 @@ model System_all_controls_tables
     M=machineData.data.M,
     N=machineData.data.N)
     annotation (Placement(transformation(extent={{-10,-42},{-30,-36}})));
+  Modelica.Blocks.Discrete.Sampler Psampler(samplePeriod=95/192)
+    annotation (Placement(transformation(extent={{6,-68},{26,-48}})));
+  Modelica.Blocks.Discrete.Sampler Qsampler(samplePeriod=95/192)
+    annotation (Placement(transformation(extent={{128,-70},{148,-50}})));
+  Modelica.Blocks.Math.Feedback feedback
+    annotation (Placement(transformation(extent={{36,-68},{56,-48}})));
+  Modelica.Blocks.Math.Feedback feedback1
+    annotation (Placement(transformation(extent={{160,-70},{180,-50}})));
 equation
   Pout = Gen.P;
   Qout = Gen.Q;
+
   connect(Gen.p, bus.p)
     annotation (Line(points={{-48,0},{-18,0}},color={0,0,255}));
   connect(Gen.PMECH, Gen.PMECH0) annotation (Line(points={{-74.4,6},{-82,
@@ -366,10 +375,20 @@ equation
   connect(pSS2B.V_S2, Gen.ETERM) annotation (Line(points={{-10,-40.5},{-8,-40.5},
           {-8,-40},{-4,-40},{-4,-20},{-40,-20},{-40,-3.6},{-46.8,-3.6}}, color=
           {0,0,127}));
+  connect(Psampler.u, Pout)
+    annotation (Line(points={{4,-58},{-4,-58}}, color={0,0,127}));
+  connect(Qsampler.u, Qout)
+    annotation (Line(points={{126,-60},{118,-60}}, color={0,0,127}));
+  connect(Psampler.y, feedback.u1)
+    annotation (Line(points={{27,-58},{38,-58}}, color={0,0,127}));
+  connect(feedback.u2, Pout_real.y[1])
+    annotation (Line(points={{46,-66},{46,-84},{27,-84}}, color={0,0,127}));
+  connect(Qsampler.y, feedback1.u1)
+    annotation (Line(points={{149,-60},{162,-60}}, color={0,0,127}));
+  connect(Qout_real.y[1], feedback1.u2)
+    annotation (Line(points={{149,-86},{170,-86},{170,-68}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -80},{100,60}}),
-        graphics={
-        Rectangle(extent={{40,-54},{74,-70}}, lineColor={28,108,200})}),
+            -80},{100,60}})),
       experiment(StopTime=95, __Dymola_NumberOfIntervals=5000),
     Icon(coordinateSystem(extent={{-100,-80},{100,60}})));
 end System_all_controls_tables;

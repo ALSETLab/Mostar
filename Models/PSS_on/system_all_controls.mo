@@ -86,8 +86,8 @@ equation
           -28},{-32,-3.6},{-46.8,-3.6}}, color={0,0,127}));
   connect(voltageSource.u1, combiTimeTable.y[1]) annotation (Line(points={{90,4},{
           96,4},{96,22},{103,22}},        color={0,0,127}));
-  connect(sT5B.VOTHSG, pSS2B.VOTHSG) annotation (Line(points={{-54,-23.5},
-          {-46,-23.5},{-46,-47},{-44.3333,-47}},color={0,0,127}));
+  connect(sT5B.VOTHSG, pSS2B.VOTHSG) annotation (Line(points={{-54,-23.5},{-46,
+          -23.5},{-46,-47},{-44.3333,-47}},     color={0,0,127}));
   connect(pSS2B.V_S1, gENSAL.ETERM) annotation (Line(points={{-24,-45.5},{
           -22,-45.5},{-22,-28},{-32,-28},{-32,-3.6},{-46.8,-3.6}}, color={0,
           0,127}));

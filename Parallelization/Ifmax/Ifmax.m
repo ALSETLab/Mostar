@@ -70,7 +70,7 @@ switch lower(rapidSettings.experimentSettings.optimizationAlgorithm) % use lower
 end
 switch lower(rapidSettings.experimentSettings.optimizationAlgorithm) % use lower to add robustness
     case 'fmincon'
-       rapidSettings.fminconSettings = 'optimset(''FinDiffRelStep'',1e-12)';
+       rapidSettings.fminconSettings = 'optimset(''FinDiffRelStep'',1e-12,''UseParallel'',true)';
 end
 
 %% ==========FMU parameters, inputs and outputs==========

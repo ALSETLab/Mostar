@@ -1,0 +1,5 @@
+within Mostar.Models.AVR_IGLim_Inductive;
+record optimal_inductve
+  extends Optimization.Internal.Version.Current.ReUseOfTuners(answer=true,
+      saveSetup=true);
+end optimal_inductve;
