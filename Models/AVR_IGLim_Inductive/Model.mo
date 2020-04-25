@@ -23,7 +23,7 @@ model Model
   Modelica.Blocks.Sources.Constant const2(k=Modelica.Constants.inf)
                                                   annotation (Placement(transformation(extent={{-168,
             -14},{-158,-4}})));
-  OptimizationLibraryExamples.VoltageSource voltageSource
+  VoltageSource                             voltageSource
     annotation (Placement(transformation(extent={{-30,32},{-50,52}})));
   OpenIPSL.Electrical.Machines.PSSE.GENSAL Gen1(
     M_b=30,
