@@ -218,7 +218,7 @@ protected
         simulationOptions=
           Optimization.Internal.Version.V22.SimulationOptions(
           startTime=0.0,
-          stopTime=124.5,
+          stopTime=30,
           outputInterval=0.0,
           numberOfIntervals=5000,
           integrationMethod=Optimization.Internal.Version.V22.Types.IntegrationMethod.Dassl,
