@@ -15,6 +15,7 @@ model ST5B "IEEE 421.5 2005 ST5B Excitation System"
   parameter Real V_RMIN=-10 "Voltage regulator minimum limit (pu)";
   parameter Real T_1=0.58 "voltage regulator time constant (s)";
   parameter Real K_C=0.3 "(pu)";
+  parameter Real VR0(fixed=false);
   parameter Real T_UC1=1
     "Lead time constant of first lead-lag block (under- excitation channel) (s)";
   parameter Real T_UB1=1
@@ -131,11 +132,11 @@ model ST5B "IEEE 421.5 2005 ST5B Excitation System"
     annotation (Placement(transformation(extent={{170,-10},{190,10}})));
   Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter
     annotation (Placement(transformation(extent={{172,-72},{192,-52}})));
-protected
-  parameter Real VR0(fixed=false);
+
 initial equation
   VR0 = Efd0 + K_C*XADIFD;
-  V_REF = VR0/K_R + ECOMP;
+  //V_REF = VR0/K_R + ECOMP;
+  V_REF = Efd0/K_C + ECOMP;
 equation
   connect(imLimitedLeadLag1.y, imLimitedLeadLag3.u)
     annotation (Line(points={{41,-50},{41,-50},{48,-50}}, color={0,0,127}));

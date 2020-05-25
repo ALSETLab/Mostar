@@ -1,7 +1,7 @@
 within Mostar.Models.PQLim00;
 record Solution1
   extends Optimization.Internal.Version.Current.ModelOptimizationSetup(
-    modelName="Mostar.Models.PQLim00.Model",
+    modelName="Mostar.Models.PQLim06.Model",
     plotScript="",
     saveSetup=true,
     saveSetupFilename="OptimizationLastRunModel.mo",
@@ -12,16 +12,16 @@ record Solution1
         tunerParameters={Optimization.Internal.Version.Current.TunerParameter(
           name="machineData.data.K_C",
           active=true,
-          Value=9.295388144810133,
+          Value=9.99882029494769,
           scaleToBounds=false,
           min=0.0,
-          max=10.0,
+          max=20.0,
           equidistant=0,
           discreteValues=fill(0.0, 0),
           unit="1"),Optimization.Internal.Version.Current.TunerParameter(
           name="machineData.data.T_R",
           active=true,
-          Value=9.350549201313768,
+          Value=7.8415877051523415,
           scaleToBounds=false,
           min=0.0,
           max=10.0,
@@ -30,7 +30,7 @@ record Solution1
           unit="s"),Optimization.Internal.Version.Current.TunerParameter(
           name="machineData.data.T_C1",
           active=true,
-          Value=7.883226435931963,
+          Value=2.7057630341174206,
           scaleToBounds=false,
           min=0.0,
           max=10.0,
@@ -39,7 +39,7 @@ record Solution1
           unit="s"),Optimization.Internal.Version.Current.TunerParameter(
           name="machineData.data.T_B1",
           active=true,
-          Value=19.480667411481267,
+          Value=4.413208026554166,
           scaleToBounds=false,
           min=0.0,
           max=20.0,
@@ -48,7 +48,7 @@ record Solution1
           unit="s"),Optimization.Internal.Version.Current.TunerParameter(
           name="machineData.data.T_C2",
           active=true,
-          Value=2.077406986356146,
+          Value=1.7354687297818918,
           scaleToBounds=false,
           min=0.0,
           max=10.0,
@@ -57,7 +57,7 @@ record Solution1
           unit="s"),Optimization.Internal.Version.Current.TunerParameter(
           name="machineData.data.T_B2",
           active=true,
-          Value=6.573486407465618,
+          Value=9.292557298191968,
           scaleToBounds=false,
           min=0.0,
           max=10.0,
@@ -66,7 +66,7 @@ record Solution1
           unit="s"),Optimization.Internal.Version.Current.TunerParameter(
           name="machineData.data.K_R",
           active=true,
-          Value=982.2559915947699,
+          Value=537.2276115118975,
           scaleToBounds=false,
           min=100.0,
           max=1000.0,
@@ -75,7 +75,7 @@ record Solution1
           unit="1"),Optimization.Internal.Version.Current.TunerParameter(
           name="machineData.data.T_w1",
           active=true,
-          Value=9.075260941219558,
+          Value=4.1237868522248675,
           scaleToBounds=false,
           min=0.0,
           max=20.0,
@@ -84,7 +84,7 @@ record Solution1
           unit="s"),Optimization.Internal.Version.Current.TunerParameter(
           name="machineData.data.T_w2",
           active=true,
-          Value=19.354208630897883,
+          Value=19.345663187450405,
           scaleToBounds=false,
           min=0.0,
           max=20.0,
@@ -93,7 +93,7 @@ record Solution1
           unit="s"),Optimization.Internal.Version.Current.TunerParameter(
           name="machineData.data.T_6",
           active=true,
-          Value=0.08992433959752327,
+          Value=0.05937862418376978,
           scaleToBounds=false,
           min=0.0,
           max=0.1,
@@ -102,7 +102,7 @@ record Solution1
           unit="s"),Optimization.Internal.Version.Current.TunerParameter(
           name="machineData.data.T_w3",
           active=true,
-          Value=17.30615145306821,
+          Value=17.11650431431484,
           scaleToBounds=false,
           min=0.0,
           max=20.0,
@@ -111,7 +111,7 @@ record Solution1
           unit="s"),Optimization.Internal.Version.Current.TunerParameter(
           name="machineData.data.T_w4",
           active=true,
-          Value=0.060581153066267567,
+          Value=0.053514896371677306,
           scaleToBounds=false,
           min=0.0,
           max=0.1,
@@ -120,7 +120,7 @@ record Solution1
           unit="s"),Optimization.Internal.Version.Current.TunerParameter(
           name="machineData.data.T_7",
           active=true,
-          Value=14.967918958969474,
+          Value=17.88815462589505,
           scaleToBounds=false,
           min=0.0,
           max=20.0,
@@ -129,7 +129,7 @@ record Solution1
           unit="s"),Optimization.Internal.Version.Current.TunerParameter(
           name="machineData.data.K_S2",
           active=true,
-          Value=7.868176559283335,
+          Value=7.575868983434768,
           scaleToBounds=false,
           min=0.0,
           max=10.0,
@@ -138,7 +138,7 @@ record Solution1
           unit=""),Optimization.Internal.Version.Current.TunerParameter(
           name="machineData.data.K_S3",
           active=true,
-          Value=8.108986501374147,
+          Value=6.64005478330753,
           scaleToBounds=false,
           min=0.0,
           max=10.0,
@@ -147,7 +147,7 @@ record Solution1
           unit=""),Optimization.Internal.Version.Current.TunerParameter(
           name="machineData.data.T_8",
           active=true,
-          Value=2.1169178085265252,
+          Value=2.190459972216414,
           scaleToBounds=false,
           min=0.0,
           max=3.0,
@@ -156,7 +156,7 @@ record Solution1
           unit="s"),Optimization.Internal.Version.Current.TunerParameter(
           name="machineData.data.T_9",
           active=true,
-          Value=0.5642978526617181,
+          Value=0.9953437807377418,
           scaleToBounds=false,
           min=0.0,
           max=1.0,
@@ -165,7 +165,7 @@ record Solution1
           unit="s"),Optimization.Internal.Version.Current.TunerParameter(
           name="machineData.data.K_S1",
           active=true,
-          Value=15.174156442182097,
+          Value=7.729082117751941,
           scaleToBounds=false,
           min=0.0,
           max=30.0,
@@ -185,15 +185,15 @@ record Solution1
         name="feedback1.y",
         active=true,
         usage=Optimization.Internal.Version.Current.Types.CriterionUsage.Minimize,
-        demand=1.0,
+        demand=0.5,
         unit="1")},
     preferences=Optimization.Internal.Version.Current.Preferences(
         optimizationOptions=
           Optimization.Internal.Version.Current.OptimizationOptions(
-          method=Optimization.Internal.Version.Current.Types.OptimizationMethod.evaluate,
+          method=Optimization.Internal.Version.Current.Types.OptimizationMethod.ga,
           ObjectiveFunctionType=Optimization.Internal.Version.Current.Types.ObjectiveFunctionType.SumAbs,
           OptTol=0.0001,
-          maxEval=100,
+          maxEval=10,
           GridBlock=50,
           evalBestFinal=false,
           saveBest=true,
@@ -209,8 +209,8 @@ record Solution1
           GaNGen=100),
         simulationOptions=
           Optimization.Internal.Version.Current.SimulationOptions(
-          startTime=0.0,
-          stopTime=30.0,
+          startTime=48.0,
+          stopTime=65.0,
           outputInterval=0.0,
           numberOfIntervals=5000,
           integrationMethod=Optimization.Internal.Version.Current.Types.IntegrationMethod.Dassl,
