@@ -15,8 +15,8 @@ model Model
     annotation (Placement(transformation(extent={{90,60},{110,80}})));
   Modelica.Blocks.Math.Feedback feedback1
     annotation (Placement(transformation(extent={{92,0},{112,20}})));
-  OpenIPSL.Electrical.Buses.Bus bus(V_0=0.997, angle_0=0)
-                                    annotation (Placement(transformation(extent={{-116,32},
+  OpenIPSL.Electrical.Buses.Bus bus(v_0=machineData.data.V_0, angle_0=
+        machineData.data.A_0)       annotation (Placement(transformation(extent={{-116,32},
             {-96,52}})));
   Modelica.Blocks.Sources.Constant const1(k=-Modelica.Constants.inf)
                                                   annotation (Placement(transformation(extent={{-168,
@@ -25,7 +25,8 @@ model Model
                                                   annotation (Placement(transformation(extent={{-168,
             -14},{-158,-4}})));
   OpenIPSL.Electrical.Machines.PSSE.GENSAL Gen1(
-    M_b=30,
+    v_0=machineData.data.V_0,
+    M_b=30000000,
     Tpd0=machineData.data.Tpd0,
     Tppd0=machineData.data.Tppd0,
     Tppq0=machineData.data.Tppq0,
@@ -42,7 +43,6 @@ model Model
     H=machineData.data.H,
     angle_0=machineData.data.A_0,
     Q_0=machineData.data.Q_0,
-    V_0=machineData.data.V_0,
     P_0=machineData.data.P_0)
     annotation (Placement(transformation(extent={{-160,30},{-136,54}})));
   OpenIPSL.Electrical.Controls.PSSE.ES.ST5B sT5B(
@@ -67,12 +67,11 @@ model Model
                      annotation (Placement(transformation(extent={{-138,4},{
             -158,22}})));
   OpenIPSL.Electrical.Buses.Bus bus1(
-    V_0=machineData.data.V_0,
-    angle_0=machineData.data.A_0,
     P_0=-machineData.data.P_0,
     Q_0=-machineData.data.Q_0)      annotation (Placement(transformation(extent={{-72,32},
             {-52,52}})));
-  inner OpenIPSL.Electrical.SystemBase SysData(S_b=30, fn=50) annotation (Placement(transformation(extent={{-64,80},
+  inner OpenIPSL.Electrical.SystemBase SysData(S_b=30000000,
+                                                       fn=50) annotation (Placement(transformation(extent={{-64,80},
             {-4,100}})));
   Modelica.Blocks.Sources.CombiTimeTable Vim_input(
     tableOnFile=false,
@@ -1079,10 +1078,6 @@ model Model
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={70,-20})));
-  Modelica.Blocks.Sources.Constant const(k=0.910987105768319)
-    annotation (Placement(transformation(extent={{-38,56},{-18,76}})));
-  Modelica.Blocks.Sources.Constant const3(k=0.466764064767019)
-    annotation (Placement(transformation(extent={{-32,-4},{-12,16}})));
   Modelica.Blocks.Interfaces.RealOutput Efd annotation (Placement(
         transformation(extent={{134,68},{142,76}}),iconTransformation(extent={{42,
             66},{50,74}})));
@@ -1641,8 +1636,8 @@ model Model
             42,66},{50,74}})));
   OpenIPSL.Electrical.Loads.PSSE.Load constantLoad(
     Q_0=machineData.data.Q_0,
+    v_0=machineData.data.V_0,
     PQBRAK=0.7,
-    V_0=machineData.data.V_0,
     angle_0=machineData.data.A_0,
     P_0=machineData.data.P_0)
                  annotation (Placement(transformation(extent={{-100,10},{-88,22}})));
@@ -1661,7 +1656,7 @@ model Model
                                                                  annotation (Placement(transformation(extent={{-52,-20},
             {-60,-12}})));
   OpenIPSL.Electrical.Buses.InfiniteBus infiniteBus
-    annotation (Placement(transformation(extent={{-16,24},{-36,44}})));
+    annotation (Placement(transformation(extent={{-26,32},{-46,52}})));
 equation
       Pout = Gen1.P;
       Qout = Gen1.Q;
@@ -1679,9 +1674,9 @@ equation
     annotation (Line(points={{-136,42},{-106,42}}, color={0,0,255}));
   connect(Gen1.PMECH, Gen1.PMECH0) annotation (Line(points={{-162.4,48},{-170,
           48},{-170,58},{-128,58},{-128,48},{-134.8,48}}, color={0,0,127}));
-  connect(sT5B.VOEL,const2. y) annotation (Line(points={{-144.5,4},{-144,4},{
+  connect(sT5B.VOEL,const2. y) annotation (Line(points={{-148,3.1},{-144,3.1},{
           -144,-9},{-157.5,-9}},       color={0,0,127}));
-  connect(sT5B.VUEL,const1. y) annotation (Line(points={{-141.5,4},{-142,4},{
+  connect(sT5B.VUEL,const1. y) annotation (Line(points={{-144,3.1},{-142,3.1},{
           -142,-27},{-157.5,-27}},  color={0,0,127}));
   connect(Pout_real.y[1], feedback.u2)
     annotation (Line(points={{81,40},{100,40},{100,62}}, color={0,0,127}));
@@ -1698,22 +1693,18 @@ equation
   connect(Ifdsampler.u, Ifd)
     annotation (Line(points={{148,14},{138,14}}, color={0,0,127}));
   connect(Gen1.EFD0, sT5B.EFD0) annotation (Line(points={{-134.8,36},{-130,36},
-          {-130,7.5},{-138,7.5}}, color={0,0,127}));
+          {-130,9.4},{-137,9.4}}, color={0,0,127}));
   connect(Efd_real.y[1], Efd_error.u2)
     annotation (Line(points={{171,44},{186,44},{186,64}}, color={0,0,127}));
-  connect(sT5B.VOTHSG, const4.y) annotation (Line(points={{-138,18.5},{-122,
-          18.5},{-122,-1},{-104.5,-1}}, color={0,0,127}));
-  connect(sT5B.XADIFD, Gen1.XADIFD) annotation (Line(points={{-138,11},{-136,11},
-          {-136,12},{-135.04,12},{-135.04,31.2}}, color={0,0,127}));
+  connect(sT5B.VOTHSG, const4.y) annotation (Line(points={{-137,16.6},{-122,
+          16.6},{-122,-1},{-104.5,-1}}, color={0,0,127}));
   connect(bus1.p, pwLine.n)
     annotation (Line(points={{-62,42},{-69,42}}, color={0,0,255}));
   connect(pwLine.p, bus.p)
     annotation (Line(points={{-87,42},{-106,42}}, color={0,0,255}));
-  connect(constantLoad.p, bus.p)
-    annotation (Line(points={{-94,22},{-94,42},{-106,42}}, color={0,0,255}));
-  connect(sT5B.EFD, Gen1.EFD) annotation (Line(points={{-158.5,14},{-166,14},{
+  connect(sT5B.EFD, Gen1.EFD) annotation (Line(points={{-159,13},{-166,13},{
           -166,36},{-162.4,36}}, color={0,0,127}));
-  connect(sT5B.ECOMP, add3_1.y) annotation (Line(points={{-138,14},{-106,14},{
+  connect(sT5B.ECOMP, add3_1.y) annotation (Line(points={{-137,13},{-106,13},{
           -106,-20},{-80.4,-20}}, color={0,0,127}));
   connect(step1.y, add3_1.u3) annotation (Line(points={{-62.4,-28},{-66,-28},{
           -66,-23.2},{-71.2,-23.2}}, color={0,0,127}));
@@ -1721,11 +1712,15 @@ equation
           -66,-16},{-60.4,-16}}, color={0,0,127}));
   connect(add3_1.u1, Gen1.ETERM) annotation (Line(points={{-71.2,-16.8},{-71.2,
           -16},{-70,-16},{-70,38.4},{-134.8,38.4}}, color={0,0,127}));
-  connect(bus1.p, infiniteBus.p) annotation (Line(points={{-62,42},{-52,42},{
-          -52,34},{-36,34}}, color={0,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-40},
-            {240,100}})),                                        Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-180,-40},{240,100}})),
+  connect(Gen1.XADIFD, sT5B.XADIFD) annotation (Line(points={{-134.8,31.2},{
+          -134,31.2},{-134,0},{-156,0},{-156,3.1}}, color={0,0,127}));
+  connect(infiniteBus.p, bus1.p)
+    annotation (Line(points={{-46,42},{-62,42}}, color={0,0,255}));
+  connect(constantLoad.p, bus.p)
+    annotation (Line(points={{-94,22},{-94,42},{-106,42}}, color={0,0,255}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,
+            -40},{200,100}})),                                   Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-180,-40},{200,100}})),
     experiment(
       StartTime=15,
       StopTime=38,

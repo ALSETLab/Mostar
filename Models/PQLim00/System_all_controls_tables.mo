@@ -408,8 +408,8 @@ equation
   connect(sT5B.ECOMP, Gen.ETERM) annotation (Line(points={{-54,-28},{-40,
           -28},{-40,-3.6},{-46.8,-3.6}},
                                color={0,0,127}));
-  connect(sT5B.XADIFD, Gen.XADIFD) annotation (Line(points={{-54,-31},{
-          -42,-31},{-42,-10.8},{-47.04,-10.8}},
+  connect(sT5B.XADIFD, Gen.XADIFD) annotation (Line(points={{-68.5,-37.8},{-42,
+          -37.8},{-42,-10.8},{-47.04,-10.8}},
                                        color={0,0,127}));
   connect(sT5B.EFD0, Gen.EFD0) annotation (Line(points={{-54,-34.5},{-34,
           -34.5},{-34,-6},{-46.8,-6}},

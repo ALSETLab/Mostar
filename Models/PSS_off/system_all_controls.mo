@@ -68,31 +68,31 @@ equation
   connect(pwLine.n, bus1.p) annotation (Line(points={{25.4,0},{25.4,0},{50,0}},
                                                                             color={0,0,255}));
   connect(gENSAL.p, bus.p) annotation (Line(points={{-48,0},{-48,0},{-8,0}},     color={0,0,255}));
-  connect(const.y, sT5B.VUEL) annotation (Line(points={{-69.5,-71},{-57.5,-71},{
-          -57.5,-38}},                                                                          color={0,0,127}));
-  connect(const1.y, sT5B.VOEL) annotation (Line(points={{-69.5,-51},{-60.5,-51},
-          {-60.5,-38}},                                                                          color={0,0,127}));
-  connect(sT5B.EFD, gENSAL.EFD) annotation (Line(points={{-74.5,-28},{-86,-28},{
+  connect(const.y, sT5B.VUEL) annotation (Line(points={{-69.5,-71},{-60,-71},{
+          -60,-38.9}},                                                                          color={0,0,127}));
+  connect(const1.y, sT5B.VOEL) annotation (Line(points={{-69.5,-51},{-64,-51},{
+          -64,-38.9}},                                                                           color={0,0,127}));
+  connect(sT5B.EFD, gENSAL.EFD) annotation (Line(points={{-75,-29},{-86,-29},{
           -86,-6},{-74.4,-6}},                                                                        color={0,0,127}));
   connect(gENSAL.PMECH, gENSAL.PMECH0) annotation (Line(points={{-74.4,6},{-80,6},
           {-80,16},{-42,16},{-42,6},{-46.8,6}},                                                                                 color={0,0,127}));
-  connect(gENSAL.EFD0, sT5B.EFD0) annotation (Line(points={{-46.8,-6},{-42,-6},{
-          -42,-34.5},{-54,-34.5}},                                                                                  color={0,0,127}));
-  connect(sT5B.XADIFD, gENSAL.XADIFD) annotation (Line(points={{-54,-31},{-40,-31},
-          {-40,-10.8},{-47.04,-10.8}},                                                                                  color={0,0,127}));
+  connect(gENSAL.EFD0, sT5B.EFD0) annotation (Line(points={{-46.8,-6},{-42,-6},
+          {-42,-32.6},{-53,-32.6}},                                                                                 color={0,0,127}));
+  connect(sT5B.XADIFD, gENSAL.XADIFD) annotation (Line(points={{-72,-38.9},{-40,
+          -38.9},{-40,-10.8},{-46.8,-10.8}},                                                                            color={0,0,127}));
   connect(bus1.p, voltageSource.p)
     annotation (Line(points={{50,0},{67,0}}, color={0,0,255}));
-  connect(sT5B.ECOMP, gENSAL.ETERM) annotation (Line(points={{-54,-28},{-32,
-          -28},{-32,-3.6},{-46.8,-3.6}}, color={0,0,127}));
+  connect(sT5B.ECOMP, gENSAL.ETERM) annotation (Line(points={{-53,-29},{-32,-29},
+          {-32,-3.6},{-46.8,-3.6}},      color={0,0,127}));
   connect(voltageSource.u1, combiTimeTable.y[1]) annotation (Line(points={{90,4},{
           96,4},{96,22},{103,22}},        color={0,0,127}));
-  connect(sT5B.VOTHSG, pSS2B.VOTHSG) annotation (Line(points={{-54,-23.5},{-46,
-          -23.5},{-46,-47},{-44.3333,-47}},     color={0,0,127}));
-  connect(pSS2B.V_S1, gENSAL.ETERM) annotation (Line(points={{-24,-45.5},{
-          -22,-45.5},{-22,-28},{-32,-28},{-32,-3.6},{-46.8,-3.6}}, color={0,
+  connect(sT5B.VOTHSG, pSS2B.VOTHSG) annotation (Line(points={{-53,-25.4},{-46,
+          -25.4},{-46,-47},{-45,-47}},          color={0,0,127}));
+  connect(pSS2B.V_S1, gENSAL.ETERM) annotation (Line(points={{-23,-45.8},{-22,
+          -45.8},{-22,-28},{-32,-28},{-32,-3.6},{-46.8,-3.6}},     color={0,
           0,127}));
-  connect(pSS2B.V_S2, gENSAL.ETERM) annotation (Line(points={{-24,-48.5},{
-          -22,-48.5},{-22,-28},{-32,-28},{-32,-3.6},{-46.8,-3.6}}, color={0,
+  connect(pSS2B.V_S2, gENSAL.ETERM) annotation (Line(points={{-23,-48.2},{-22,
+          -48.2},{-22,-28},{-32,-28},{-32,-3.6},{-46.8,-3.6}},     color={0,
           0,127}));
   connect(voltageSource.u2, combiTimeTable1.y[1]) annotation (Line(points={
           {90,-4},{96,-4},{96,-10},{103,-10}}, color={0,0,127}));

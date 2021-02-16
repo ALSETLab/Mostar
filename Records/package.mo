@@ -146,8 +146,8 @@ package Records
     parameter Real V_S2MIN;
     parameter Real V_STMAX;
     parameter Real V_STMIN;
-    parameter Real M;
-    parameter Real N;
+    parameter Integer M;
+    parameter Integer N;
 
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)));

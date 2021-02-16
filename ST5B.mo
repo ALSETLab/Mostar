@@ -101,11 +101,6 @@ model ST5B "IEEE 421.5 2005 ST5B Excitation System"
         rotation=90,
         origin={130,-140}), iconTransformation(extent={{-10,-10},{10,10}},
           origin={-200,-60})));
-  OpenIPSL.NonElectrical.Functions.Switch_3way switch_3way(val=1) annotation (
-      Placement(transformation(
-        extent={{-8,-8},{8,8}},
-        rotation=90,
-        origin={86,24})));
   Modelica.Blocks.Continuous.TransferFunction transferFunction(
     b={T_C1,1},
     a={T_B1,1},
@@ -162,12 +157,6 @@ equation
           {-22,-6}}, color={0,0,127}));
   connect(XADIFD, K_c.u)
     annotation (Line(points={{130,-140},{130,-104}}, color={0,0,127}));
-  connect(K_r.u, switch_3way.y) annotation (Line(points={{104,45.2},{86,45.2},{
-          86,32.8}}, color={0,0,127}));
-  connect(imLimitedLeadLag3.y, switch_3way.In2)
-    annotation (Line(points={{71,-50},{86,-50},{86,14.4}}, color={0,0,127}));
-  connect(imLimitedLeadLag5.y, switch_3way.In3) annotation (Line(points={{71,
-          -90},{90.8,-90},{90.8,14.4}}, color={0,0,127}));
   connect(transferFunction.y, limiter1.u)
     annotation (Line(points={{43,116},{60,116}}, color={0,0,127}));
   connect(transferFunction.u, VERR1.y)
@@ -178,8 +167,6 @@ equation
           -50},{10,0},{1,0}}, color={0,0,127}));
   connect(transferFunction1.u, limiter1.y) annotation (Line(points={{84,76},{
           102,76},{102,116},{83,116}}, color={0,0,127}));
-  connect(switch_3way.In1, limiter2.y) annotation (Line(points={{81.2,14.4},{82,
-          14.4},{82,4},{61,4}}, color={0,0,127}));
   connect(limiter2.u, transferFunction1.y)
     annotation (Line(points={{38,4},{26,4},{26,76},{61,76}}, color={0,0,127}));
   connect(DiffV.u2, transferFunction2.y) annotation (Line(points={{-122,-6},{
@@ -200,6 +187,8 @@ equation
           -62},{156,-62},{156,-22},{191,-22},{191,0}}, color={0,0,127}));
   connect(variableLimiter.y, EFD) annotation (Line(points={{193,-62},{202,-62},
           {202,0},{210,0}}, color={0,0,127}));
+  connect(limiter2.y, K_r.u) annotation (Line(points={{61,4},{78,4},{78,52},{
+          104,52},{104,45.2}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(
         preserveAspectRatio=true,

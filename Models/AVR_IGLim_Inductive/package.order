@@ -1,11 +1,3 @@
-System_all_controls
-System_all_controls_tables
-System_generator_only
 Model
-Optimization
+PSO_results
 FMU
-Optimization2
-Optimzation_all
-Optimzation_Efd_Ifd
-Optimzation_noPSS
-Model_Excitation
