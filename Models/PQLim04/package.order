@@ -1,7 +1,5 @@
-System_all_controls
-System_all_controls_tables
-System_generator_only
 FMU
+Model_AVR
 Model
 Optimization
 Solution1

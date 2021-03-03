@@ -1674,9 +1674,9 @@ equation
     annotation (Line(points={{-136,42},{-106,42}}, color={0,0,255}));
   connect(Gen1.PMECH, Gen1.PMECH0) annotation (Line(points={{-162.4,48},{-170,
           48},{-170,58},{-128,58},{-128,48},{-134.8,48}}, color={0,0,127}));
-  connect(sT5B.VOEL,const2. y) annotation (Line(points={{-148,3.1},{-144,3.1},{
+  connect(sT5B.VOEL,const2. y) annotation (Line(points={{-144.5,4},{-144,4},{
           -144,-9},{-157.5,-9}},       color={0,0,127}));
-  connect(sT5B.VUEL,const1. y) annotation (Line(points={{-144,3.1},{-142,3.1},{
+  connect(sT5B.VUEL,const1. y) annotation (Line(points={{-141.5,4},{-142,4},{
           -142,-27},{-157.5,-27}},  color={0,0,127}));
   connect(Pout_real.y[1], feedback.u2)
     annotation (Line(points={{81,40},{100,40},{100,62}}, color={0,0,127}));
@@ -1693,18 +1693,18 @@ equation
   connect(Ifdsampler.u, Ifd)
     annotation (Line(points={{148,14},{138,14}}, color={0,0,127}));
   connect(Gen1.EFD0, sT5B.EFD0) annotation (Line(points={{-134.8,36},{-130,36},
-          {-130,9.4},{-137,9.4}}, color={0,0,127}));
+          {-130,7.5},{-138,7.5}}, color={0,0,127}));
   connect(Efd_real.y[1], Efd_error.u2)
     annotation (Line(points={{171,44},{186,44},{186,64}}, color={0,0,127}));
-  connect(sT5B.VOTHSG, const4.y) annotation (Line(points={{-137,16.6},{-122,
-          16.6},{-122,-1},{-104.5,-1}}, color={0,0,127}));
+  connect(sT5B.VOTHSG, const4.y) annotation (Line(points={{-138,18.5},{-122,
+          18.5},{-122,-1},{-104.5,-1}}, color={0,0,127}));
   connect(bus1.p, pwLine.n)
     annotation (Line(points={{-62,42},{-69,42}}, color={0,0,255}));
   connect(pwLine.p, bus.p)
     annotation (Line(points={{-87,42},{-106,42}}, color={0,0,255}));
-  connect(sT5B.EFD, Gen1.EFD) annotation (Line(points={{-159,13},{-166,13},{
+  connect(sT5B.EFD, Gen1.EFD) annotation (Line(points={{-158.5,14},{-166,14},{
           -166,36},{-162.4,36}}, color={0,0,127}));
-  connect(sT5B.ECOMP, add3_1.y) annotation (Line(points={{-137,13},{-106,13},{
+  connect(sT5B.ECOMP, add3_1.y) annotation (Line(points={{-138,14},{-106,14},{
           -106,-20},{-80.4,-20}}, color={0,0,127}));
   connect(step1.y, add3_1.u3) annotation (Line(points={{-62.4,-28},{-66,-28},{
           -66,-23.2},{-71.2,-23.2}}, color={0,0,127}));
@@ -1712,8 +1712,9 @@ equation
           -66,-16},{-60.4,-16}}, color={0,0,127}));
   connect(add3_1.u1, Gen1.ETERM) annotation (Line(points={{-71.2,-16.8},{-71.2,
           -16},{-70,-16},{-70,38.4},{-134.8,38.4}}, color={0,0,127}));
-  connect(Gen1.XADIFD, sT5B.XADIFD) annotation (Line(points={{-134.8,31.2},{
-          -134,31.2},{-134,0},{-156,0},{-156,3.1}}, color={0,0,127}));
+  connect(Gen1.XADIFD, sT5B.XADIFD) annotation (Line(points={{-135.04,31.2},{
+          -134,31.2},{-134,0},{-152.5,0},{-152.5,4.2}},
+                                                    color={0,0,127}));
   connect(infiniteBus.p, bus1.p)
     annotation (Line(points={{-46,42},{-62,42}}, color={0,0,255}));
   connect(constantLoad.p, bus.p)

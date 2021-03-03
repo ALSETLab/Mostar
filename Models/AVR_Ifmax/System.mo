@@ -939,8 +939,6 @@ model System "System with the original generator parameters"
     PQBRAK=0.7)
     annotation (Placement(transformation(extent={{2,-44},{16,-32}})));
   OpenIPSL.Electrical.Buses.Bus bus1(
-    v_0=machineData.data.V_0,
-    angle_0=machineData.data.A_0,
     P_0=-machineData.data.P_0,
     Q_0=-machineData.data.Q_0)      annotation (Placement(transformation(extent={{34,-10},
             {54,10}})));

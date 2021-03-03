@@ -1,8 +1,6 @@
-System_all_controls
-System_all_controls_tables
-System_generator_only
 FMU
 Model
+Model_AVR
 Optimization
 Optimzation_Efd_Ifd
 Optimzation_all

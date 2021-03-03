@@ -1,0 +1,2 @@
+ 
+Violated,,LimitedControlFrequency.requirement,6.51578,The frequency of the control signal of the valve should not exceed 1.5 Hz during more than 2 seconds
