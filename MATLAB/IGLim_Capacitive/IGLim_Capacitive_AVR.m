@@ -16,13 +16,13 @@ rapidSettings.experimentData.expressionInData = ''; %Data variable name
 %% ==========Experiment settings==========
 %General settings 
 rapidSettings.experimentSettings.tf = 4.5; %Simulation length
-rapidSettings.experimentSettings.ts = 0.05; %Sampling time
+rapidSettings.experimentSettings.ts = 0.005; %Sampling time
 rapidSettings.experimentSettings.t_fitness_start = 0; %Start calculating fintess function after t_fintess_start
 rapidSettings.experimentSettings.timeOut = 500; %Seconds before simulation timeout
 rapidSettings.experimentSettings.integrationMethod = 'ode45'; %Solver selection
 rapidSettings.experimentSettings.solverMode = 'Simulink';
 rapidSettings.experimentSettings.optimizationAlgorithm = 'pso'; % %Selection of optimization algorithm
-rapidSettings.experimentSettings.maxIterations = 10; %Maximum number of estimation iterations
+rapidSettings.experimentSettings.maxIterations = 100; %Maximum number of estimation iterations
 rapidSettings.experimentSettings.verbose = 1; %Can trigger more data for debugging
 rapidSettings.experimentSettings.saveHist = 0; %Don't save history
 

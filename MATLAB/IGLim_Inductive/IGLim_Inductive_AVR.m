@@ -1,3 +1,4 @@
+
 %% ==========Reference data settings==========
 
 % Create a rapidSettings (optional but recommended - will work with just a structure)
@@ -17,7 +18,7 @@ rapidSettings.experimentData.expressionInData = ''; %Data variable name
 %General settings 
 rapidSettings.experimentSettings.tf = 6; %Simulation length
 rapidSettings.experimentSettings.ts = 0.005; %Sampling time
-rapidSettings.experimentSettings.t_fitness_start = 1.25; %Start calculating fintess function after t_fintess_start
+rapidSettings.experimentSettings.t_fitness_start = 1.25; %Start calcuclclating fintess function after t_fintess_start
 rapidSettings.experimentSettings.timeOut = 500; %Seconds before simulation timeout
 rapidSettings.experimentSettings.integrationMethod = 'ode45'; %Solver selection
 rapidSettings.experimentSettings.solverMode = 'Simulink';
@@ -77,7 +78,7 @@ parameters = {'machineData.data.Xd','machineData.data.R_a','machineData.data.H',
               'machineData.data.T_R','machineData.data.T_C1','machineData.data.T_B1','machineData.data.T_C2','machineData.data.T_B2','machineData.data.K_R','machineData.data.T_1','machineData.data.K_C','machineData.data.V_RMAX','machineData.data.V_RMIN'};
 
 rapidSettings.parameterNames = parameters(x:y);
-rapidSettings.fmuInputNames = {}; %Input variable names
+rapidSettings.fmuInputNames = {'ECOMP1','XADIFD1'}; %Input variable names
 rapidSettings.fmuOutputNames = {'Efd'}; %Output variable names
 
 %% ==========Running the computation==========

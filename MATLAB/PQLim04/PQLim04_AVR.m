@@ -22,7 +22,7 @@ rapidSettings.experimentSettings.timeOut = 500; %Seconds before simulation timeo
 rapidSettings.experimentSettings.integrationMethod = 'ode45'; %Solver selection
 rapidSettings.experimentSettings.solverMode = 'Simulink';
 rapidSettings.experimentSettings.optimizationAlgorithm = 'pso'; % %Selection of optimization algorithm
-rapidSettings.experimentSettings.maxIterations = 10; %Maximum number of estimation iterations
+rapidSettings.experimentSettings.maxIterations = 1000; %Maximum number of estimation iterations
 rapidSettings.experimentSettings.verbose = 1; %Can trigger more data for debugging
 rapidSettings.experimentSettings.saveHist = 0; %Don't save history
 
@@ -41,9 +41,9 @@ y = 20;
 p_0 =[1.216     0.201002      9.84703      1.97195     0.563883      1.87382      1.46865      1.01967      13.1416       8.8876      2.06749     0.401413...
       0.2076    1.4606   22.2542    0.1813    0.0217  491.7834    0.7962    1.7104	4.35	-3.825]; %Maximum values of parameters
 p_min = [0.01,0.0001,1,0.1,0.01,0.1,0.1,0.1,1,0.1,0.1,0.01,...
-         0, 0.5,3,1e-3,1e-3,300,1e-6,0.1,1e-4,-11];%Minimum values of parameters
+         0, 0.15,10,0.01,0.001,300,1e-6,0.5,1e-4,-5];%Minimum values of parameters
 p_max =[2,0.5,15,2,1,2,2,2,20,10,10,1,...
-        0.5, 5,30,1,0.1,700,1,2,11,0]; %Maximum values of parameters
+        0.1, 3,25,0.1,0.01,1000,0.5,2,6,0]; %Maximum values of parameters
 
 rapidSettings.experimentSettings.p_0 = p_0(x:y);
 rapidSettings.experimentSettings.p_min = p_min(x:y);
