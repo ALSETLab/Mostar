@@ -6,7 +6,7 @@ rapidSettings=RaPIdClass();
 %Output data
 rapidSettings.experimentData.pathToReferenceData = 'IG_Lim_Inductive.mat'; %Data file name
 rapidSettings.experimentData.expressionReferenceTime = 'time'; %Time variable name
-rapidSettings.experimentData.expressionReferenceData = 'signal'; %Data variable name
+rapidSettings.experimentData.expressionReferenceData = 'Q'; %Data variable name
 
 %Input data
 rapidSettings.experimentData.pathToInData = '';
@@ -21,7 +21,7 @@ rapidSettings.experimentSettings.t_fitness_start = 1.25; %Start calculating fint
 rapidSettings.experimentSettings.timeOut = 500; %Seconds before simulation timeout
 rapidSettings.experimentSettings.integrationMethod = 'ode45'; %Solver selection
 rapidSettings.experimentSettings.solverMode = 'Simulink';
-rapidSettings.experimentSettings.optimizationAlgorithm = 'pso'; % %Selection of optimization algorithm
+rapidSettings.experimentSettings.optimizationAlgorithm = 'fmincon'; % %Selection of optimization algorithm
 rapidSettings.experimentSettings.maxIterations = 1000; %Maximum number of estimation iterations
 rapidSettings.experimentSettings.verbose = 1; %Can trigger more data for debugging
 rapidSettings.experimentSettings.saveHist = 0; %Don't save history
@@ -36,14 +36,15 @@ rapidSettings.experimentSettings.displayMode = 'Show';
 
 
 % %Estimation parameter settings
-x=13;
-y = 18;
-p_0 =[1.7216     0.201002      9.84703      1.97195     0.563883      1.87382      1.46865      1.01967      13.1416       8.8876      2.06749     0.401413...
-      0.5      1.071137      3.414283       1.701033      358.6086    10        -10]; %Maximum values of parameters
+x=1;
+y = 12;
+p_0 =[1.183	0.004799183673	2.137	0.371	0	0.62	0.241	0.215	3.77	0.0552	0.0823	0.1...
+       0.01	2	20	0.02	0.005	500	 0.005	1	4.35	-3.825]; %Maximum values of parameters
+   %0.03210892     0.9701116      12.42983      2.578037      1.071796      395.6591     0.3683607     0.1496456
 p_min = [0.01,0.0001,1,0.1,0.01,0.1,0.1,0.1,1,0.1,0.1,0.01,...
-         0, 0.5,3,1,1,300,1e-6,1e-4,-11];%Minimum values of parameters
+         0, 0.5,3,1,1,300,1e-6,1e-6,1e-4,-11];%Minimum values of parameters
 p_max =[2,0.5,15,2,1,2,2,2,20,10,10,1,...
-        1, 1.5,15,5,2,500,0.5,11,0]; %Maximum values of parameters
+        1, 1.5,15,5,2,500,0.5,2,11,0]; %Maximum values of parameters
 
 rapidSettings.experimentSettings.p_0 = p_0(x:y);
 rapidSettings.experimentSettings.p_min = p_min(x:y);
@@ -78,7 +79,7 @@ parameters = {'machineData.data.Xd','machineData.data.R_a','machineData.data.H',
 
 rapidSettings.parameterNames = parameters(x:y);
 rapidSettings.fmuInputNames = {}; %Input variable names
-rapidSettings.fmuOutputNames = {'Pout','Qout'}; %Output variable names
+rapidSettings.fmuOutputNames = {'Qout'}; %Output variable names
 
 %% ==========Running the computation==========
 

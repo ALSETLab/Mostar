@@ -4,7 +4,7 @@
 rapidSettings=RaPIdClass();
 
 %Output data
-rapidSettings.experimentData.pathToReferenceData = 'IG_Lim_Inductive.mat'; %Data file name
+rapidSettings.experimentData.pathToReferenceData = 'Inductive_Identified.mat'; %Data file name
 rapidSettings.experimentData.expressionReferenceTime = 'time'; %Time variable name
 rapidSettings.experimentData.expressionReferenceData = 'Efd'; %Data variable name
 
@@ -37,13 +37,13 @@ rapidSettings.experimentSettings.displayMode = 'Show';
 
 % %Estimation parameter settings
 x=13;
-y = 18;
+y = 22;
 p_0 =[1.7216     0.201002      9.84703      1.97195     0.563883      1.87382      1.46865      1.01967      13.1416       8.8876      2.06749     0.401413...
-      0.5      1.071137      3.414283       1.701033      358.6086    10        -10]; %Maximum values of parameters
+      0.01	2	20	0.02	0.005	500	 0.005	1	4.35	-3.825]; %Maximum values of parameters
 p_min = [0.01,0.0001,1,0.1,0.01,0.1,0.1,0.1,1,0.1,0.1,0.01,...
-         0, 0.5,3,1,1,300,1e-6,1e-4,-11];%Minimum values of parameters
+         0, 0.15,10,0.01,0.001,300,1e-6,0.5,1e-4,-5];%Minimum values of parameters
 p_max =[2,0.5,15,2,1,2,2,2,20,10,10,1,...
-        1, 1.5,15,5,2,500,0.5,11,0]; %Maximum values of parameters
+        0.1, 3,25,0.1,0.01,1000,0.5,2,6,0]; %Maximum values of parameters
 
 rapidSettings.experimentSettings.p_0 = p_0(x:y);
 rapidSettings.experimentSettings.p_min = p_min(x:y);

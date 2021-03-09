@@ -5,7 +5,7 @@ model Model_AVR
           extent={{42,66},{50,74}})));
   Modelica.Blocks.Interfaces.RealOutput Qout
     annotation (Placement(transformation(extent={{44,6},{52,14}})));
-  Data2Model.PSS_off.init machineData
+  Data2Model.PSS_off.avr  machineData
     annotation (Placement(transformation(extent={{-108,76},{-88,96}})));
   Modelica.Blocks.Discrete.Sampler Psampler(samplePeriod=126.5/254)
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
