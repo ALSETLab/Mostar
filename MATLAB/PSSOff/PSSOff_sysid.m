@@ -19,11 +19,12 @@ y=Efd-Efd(1);
 %y_sim=lsim(Gq,u,t);
 
 %%plot(t,u,'r',t,y_sim,'b',t,y,'k')
+opt = tfestOptions;
 
-data=iddata(y,u,Ts)
+data=iddata(y,u,Ts);
 
-model=bj(data,[2 2 2 2 1]);
-
+%model=bj(data,[2 2 2 2 1]);
+model = tfest(data,5,5,opt);
 figure(1)
 compare(data,model);
 figure(2);

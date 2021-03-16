@@ -7,22 +7,20 @@ load AVR_IG_Capacitive
 %load AVR_ss
 %load Generator_ss
 
-Gq=sys;
-
-
+Gq=sys(1);
 t=time;
 
 
-u=[V-mean(V(1:60)),Ifd - mean(Ifd(1:60))];  
-y=Efd-mean(Efd(1:60));
+u=V-V(1;  
+y=Efd;
 
 
 data=iddata(y,u,Ts);
 opt = bjOptions;
 opt.Focus = 'simulation';
-%model=bj(data,[2 2 2 2 2],opt);
-model = oe(data,[[2 2] [2 2] [0,0]])
-%model = tfest(data,6,5)
+%model=bj(data,[4 4 4 4 2],opt);
+model = oe(data,[2 2 0])
+%model = tfest(data,7,6)
 figure(1)
 compare(data,model);
 figure(2);
