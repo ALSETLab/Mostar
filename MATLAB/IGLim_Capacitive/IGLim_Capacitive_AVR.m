@@ -39,11 +39,12 @@ rapidSettings.experimentSettings.displayMode = 'Show';
 x=13;
 y = 22;
 p_0 =[1.7216     0.201002      9.84703      1.97195     0.563883      1.87382      1.46865      1.01967      13.1416       8.8876      2.06749     0.401413...
-      0.01	2	20	0.02	0.005	500	 0.005	1	4.35	-3.825]; %Maximum values of parameters
+      0.051292191	0.8 	20	0.02	0.005	300	 0.022737896	1.871499496	4.35	-3.825]; %Maximum values of parameters
+
 p_min = [0.01,0.0001,1,0.1,0.01,0.1,0.1,0.1,1,0.1,0.1,0.01,...
-         0, 0.5,3,1e-3,1e-3,300,1e-6,0.1,1e-4,-5];%Minimum values of parameters
+        0, 0.15,10,0.01,0.001,100,1e-6,0.5,1e-4,-5];%Minimum values of parameters
 p_max =[2,0.5,15,2,1,2,2,2,20,10,10,1,...
-        0.1, 5,30,1,0.1,700,1,2,8,0]; %Maximum values of parameters
+       0.1, 3,25,0.1,0.01,1000,0.5,2,6,0]; %Maximum values of parameters
 
 rapidSettings.experimentSettings.p_0 = p_0(x:y);
 rapidSettings.experimentSettings.p_min = p_min(x:y);

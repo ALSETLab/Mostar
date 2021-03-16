@@ -4,9 +4,9 @@
 rapidSettings=RaPIdClass();
 
 %Output data
-rapidSettings.experimentData.pathToReferenceData = 'PSS_OFF.mat'; %Data file name
+rapidSettings.experimentData.pathToReferenceData = 'PSS_off_short.mat'; %Data file name
 rapidSettings.experimentData.expressionReferenceTime = 'time'; %Time variable name
-rapidSettings.experimentData.expressionReferenceData = 'Efd'; %Data variable name
+rapidSettings.experimentData.expressionReferenceData = 'res'; %Data variable name
 
 %Input data
 rapidSettings.experimentData.pathToInData = '';
@@ -15,10 +15,10 @@ rapidSettings.experimentData.expressionInData = ''; %Data variable name
 
 %% ==========Experiment settings==========
 %General settings 
-rapidSettings.experimentSettings.tf = 25; %Simulation length
-rapidSettings.experimentSettings.ts = 0.05; %Sampling time
-rapidSettings.experimentSettings.t_fitness_start = 0; %Start calculating fintess function after t_fintess_start
-rapidSettings.experimentSettings.timeOut = 500; %Seconds before simulation timeout
+rapidSettings.experimentSettings.tf = 7.5; %Simulation length
+rapidSettings.experimentSettings.ts = 0.005; %Sampling time
+rapidSettings.experimentSettings.t_fitness_start = 2; %Start calculating fintess function after t_fintess_start
+rapidSettings.experimentSettings.timeOut = 5000; %Seconds before simulation timeout
 rapidSettings.experimentSettings.integrationMethod = 'ode45'; %Solver selection
 rapidSettings.experimentSettings.solverMode = 'Simulink';
 rapidSettings.experimentSettings.optimizationAlgorithm = 'pso'; % %Selection of optimization algorithm
@@ -41,9 +41,9 @@ y = 22;
 p_0 =[1.216     0.201002      9.84703      1.97195     0.563883      1.87382      1.46865      1.01967      13.1416       8.8876      2.06749     0.401413...
       0.01	2	20	0.02	0.005	500	 0.005	1	4.35	-3.825]; %Maximum values of parameters
 p_min = [0.01,0.0001,1,0.1,0.01,0.1,0.1,0.1,1,0.1,0.1,0.01,...
-         0, 0.5,3,1e-3,1e-3,300,1e-6,0.1,1e-4,-11];%Minimum values of parameters
+         0, 0.5,10,1e-3,1e-3,300,1e-6,0.1,1e-4,-11];%Minimum values of parameters
 p_max =[2,0.5,15,2,1,2,2,2,20,10,10,1,...
-        0.5, 5,30,1,0.1,700,1,2,11,0]; %Maximum values of parameters
+        0.1, 5,30,1,0.1,700,1,2,11,0]; %Maximum values of parameters
 
 
 rapidSettings.experimentSettings.p_0 = p_0(x:y);

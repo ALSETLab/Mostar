@@ -4,9 +4,9 @@
 rapidSettings=RaPIdClass();
 
 %Output data
-rapidSettings.experimentData.pathToReferenceData = 'IGLim_Capacitive.mat'; %Data file name
+rapidSettings.experimentData.pathToReferenceData = 'AVR_IG_Capacitive.mat'; %Data file name
 rapidSettings.experimentData.expressionReferenceTime = 'time'; %Time variable name
-rapidSettings.experimentData.expressionReferenceData = 'signal'; %Data variable name
+rapidSettings.experimentData.expressionReferenceData = 'Q'; %Data variable name
 
 %Input data
 rapidSettings.experimentData.pathToInData = '';
@@ -78,7 +78,7 @@ parameters = {'machineData.data.Xd','machineData.data.R_a','machineData.data.H',
 
 rapidSettings.parameterNames = parameters(x:y);
 rapidSettings.fmuInputNames = {}; %Input variable names
-rapidSettings.fmuOutputNames = {'Pout','Qout','Gen1.Efd'}; %Output variable names
+rapidSettings.fmuOutputNames = {'Qout'}; %Output variable names
 
 %% ==========Running the computation==========
 

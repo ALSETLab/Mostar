@@ -6,8 +6,7 @@ model fmu "System with the original generator parameters"
           extent={{56,-30},{64,-22}})));
   Modelica.Blocks.Interfaces.RealOutput Qout
     annotation (Placement(transformation(extent={{66,-30},{74,-22}})));
-  Data2Model.IG_Lim_Capacitive.avr_gen
-                                    machineData
+  Data2Model.IG_Lim_Capacitive.init machineData
     annotation (Placement(transformation(extent={{-42,56},{-22,76}})));
   inner OpenIPSL.Electrical.SystemBase SysData(S_b=30000000, fn=50)
                                                               annotation (Placement(transformation(extent={{2,60},{
@@ -342,14 +341,14 @@ model fmu "System with the original generator parameters"
   Modelica.Blocks.Sources.Step step1(
     offset=0,
     startTime=0.42,
-    height=0.035)                                                  annotation (Placement(transformation(extent={{0,-38},
-            {-8,-30}})));
+    height=0.035)                                                  annotation (Placement(transformation(extent={{0,-36},
+            {-8,-28}})));
   OpenIPSL.Electrical.Loads.PSSE.Load constantLoad(
-    Q_0=-machineData.data.Q_0,
+    Q_0=machineData.data.Q_0,
     v_0=machineData.data.V_0,
     PQBRAK=0.7,
     angle_0=machineData.data.A_0,
-    P_0=-machineData.data.P_0)
+    P_0=machineData.data.P_0)
                  annotation (Placement(transformation(extent={{-24,10},{-12,22}})));
   Modelica.Blocks.Sources.Constant const3(k=0.332057384)
                                                   annotation (Placement(transformation(extent={{-26,2},
@@ -376,7 +375,7 @@ equation
   connect(bus1.p,infiniteBus. p) annotation (Line(points={{14,36},{40,36}},
                              color={0,0,255}));
   connect(add3_1.u2,step1. y) annotation (Line(points={{-23.2,-30.4},{-16,-30.4},
-          {-16,-34},{-8.4,-34}},  color={0,0,127}));
+          {-16,-32},{-8.4,-32}},  color={0,0,127}));
   connect(Gen1.EFD,sT5B. EFD) annotation (Line(points={{-86.4,30},{-98,30},{-98,
           7},{-83,7}},           color={0,0,127}));
   connect(constantLoad.p,bus. p)
@@ -385,8 +384,8 @@ equation
           {-38,-16},{-61,-16},{-61,7}}, color={0,0,127}));
   connect(Gen1.ETERM,add3_1. u1) annotation (Line(points={{-58.8,32.4},{-12,
           32.4},{-12,-25.6},{-23.2,-25.6}}, color={0,0,127}));
-  connect(Gen1.EFD0, sT5B.EFD0) annotation (Line(points={{-58.8,30},{-54,30},{
-          -54,3.4},{-61,3.4}}, color={0,0,127}));
+  connect(Gen1.EFD0, sT5B.EFD0) annotation (Line(points={{-58.8,30},{-50,30},{
+          -50,3.4},{-61,3.4}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -40},{80,80}})),
     Icon(coordinateSystem(extent={{-100,-40},{80,80}})),

@@ -1,6 +1,6 @@
 within Mostar.Models.PQLim04.FMU;
 model Model_AVR
-  Data2Model.PQLim04.pso_gen
+  Data2Model.PQLim04.pso_avr
                           machineData
     annotation (Placement(transformation(extent={{-108,76},{-88,96}})));
   Modelica.Blocks.Sources.Constant const1(k=-Modelica.Constants.inf)
@@ -448,8 +448,6 @@ equation
           {-58,-16},{-56.4,-16}}, color={0,0,127}));
   connect(add3_1.y, add3_2.u1) annotation (Line(points={{-74.4,-8},{-80,-8},{
           -80,-11.6},{-87.2,-11.6}}, color={0,0,127}));
-  connect(add3_2.y, sT5B.ECOMP) annotation (Line(points={{-96.4,-14},{-112,-14},
-          {-112,49},{-83,49}},  color={0,0,127}));
   connect(noise.y[1], add3_2.u2) annotation (Line(points={{-23,-22},{-87.2,-22},
           {-87.2,-16.4}},                      color={0,0,127}));
   connect(sT5B.VUEL, const1.y) annotation (Line(points={{-76,39.1},{-78,39.1},{-78,
@@ -464,6 +462,8 @@ equation
           {-111.75,52.6},{-83,52.6}}, color={0,0,127}));
   connect(const4.y, sT5B.EFD0) annotation (Line(points={{-135.5,27},{-109.75,27},
           {-109.75,45.4},{-83,45.4}}, color={0,0,127}));
+  connect(add3_1.y, sT5B.ECOMP) annotation (Line(points={{-74.4,-8},{-106,-8},{
+          -106,49},{-83,49}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,
             -40},{0,100}})),                                     Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-40},{0,100}})),

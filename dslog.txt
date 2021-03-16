@@ -1,0 +1,32 @@
+Log-file of program ./dymosim
+(generated: Mon Mar 15 23:58:06 2021)
+
+dymosim started
+... "Mostar.Models.AVR_IGLim_Capacitive.Model_noise" simulating
+... "dsin.txt" loading (dymosim input file)
+... "Model_noise.mat" creating (simulation result file)
+
+Integration started at T = 0 using integration method DASSL
+(DAE multi-step solver (dassl/dasslrt of Petzold modified by Dassault Systemes))
+
+Integration terminated successfully at T = 4.5
+   CPU-time for integration                : 0.887 seconds
+   CPU-time for one grid interval          : 0.177 milliseconds
+   CPU-time for initialization             : 0.001 seconds
+   Number of result points                 : 6701
+   Number of grid points                   : 5001
+   Number of accepted steps                : 14277
+   Number of f-evaluations (dynamics)      : 20140
+   Number of crossing function evaluations : 20077
+   Number of Jacobian-evaluations          : 10931
+   Number of model time events             : 900
+   Number of input time events             : 0
+   Number of state events                  : 0
+   Number of step events                   : 0
+   Minimum integration stepsize            : 8.76e-09
+   Maximum integration stepsize            : 0.00246
+   Maximum integration order               : 5
+Calling terminal section
+... "dsfinal.txt" creating (final states)
+
+SUCCESSFUL simulation of Mostar.Models.AVR_IGLim_Capacitive.Model_noise

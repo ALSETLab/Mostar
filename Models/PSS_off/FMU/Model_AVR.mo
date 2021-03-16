@@ -64,33 +64,6 @@ model Model_AVR
     X=0.1169,
     G=0,
     B=0) annotation (Placement(transformation(extent={{-76,44},{-56,64}})));
-  OpenIPSL.Electrical.Controls.PSSE.PSS.PSS2B pSS2B(
-    T_w1=machineData.data.T_w1,
-    T_w2=machineData.data.T_w2,
-    T_6=machineData.data.T_6,
-    T_w3=machineData.data.T_w3,
-    T_w4=machineData.data.T_w4,
-    T_7=machineData.data.T_7,
-    K_S2=machineData.data.K_S2,
-    K_S3=machineData.data.K_S3,
-    T_8=machineData.data.T_8,
-    T_9=machineData.data.T_9,
-    K_S1=machineData.data.K_S1,
-    T_1=machineData.data.T_1,
-    T_2=machineData.data.T_2,
-    T_3=machineData.data.T_3,
-    T_4=machineData.data.T_4,
-    T_10=machineData.data.T_10,
-    T_11=machineData.data.T_11,
-    V_S1MAX=machineData.data.V_S1MAX,
-    V_S1MIN=machineData.data.V_S1MIN,
-    V_S2MAX=machineData.data.V_S2MAX,
-    V_S2MIN=machineData.data.V_S2MIN,
-    V_STMAX=machineData.data.V_STMAX,
-    V_STMIN=machineData.data.V_STMIN,
-    M=machineData.data.M,
-    N=machineData.data.N)
-    annotation (Placement(transformation(extent={{-82,10},{-102,16}})));
   OpenIPSL.Electrical.Loads.PSSE.Load constantLoad(
     Q_0=machineData.data.Q_0,
     PQBRAK=0.7,
@@ -129,10 +102,6 @@ equation
     annotation (Line(points={{-46,54},{-57,54}}, color={0,0,255}));
   connect(pwLine.p,bus. p)
     annotation (Line(points={{-75,54},{-94,54}},  color={0,0,255}));
-  connect(pSS2B.V_S1,Gen1. ETERM) annotation (Line(points={{-81,14.2},{-74,14.2},
-          {-74,14},{-64,14},{-64,50.4},{-122.8,50.4}}, color={0,0,127}));
-  connect(pSS2B.V_S2,Gen1. ETERM) annotation (Line(points={{-81,11.8},{-74,11.8},
-          {-74,12},{-64,12},{-64,50.4},{-122.8,50.4}}, color={0,0,127}));
   connect(constantLoad.p, bus.p)
     annotation (Line(points={{-78,32},{-78,54},{-94,54}}, color={0,0,255}));
   connect(sT5B.EFD, Gen1.EFD) annotation (Line(points={{-147,25},{-156,25},{-156,

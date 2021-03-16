@@ -1,0 +1,5635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fmiModelDescription
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  fmiVersion="2.0"
+  modelName="fmu_AVR"
+  guid="{1768c24b-34d8-4e5d-a2b4-b15a079d5b31}"
+  version="3"
+  generationTool="Dymola Version 2021x (64-bit), 2020-11-26 (requires license to execute)"
+  generationDateAndTime="2021-03-09T20:45:37Z"
+  variableNamingConvention="structured"
+  numberOfEventIndicators="48">
+  <ModelExchange
+    modelIdentifier="fmu_AVR"
+    canGetAndSetFMUstate="true"
+    canSerializeFMUstate="true"
+    providesDirectionalDerivative="true"/>
+  <CoSimulation
+    modelIdentifier="fmu_AVR"
+    canHandleVariableCommunicationStepSize="true"
+    canInterpolateInputs="true"
+    maxOutputDerivativeOrder="1"
+    canGetAndSetFMUstate="true"
+    canSerializeFMUstate="true"
+    providesDirectionalDerivative="true"/>
+  <UnitDefinitions>
+    <Unit
+      name="1"/>
+    <Unit
+      name="Hz">
+      <BaseUnit s="-1"/>
+    </Unit>
+    <Unit
+      name="V">
+      <BaseUnit kg="1"
+        m="2"
+        s="-3"
+        A="-1"/>
+      <DisplayUnit
+        name="kV"
+        factor="0.001"/>
+    </Unit>
+    <Unit
+      name="VA">
+      <BaseUnit kg="1"
+        m="2"
+        s="-3"/>
+      <DisplayUnit
+        name="MVA"
+        factor="1E-06"/>
+    </Unit>
+    <Unit
+      name="W">
+      <BaseUnit kg="1"
+        m="2"
+        s="-3"/>
+      <DisplayUnit
+        name="MW"
+        factor="1E-06"/>
+    </Unit>
+    <Unit
+      name="deg">
+      <BaseUnit rad="1"
+        factor="0.017453292519943295"/>
+    </Unit>
+    <Unit
+      name="rad">
+      <BaseUnit rad="1"/>
+      <DisplayUnit
+        name="deg"
+        factor="57.29577951308232"/>
+    </Unit>
+    <Unit
+      name="rad/s">
+      <BaseUnit s="-1"
+        rad="1"/>
+    </Unit>
+    <Unit
+      name="s">
+      <BaseUnit s="1"/>
+    </Unit>
+    <Unit
+      name="s-1">
+      <BaseUnit s="-1"/>
+    </Unit>
+    <Unit
+      name="var">
+      <BaseUnit kg="1"
+        m="2"
+        s="-3"/>
+      <DisplayUnit
+        name="Mvar"
+        factor="1E-06"/>
+    </Unit>
+  </UnitDefinitions>
+  <TypeDefinitions>
+    <SimpleType
+      name="Modelica.Blocks.Interfaces.RealInput">
+      <Real/>
+    </SimpleType>
+    <SimpleType
+      name="Modelica.Blocks.Interfaces.RealOutput">
+      <Real/>
+    </SimpleType>
+    <SimpleType
+      name="Modelica.SIunits.ActivePower">
+      <Real
+        quantity="Power"
+        unit="W"/>
+    </SimpleType>
+    <SimpleType
+      name="Modelica.SIunits.Angle">
+      <Real
+        quantity="Angle"
+        unit="rad"
+        displayUnit="deg"/>
+    </SimpleType>
+    <SimpleType
+      name="Modelica.SIunits.ApparentPower">
+      <Real
+        quantity="Power"
+        unit="VA"/>
+    </SimpleType>
+    <SimpleType
+      name="Modelica.SIunits.Conversions.NonSIunits.Angle_deg">
+      <Real
+        quantity="Angle"
+        unit="deg"/>
+    </SimpleType>
+    <SimpleType
+      name="Modelica.SIunits.Frequency">
+      <Real
+        quantity="Frequency"
+        unit="Hz"/>
+    </SimpleType>
+    <SimpleType
+      name="Modelica.SIunits.PerUnit">
+      <Real
+        unit="1"/>
+    </SimpleType>
+    <SimpleType
+      name="Modelica.SIunits.ReactivePower">
+      <Real
+        quantity="Power"
+        unit="var"/>
+    </SimpleType>
+    <SimpleType
+      name="Modelica.SIunits.Time">
+      <Real
+        quantity="Time"
+        unit="s"/>
+    </SimpleType>
+    <SimpleType
+      name="Modelica.SIunits.Voltage">
+      <Real
+        quantity="ElectricPotential"
+        unit="V"/>
+    </SimpleType>
+    <SimpleType
+      name="Modelica.Blocks.Types.Init">
+      <Enumeration>
+        <Item name="NoInit"
+          value="1"
+          description="No initialization (start values are used as guess values with fixed=false)"/>
+        <Item name="SteadyState"
+          value="2"
+          description="Steady state initialization (derivatives of states are zero)"/>
+        <Item name="InitialState"
+          value="3"
+          description="Initialization with initial states"/>
+        <Item name="InitialOutput"
+          value="4"
+          description="Initialization with initial outputs (and steady state of the states if possible)"/>
+      </Enumeration>
+    </SimpleType>
+    <SimpleType
+      name="Modelica.Blocks.Types.LimiterHomotopy">
+      <Enumeration>
+        <Item name="NoHomotopy"
+          value="1"
+          description="Homotopy is not used"/>
+        <Item name="Linear"
+          value="2"
+          description="Simplified model without limits"/>
+        <Item name="UpperLimit"
+          value="3"
+          description="Simplified model fixed at upper limit"/>
+        <Item name="LowerLimit"
+          value="4"
+          description="Simplified model fixed at lower limit"/>
+      </Enumeration>
+    </SimpleType>
+  </TypeDefinitions>
+  <DefaultExperiment startTime="0.0"
+    stopTime="15.0"
+    tolerance="1E-06"/>
+  <ModelVariables>
+    <!-- Index for next variable = 1 -->
+    <ScalarVariable
+      name="SysData.S_b"
+      valueReference="16777216"
+      description="System base"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.ApparentPower"
+        displayUnit="MVA"
+        start="30000000"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 2 -->
+    <ScalarVariable
+      name="SysData.fn"
+      valueReference="16777217"
+      description="System frequency"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Frequency"
+        start="50"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 3 -->
+    <ScalarVariable
+      name="machineData.data.Xd"
+      valueReference="16777218"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="1"
+        start="1.183"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 4 -->
+    <ScalarVariable
+      name="machineData.data.R_a"
+      valueReference="16777219"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="1"
+        start="0.004799183673469388"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 5 -->
+    <ScalarVariable
+      name="machineData.data.H"
+      valueReference="16777220"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="s"
+        start="2.137"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 6 -->
+    <ScalarVariable
+      name="machineData.data.D"
+      valueReference="16777221"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 7 -->
+    <ScalarVariable
+      name="machineData.data.Xpd"
+      valueReference="16777222"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="1"
+        start="0.371"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 8 -->
+    <ScalarVariable
+      name="machineData.data.Xppd"
+      valueReference="16777223"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="1"
+        start="0.215"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 9 -->
+    <ScalarVariable
+      name="machineData.data.Xppq"
+      valueReference="16777224"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="1"
+        start="0.241"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 10 -->
+    <ScalarVariable
+      name="machineData.data.Xq"
+      valueReference="16777225"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="1"
+        start="0.62"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 11 -->
+    <ScalarVariable
+      name="machineData.data.Tpd0"
+      valueReference="16777226"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="s"
+        start="3.77"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 12 -->
+    <ScalarVariable
+      name="machineData.data.Tppd0"
+      valueReference="16777227"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="s"
+        start="0.0552"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 13 -->
+    <ScalarVariable
+      name="machineData.data.Tppq0"
+      valueReference="16777228"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="s"
+        start="0.0823"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 14 -->
+    <ScalarVariable
+      name="machineData.data.Xl"
+      valueReference="16777229"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="1"
+        start="0.1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 15 -->
+    <ScalarVariable
+      name="machineData.data.S10"
+      valueReference="16777230"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="1"
+        start="0.1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 16 -->
+    <ScalarVariable
+      name="machineData.data.S12"
+      valueReference="16777231"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="1"
+        start="0.4"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 17 -->
+    <ScalarVariable
+      name="machineData.data.V_0"
+      valueReference="16777232"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="1"
+        start="0.988"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 18 -->
+    <ScalarVariable
+      name="machineData.data.A_0"
+      valueReference="16777233"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="deg"
+        start="0.016"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 19 -->
+    <ScalarVariable
+      name="machineData.data.P_0"
+      valueReference="16777234"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="W"
+        start="18180000.0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 20 -->
+    <ScalarVariable
+      name="machineData.data.Q_0"
+      valueReference="16777235"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="var"
+        start="87240.0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 21 -->
+    <ScalarVariable
+      name="machineData.data.T_R"
+      valueReference="16777236"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="s"
+        start="0.01"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 22 -->
+    <ScalarVariable
+      name="machineData.data.T_C1"
+      valueReference="16777237"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="s"
+        start="2"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 23 -->
+    <ScalarVariable
+      name="machineData.data.T_B1"
+      valueReference="16777238"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="s"
+        start="20"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 24 -->
+    <ScalarVariable
+      name="machineData.data.T_C2"
+      valueReference="16777239"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="s"
+        start="0.02"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 25 -->
+    <ScalarVariable
+      name="machineData.data.T_B2"
+      valueReference="16777240"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="s"
+        start="0.005"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 26 -->
+    <ScalarVariable
+      name="machineData.data.K_R"
+      valueReference="16777241"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="1"
+        start="500"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 27 -->
+    <ScalarVariable
+      name="machineData.data.V_RMAX"
+      valueReference="16777242"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="1"
+        start="4.35"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 28 -->
+    <ScalarVariable
+      name="machineData.data.V_RMIN"
+      valueReference="16777243"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="1"
+        start="-3.825"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 29 -->
+    <ScalarVariable
+      name="machineData.data.T_1_AVR"
+      valueReference="16777244"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="s"
+        start="0.005"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 30 -->
+    <ScalarVariable
+      name="machineData.data.K_C"
+      valueReference="16777245"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="1"
+        start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 31 -->
+    <ScalarVariable
+      name="machineData.data.T_UC1"
+      valueReference="16777246"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="s"
+        start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 32 -->
+    <ScalarVariable
+      name="machineData.data.T_UB1"
+      valueReference="16777247"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="s"
+        start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 33 -->
+    <ScalarVariable
+      name="machineData.data.T_UC2"
+      valueReference="16777248"
+      causality="parameter"
+      variability="fixed">
+      <Real
+        unit="s"
+        start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 34 -->
+    <ScalarVariable
+      name="machineData.data.T_UB2"
+      valueReference="16777249"
+      causality="parameter"
+      variability="fixed">
+      <Real
+        unit="s"
+        start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 35 -->
+    <ScalarVariable
+      name="machineData.data.T_OC1"
+      valueReference="16777250"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="s"
+        start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 36 -->
+    <ScalarVariable
+      name="machineData.data.T_OB1"
+      valueReference="16777251"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        unit="s"
+        start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 37 -->
+    <ScalarVariable
+      name="machineData.data.T_OC2"
+      valueReference="16777252"
+      causality="parameter"
+      variability="fixed">
+      <Real
+        unit="s"
+        start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 38 -->
+    <ScalarVariable
+      name="machineData.data.T_OB2"
+      valueReference="16777253"
+      causality="parameter"
+      variability="fixed">
+      <Real
+        unit="s"
+        start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 39 -->
+    <ScalarVariable
+      name="machineData.data.T_w1"
+      valueReference="16777254"
+      causality="parameter"
+      variability="fixed">
+      <Real start="10"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 40 -->
+    <ScalarVariable
+      name="machineData.data.T_w2"
+      valueReference="16777255"
+      causality="parameter"
+      variability="fixed">
+      <Real start="10"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 41 -->
+    <ScalarVariable
+      name="machineData.data.T_6"
+      valueReference="16777256"
+      causality="parameter"
+      variability="fixed">
+      <Real start="1E-09"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 42 -->
+    <ScalarVariable
+      name="machineData.data.T_w3"
+      valueReference="16777257"
+      causality="parameter"
+      variability="fixed">
+      <Real start="10"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 43 -->
+    <ScalarVariable
+      name="machineData.data.T_w4"
+      valueReference="16777258"
+      causality="parameter"
+      variability="fixed">
+      <Real start="1E-09"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 44 -->
+    <ScalarVariable
+      name="machineData.data.T_7"
+      valueReference="16777259"
+      causality="parameter"
+      variability="fixed">
+      <Real start="10"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 45 -->
+    <ScalarVariable
+      name="machineData.data.K_S2"
+      valueReference="16777260"
+      causality="parameter"
+      variability="fixed">
+      <Real start="0.99"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 46 -->
+    <ScalarVariable
+      name="machineData.data.K_S3"
+      valueReference="16777261"
+      causality="parameter"
+      variability="fixed">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 47 -->
+    <ScalarVariable
+      name="machineData.data.T_8"
+      valueReference="16777262"
+      causality="parameter"
+      variability="fixed">
+      <Real start="0.5"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 48 -->
+    <ScalarVariable
+      name="machineData.data.T_9"
+      valueReference="16777263"
+      causality="parameter"
+      variability="fixed">
+      <Real start="0.1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 49 -->
+    <ScalarVariable
+      name="machineData.data.K_S1"
+      valueReference="16777264"
+      causality="parameter"
+      variability="fixed">
+      <Real start="20"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 50 -->
+    <ScalarVariable
+      name="machineData.data.T_1"
+      valueReference="16777265"
+      causality="parameter"
+      variability="fixed">
+      <Real start="0.15"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 51 -->
+    <ScalarVariable
+      name="machineData.data.T_2"
+      valueReference="16777266"
+      causality="parameter"
+      variability="fixed">
+      <Real start="0.025"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 52 -->
+    <ScalarVariable
+      name="machineData.data.T_3"
+      valueReference="16777267"
+      causality="parameter"
+      variability="fixed">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 53 -->
+    <ScalarVariable
+      name="machineData.data.T_4"
+      valueReference="16777268"
+      causality="parameter"
+      variability="fixed">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 54 -->
+    <ScalarVariable
+      name="machineData.data.T_10"
+      valueReference="16777269"
+      causality="parameter"
+      variability="fixed">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 55 -->
+    <ScalarVariable
+      name="machineData.data.T_11"
+      valueReference="16777270"
+      causality="parameter"
+      variability="fixed">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 56 -->
+    <ScalarVariable
+      name="machineData.data.V_S1MAX"
+      valueReference="16777271"
+      causality="parameter"
+      variability="fixed">
+      <Real start="0.8"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 57 -->
+    <ScalarVariable
+      name="machineData.data.V_S1MIN"
+      valueReference="16777272"
+      causality="parameter"
+      variability="fixed">
+      <Real start="-0.8"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 58 -->
+    <ScalarVariable
+      name="machineData.data.V_S2MAX"
+      valueReference="16777273"
+      causality="parameter"
+      variability="fixed">
+      <Real start="1.25"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 59 -->
+    <ScalarVariable
+      name="machineData.data.V_S2MIN"
+      valueReference="16777274"
+      causality="parameter"
+      variability="fixed">
+      <Real start="-1.25"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 60 -->
+    <ScalarVariable
+      name="machineData.data.V_STMAX"
+      valueReference="16777275"
+      causality="parameter"
+      variability="fixed">
+      <Real start="0.1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 61 -->
+    <ScalarVariable
+      name="machineData.data.V_STMIN"
+      valueReference="16777276"
+      causality="parameter"
+      variability="fixed">
+      <Real start="-0.1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 62 -->
+    <ScalarVariable
+      name="machineData.data.M"
+      valueReference="16777277"
+      causality="parameter"
+      variability="fixed">
+      <Integer start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 63 -->
+    <ScalarVariable
+      name="machineData.data.N"
+      valueReference="16777278"
+      causality="parameter"
+      variability="fixed">
+      <Integer start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 64 -->
+    <ScalarVariable
+      name="const1.k"
+      valueReference="16777279"
+      description="Constant output value"
+      causality="parameter"
+      variability="tunable">
+      <Real start="-1E+60"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 65 -->
+    <ScalarVariable
+      name="const1.y"
+      valueReference="234881087"
+      description="Connector of Real output signal"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 66 -->
+    <ScalarVariable
+      name="const2.k"
+      valueReference="16777280"
+      description="Constant output value"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1E+60"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 67 -->
+    <ScalarVariable
+      name="const2.y"
+      valueReference="234881088"
+      description="Connector of Real output signal"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 68 -->
+    <ScalarVariable
+      name="bus.S_b"
+      valueReference="100663296"
+      description="System base power"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.ApparentPower"
+        displayUnit="MVA"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 69 -->
+    <ScalarVariable
+      name="bus.enableS_b"
+      valueReference="100663297"
+      description="Enable S_b in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 70 -->
+    <ScalarVariable
+      name="bus.V_b"
+      valueReference="16777281"
+      description="Base voltage of the bus"
+      causality="parameter"
+      variability="fixed">
+      <Real
+        declaredType="Modelica.SIunits.Voltage"
+        displayUnit="kV"
+        start="400000.0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 71 -->
+    <ScalarVariable
+      name="bus.enableV_b"
+      valueReference="100663298"
+      description="Enable V_b in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 72 -->
+    <ScalarVariable
+      name="bus.fn"
+      valueReference="100663299"
+      description="System frequency"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Frequency"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 73 -->
+    <ScalarVariable
+      name="bus.enablefn"
+      valueReference="100663300"
+      description="Enable fn in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 74 -->
+    <ScalarVariable
+      name="bus.P_0"
+      valueReference="16777282"
+      description="Initial active power"
+      causality="parameter"
+      variability="fixed">
+      <Real
+        declaredType="Modelica.SIunits.ActivePower"
+        displayUnit="MW"
+        start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 75 -->
+    <ScalarVariable
+      name="bus.enableP_0"
+      valueReference="100663301"
+      description="Enable P_0 in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 76 -->
+    <ScalarVariable
+      name="bus.Q_0"
+      valueReference="16777283"
+      description="Initial reactive power"
+      causality="parameter"
+      variability="fixed">
+      <Real
+        declaredType="Modelica.SIunits.ReactivePower"
+        displayUnit="Mvar"
+        start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 77 -->
+    <ScalarVariable
+      name="bus.enableQ_0"
+      valueReference="100663302"
+      description="Enable Q_0 in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 78 -->
+    <ScalarVariable
+      name="bus.v_0"
+      valueReference="16777284"
+      description="Initial voltage magnitude (pu)"
+      causality="parameter"
+      variability="fixed">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"
+        start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 79 -->
+    <ScalarVariable
+      name="bus.enablev_0"
+      valueReference="100663303"
+      description="Enable v_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 80 -->
+    <ScalarVariable
+      name="bus.angle_0"
+      valueReference="100663304"
+      description="Initial voltage angle"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Conversions.NonSIunits.Angle_deg"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 81 -->
+    <ScalarVariable
+      name="bus.enableangle_0"
+      valueReference="100663305"
+      description="Enable angle_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 82 -->
+    <ScalarVariable
+      name="bus.displayPF"
+      valueReference="16777285"
+      description="Display power flow:"
+      causality="parameter"
+      variability="fixed">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 83 -->
+    <ScalarVariable
+      name="bus.enabledisplayPF"
+      valueReference="100663306"
+      description="Enable displayPF in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 84 -->
+    <ScalarVariable
+      name="bus.p.vr"
+      valueReference="369098764"
+      description="Real part of the voltage">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 85 -->
+    <ScalarVariable
+      name="bus.p.vi"
+      valueReference="369098765"
+      description="Imaginary part of the voltage">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 86 -->
+    <ScalarVariable
+      name="bus.p.ir"
+      valueReference="100663310"
+      description="Real part of the current"
+      variability="constant">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"
+        start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 87 -->
+    <ScalarVariable
+      name="bus.p.ii"
+      valueReference="100663311"
+      description="Imaginary part of the current"
+      variability="constant">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"
+        start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 88 -->
+    <ScalarVariable
+      name="bus.V"
+      valueReference="905969680"
+      description="Bus voltage magnitude (pu)">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 89 -->
+    <ScalarVariable
+      name="bus.angle"
+      valueReference="905969681"
+      description="Bus voltage angle">
+      <Real
+        declaredType="Modelica.SIunits.Conversions.NonSIunits.Angle_deg"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 90 -->
+    <ScalarVariable
+      name="Gen1.S_b"
+      valueReference="100663314"
+      description="System base power"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.ApparentPower"
+        displayUnit="MVA"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 91 -->
+    <ScalarVariable
+      name="Gen1.enableS_b"
+      valueReference="100663315"
+      description="Enable S_b in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 92 -->
+    <ScalarVariable
+      name="Gen1.V_b"
+      valueReference="16777286"
+      description="Base voltage of the bus"
+      causality="parameter"
+      variability="fixed">
+      <Real
+        declaredType="Modelica.SIunits.Voltage"
+        displayUnit="kV"
+        start="400000.0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 93 -->
+    <ScalarVariable
+      name="Gen1.enableV_b"
+      valueReference="100663316"
+      description="Enable V_b in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 94 -->
+    <ScalarVariable
+      name="Gen1.fn"
+      valueReference="100663317"
+      description="System frequency"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Frequency"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 95 -->
+    <ScalarVariable
+      name="Gen1.enablefn"
+      valueReference="100663318"
+      description="Enable fn in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 96 -->
+    <ScalarVariable
+      name="Gen1.P_0"
+      valueReference="100663319"
+      description="Initial active power"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.ActivePower"
+        displayUnit="MW"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 97 -->
+    <ScalarVariable
+      name="Gen1.enableP_0"
+      valueReference="100663320"
+      description="Enable P_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 98 -->
+    <ScalarVariable
+      name="Gen1.Q_0"
+      valueReference="100663321"
+      description="Initial reactive power"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.ReactivePower"
+        displayUnit="Mvar"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 99 -->
+    <ScalarVariable
+      name="Gen1.enableQ_0"
+      valueReference="100663322"
+      description="Enable Q_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 100 -->
+    <ScalarVariable
+      name="Gen1.v_0"
+      valueReference="16777287"
+      description="Initial voltage magnitude (pu)"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"
+        start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 101 -->
+    <ScalarVariable
+      name="Gen1.enablev_0"
+      valueReference="100663323"
+      description="Enable v_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 102 -->
+    <ScalarVariable
+      name="Gen1.angle_0"
+      valueReference="100663324"
+      description="Initial voltage angle"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Conversions.NonSIunits.Angle_deg"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 103 -->
+    <ScalarVariable
+      name="Gen1.enableangle_0"
+      valueReference="100663325"
+      description="Enable angle_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 104 -->
+    <ScalarVariable
+      name="Gen1.displayPF"
+      valueReference="16777288"
+      description="Display power flow:"
+      causality="parameter"
+      variability="fixed">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 105 -->
+    <ScalarVariable
+      name="Gen1.enabledisplayPF"
+      valueReference="100663326"
+      description="Enable displayPF in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 106 -->
+    <ScalarVariable
+      name="Gen1.M_b"
+      valueReference="16777289"
+      description="Machine base power"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.ApparentPower"
+        displayUnit="MVA"
+        start="30000000"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 107 -->
+    <ScalarVariable
+      name="Gen1.Tpd0"
+      valueReference="100663328"
+      description="d-axis transient open-circuit time constant"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 108 -->
+    <ScalarVariable
+      name="Gen1.Tppd0"
+      valueReference="100663329"
+      description="d-axis sub-transient open-circuit time constant"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 109 -->
+    <ScalarVariable
+      name="Gen1.Tppq0"
+      valueReference="100663330"
+      description="q-axis sub-transient open-circuit time constant"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 110 -->
+    <ScalarVariable
+      name="Gen1.H"
+      valueReference="100663331"
+      description="Inertia constant"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 111 -->
+    <ScalarVariable
+      name="Gen1.D"
+      valueReference="100663332"
+      description="Speed damping"
+      variability="tunable">
+      <Real/>
+    </ScalarVariable>
+    <!-- Index for next variable = 112 -->
+    <ScalarVariable
+      name="Gen1.Xd"
+      valueReference="100663333"
+      description="d-axis reactance"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 113 -->
+    <ScalarVariable
+      name="Gen1.Xq"
+      valueReference="100663334"
+      description="q-axis reactance"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 114 -->
+    <ScalarVariable
+      name="Gen1.Xpd"
+      valueReference="100663335"
+      description="d-axis transient reactance"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 115 -->
+    <ScalarVariable
+      name="Gen1.Xppd"
+      valueReference="100663336"
+      description="d-axis sub-transient reactance"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 116 -->
+    <ScalarVariable
+      name="Gen1.Xppq"
+      valueReference="100663337"
+      description="q-axis sub-transient reactance"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 117 -->
+    <ScalarVariable
+      name="Gen1.Xl"
+      valueReference="100663338"
+      description="leakage reactance"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 118 -->
+    <ScalarVariable
+      name="Gen1.S10"
+      valueReference="100663339"
+      description="Saturation factor at 1.0 pu"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 119 -->
+    <ScalarVariable
+      name="Gen1.S12"
+      valueReference="100663340"
+      description="Saturation factor at 1.2 pu"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 120 -->
+    <ScalarVariable
+      name="Gen1.R_a"
+      valueReference="100663341"
+      description="Armature resistance"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 121 -->
+    <ScalarVariable
+      name="Gen1.p.vr"
+      valueReference="369098764"
+      description="Real part of the voltage">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 122 -->
+    <ScalarVariable
+      name="Gen1.p.vi"
+      valueReference="369098765"
+      description="Imaginary part of the voltage">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 123 -->
+    <ScalarVariable
+      name="Gen1.p.ir"
+      valueReference="369098798"
+      description="Real part of the current">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 124 -->
+    <ScalarVariable
+      name="Gen1.p.ii"
+      valueReference="369098799"
+      description="Imaginary part of the current">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 125 -->
+    <ScalarVariable
+      name="Gen1.SPEED"
+      valueReference="33554432"
+      description="Machine speed deviation from nominal (pu)">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 126 -->
+    <ScalarVariable
+      name="Gen1.PMECH"
+      valueReference="100663403"
+      description="Turbine mechanical power (pu, machine base)"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 127 -->
+    <ScalarVariable
+      name="Gen1.PMECH0"
+      valueReference="100663403"
+      description="Initial value of machine electrical power (pu, machine base)"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 128 -->
+    <ScalarVariable
+      name="Gen1.ETERM"
+      valueReference="369098800"
+      description="Machine terminal voltage (pu)">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 129 -->
+    <ScalarVariable
+      name="Gen1.EFD"
+      valueReference="335544320"
+      description="Generator main field voltage (pu)">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 130 -->
+    <ScalarVariable
+      name="Gen1.EFD0"
+      valueReference="100663402"
+      description="Initial generator main field voltage (pu)"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 131 -->
+    <ScalarVariable
+      name="Gen1.PELEC"
+      valueReference="905969713"
+      description="Machine electrical power (pu, machine base)">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 132 -->
+    <ScalarVariable
+      name="Gen1.ISORCE"
+      valueReference="369098802"
+      description="Machine source current (pu)">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 133 -->
+    <ScalarVariable
+      name="Gen1.XADIFD"
+      valueReference="369098802"
+      description="Machine field current (pu)">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 134 -->
+    <ScalarVariable
+      name="Gen1.w"
+      valueReference="33554432"
+      description="Machine speed deviation (pu)">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 135 -->
+    <ScalarVariable
+      name="der(Gen1.w)"
+      valueReference="587202560"
+      description="der(Machine speed deviation (pu))">
+      <Real
+        unit="s-1"
+        derivative="134"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 136 -->
+    <ScalarVariable
+      name="Gen1.delta"
+      valueReference="33554433"
+      description="Rotor angle">
+      <Real
+        declaredType="Modelica.SIunits.Angle"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 137 -->
+    <ScalarVariable
+      name="der(Gen1.delta)"
+      valueReference="587202561"
+      description="der(Rotor angle)">
+      <Real
+        unit="rad/s"
+        derivative="136"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 138 -->
+    <ScalarVariable
+      name="Gen1.Vt"
+      valueReference="369098800"
+      description="Bus voltage magnitude (pu)">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 139 -->
+    <ScalarVariable
+      name="Gen1.anglev"
+      valueReference="905969715"
+      description="Bus voltage angle">
+      <Real
+        declaredType="Modelica.SIunits.Angle"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 140 -->
+    <ScalarVariable
+      name="Gen1.I"
+      valueReference="905969716"
+      description="Terminal current magnitude (pu)">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 141 -->
+    <ScalarVariable
+      name="Gen1.anglei"
+      valueReference="905969717"
+      description="Terminal current angle">
+      <Real
+        declaredType="Modelica.SIunits.Angle"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 142 -->
+    <ScalarVariable
+      name="Gen1.P"
+      valueReference="905969718"
+      description="Active power (pu, system base)">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 143 -->
+    <ScalarVariable
+      name="Gen1.Q"
+      valueReference="905969719"
+      description="Reactive power (pu, system base)">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 144 -->
+    <ScalarVariable
+      name="Gen1.Te"
+      valueReference="637534264"
+      description="Electrical torque (pu)">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 145 -->
+    <ScalarVariable
+      name="Gen1.id"
+      valueReference="369098809"
+      description="d-axis armature current (pu)">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 146 -->
+    <ScalarVariable
+      name="Gen1.iq"
+      valueReference="369098810"
+      description="q-axis armature current (pu)">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 147 -->
+    <ScalarVariable
+      name="Gen1.ud"
+      valueReference="369098811"
+      description="d-axis terminal voltage (pu)">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 148 -->
+    <ScalarVariable
+      name="Gen1.uq"
+      valueReference="369098812"
+      description="q-axis terminal voltage (pu)">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 149 -->
+    <ScalarVariable
+      name="Gen1.Epq"
+      valueReference="33554434"
+      description="q-axis voltage behind transient reactance (pu)">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 150 -->
+    <ScalarVariable
+      name="der(Gen1.Epq)"
+      valueReference="587202562"
+      description="der(q-axis voltage behind transient reactance (pu))">
+      <Real
+        unit="s-1"
+        derivative="149"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 151 -->
+    <ScalarVariable
+      name="Gen1.PSIkd"
+      valueReference="33554435"
+      description="d-axis rotor flux linkage (pu)">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 152 -->
+    <ScalarVariable
+      name="der(Gen1.PSIkd)"
+      valueReference="587202563"
+      description="der(d-axis rotor flux linkage (pu))">
+      <Real
+        unit="s-1"
+        derivative="151"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 153 -->
+    <ScalarVariable
+      name="Gen1.PSIppq"
+      valueReference="33554436"
+      description="q-axis subtransient flux linkage (pu)">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 154 -->
+    <ScalarVariable
+      name="der(Gen1.PSIppq)"
+      valueReference="587202564"
+      description="der(q-axis subtransient flux linkage (pu))">
+      <Real
+        unit="s-1"
+        derivative="153"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 155 -->
+    <ScalarVariable
+      name="Gen1.PSIppd"
+      valueReference="369098821"
+      description="d-axis subtransient flux linkage (pu)">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 156 -->
+    <ScalarVariable
+      name="Gen1.PSId"
+      valueReference="369098822"
+      description="d-axis flux linkage (pu)">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 157 -->
+    <ScalarVariable
+      name="Gen1.PSIq"
+      valueReference="369098823"
+      description="q-axis flux linkage (pu)">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 158 -->
+    <ScalarVariable
+      name="Gen1.XadIfd"
+      valueReference="369098802"
+      description="Machine field current (pu)">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 159 -->
+    <ScalarVariable
+      name="sT5B.VUEL"
+      valueReference="234881087"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 160 -->
+    <ScalarVariable
+      name="sT5B.VOEL"
+      valueReference="234881088"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 161 -->
+    <ScalarVariable
+      name="sT5B.EFD"
+      valueReference="335544320"
+      description="Excitation Voltage (pu)">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 162 -->
+    <ScalarVariable
+      name="sT5B.EFD0"
+      valueReference="234881173"
+      variability="fixed">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 163 -->
+    <ScalarVariable
+      name="sT5B.VOTHSG"
+      valueReference="234881169"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 164 -->
+    <ScalarVariable
+      name="sT5B.ECOMP"
+      valueReference="369098864">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 165 -->
+    <ScalarVariable
+      name="sT5B.VoltageReference.k"
+      valueReference="100663409"
+      description="Constant output value"
+      variability="fixed">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 166 -->
+    <ScalarVariable
+      name="sT5B.VoltageReference.y"
+      valueReference="100663409"
+      description="Connector of Real output signal"
+      variability="fixed">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 167 -->
+    <ScalarVariable
+      name="sT5B.DiffV.u1"
+      valueReference="100663409"
+      description="Connector of Real input signal 1"
+      variability="fixed">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 168 -->
+    <ScalarVariable
+      name="sT5B.DiffV.u2"
+      valueReference="369098866"
+      description="Connector of Real input signal 2">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 169 -->
+    <ScalarVariable
+      name="sT5B.DiffV.y"
+      valueReference="369098867"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 170 -->
+    <ScalarVariable
+      name="sT5B.DiffV.k1"
+      valueReference="16777290"
+      description="Gain of input signal 1"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 171 -->
+    <ScalarVariable
+      name="sT5B.DiffV.k2"
+      valueReference="16777291"
+      description="Gain of input signal 2"
+      causality="parameter"
+      variability="tunable">
+      <Real start="-1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 172 -->
+    <ScalarVariable
+      name="sT5B.XADIFD"
+      valueReference="369098802">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 173 -->
+    <ScalarVariable
+      name="sT5B.T_R"
+      valueReference="100663415"
+      description="Regulator input filter time constant"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 174 -->
+    <ScalarVariable
+      name="sT5B.T_C1"
+      valueReference="100663416"
+      description="Voltage regulator numerator (lead) time constant (first block)"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 175 -->
+    <ScalarVariable
+      name="sT5B.T_B1"
+      valueReference="100663417"
+      description="Voltage regulator denominator (lag) time constant (first block)"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 176 -->
+    <ScalarVariable
+      name="sT5B.T_C2"
+      valueReference="100663418"
+      description="Voltage regulator numerator (lead) time constant (second block)"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 177 -->
+    <ScalarVariable
+      name="sT5B.T_B2"
+      valueReference="100663419"
+      description="Voltage regulator denominator (lag) time constant (second block)"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 178 -->
+    <ScalarVariable
+      name="sT5B.K_R"
+      valueReference="100663420"
+      description="Voltage regulator gain"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 179 -->
+    <ScalarVariable
+      name="sT5B.V_RMAX"
+      valueReference="100663421"
+      description="Maximum regulator output"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 180 -->
+    <ScalarVariable
+      name="sT5B.V_RMIN"
+      valueReference="100663422"
+      description="Minimum regulator output"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 181 -->
+    <ScalarVariable
+      name="sT5B.T_1"
+      valueReference="100663423"
+      description="Thyristor bridge firing control equivalent time constant"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 182 -->
+    <ScalarVariable
+      name="sT5B.K_C"
+      valueReference="100663424"
+      description="Rectifier loading factor proportional to commutating reactance"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 183 -->
+    <ScalarVariable
+      name="sT5B.T_UC1"
+      valueReference="100663425"
+      description="UEL regulator numerator (lead) time constant (first block)"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 184 -->
+    <ScalarVariable
+      name="sT5B.T_UB1"
+      valueReference="100663426"
+      description="UEL regulator denominator (lag) time constant (first block)"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 185 -->
+    <ScalarVariable
+      name="sT5B.T_UC2"
+      valueReference="100663427"
+      description="UEL regulator numerator (lead) time constant (second block)"
+      variability="fixed">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 186 -->
+    <ScalarVariable
+      name="sT5B.T_UB2"
+      valueReference="100663428"
+      description="UEL regulator denominator (lag) time constant (second block)"
+      variability="fixed">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 187 -->
+    <ScalarVariable
+      name="sT5B.T_OC1"
+      valueReference="100663429"
+      description="OEL regulator numerator (lead) time constant (first block)"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 188 -->
+    <ScalarVariable
+      name="sT5B.T_OB1"
+      valueReference="100663430"
+      description="OEL regulator denominator (lag) time constant (first block)"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 189 -->
+    <ScalarVariable
+      name="sT5B.T_OC2"
+      valueReference="100663431"
+      description="OEL regulator numerator (lead) time constant (second block)"
+      variability="fixed">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 190 -->
+    <ScalarVariable
+      name="sT5B.T_OB2"
+      valueReference="100663432"
+      description="OEL regulator denominator (lag) time constant (second block)"
+      variability="fixed">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 191 -->
+    <ScalarVariable
+      name="sT5B.VERR1.u1"
+      valueReference="234881169"
+      description="Connector of Real input signal 1"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 192 -->
+    <ScalarVariable
+      name="sT5B.VERR1.u2"
+      valueReference="369098889"
+      description="Connector of Real input signal 2">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 193 -->
+    <ScalarVariable
+      name="sT5B.VERR1.y"
+      valueReference="369098890"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 194 -->
+    <ScalarVariable
+      name="sT5B.VERR1.k1"
+      valueReference="16777292"
+      description="Gain of input signal 1"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 195 -->
+    <ScalarVariable
+      name="sT5B.VERR1.k2"
+      valueReference="16777293"
+      description="Gain of input signal 2"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 196 -->
+    <ScalarVariable
+      name="sT5B.lV_Gate.n1"
+      valueReference="234881088"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 197 -->
+    <ScalarVariable
+      name="sT5B.lV_Gate.n2"
+      valueReference="369098891">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 198 -->
+    <ScalarVariable
+      name="sT5B.lV_Gate.p"
+      valueReference="369098889">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 199 -->
+    <ScalarVariable
+      name="sT5B.hV_Gate.n1"
+      valueReference="234881087"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 200 -->
+    <ScalarVariable
+      name="sT5B.hV_Gate.n2"
+      valueReference="369098867">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 201 -->
+    <ScalarVariable
+      name="sT5B.hV_Gate.p"
+      valueReference="369098891">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 202 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.u"
+      valueReference="369098890"
+      description="Connector of Real input signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 203 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.y"
+      valueReference="369098892"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 204 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.K"
+      valueReference="16777294"
+      description="Gain"
+      causality="parameter"
+      variability="fixed">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 205 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.T1"
+      valueReference="100663437"
+      description="Lead time constant"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 206 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.T2"
+      valueReference="100663438"
+      description="Lag time constant"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 207 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.outMax"
+      valueReference="100663439"
+      description="Maximum output value"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 208 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.outMin"
+      valueReference="100663440"
+      description="Minimum output value"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 209 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.y_start"
+      valueReference="100663441"
+      description="Output start value"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 210 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.add2.u1"
+      valueReference="369098890"
+      description="Connector of Real input signal 1">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 211 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.add2.u2"
+      valueReference="369098898"
+      description="Connector of Real input signal 2">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 212 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.add2.y"
+      valueReference="369098899"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 213 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.add2.k1"
+      valueReference="16777295"
+      description="Gain of input signal 1"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 214 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.add2.k2"
+      valueReference="16777296"
+      description="Gain of input signal 2"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 215 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.gain.k"
+      valueReference="100663444"
+      description="Gain value multiplied with input signal"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 216 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.gain.u"
+      valueReference="369098899"
+      description="Input signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 217 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.gain.y"
+      valueReference="369098901"
+      description="Output signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 218 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.add3.u1"
+      valueReference="369098892"
+      description="Connector of Real input signal 1">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 219 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.add3.u2"
+      valueReference="33554437"
+      description="Connector of Real input signal 2">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 220 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.add3.y"
+      valueReference="637534358"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 221 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.add3.k1"
+      valueReference="16777297"
+      description="Gain of input signal 1"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 222 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.add3.k2"
+      valueReference="16777298"
+      description="Gain of input signal 2"
+      causality="parameter"
+      variability="tunable">
+      <Real start="-1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 223 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.integrator.k"
+      valueReference="100663447"
+      description="Integrator gain"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 224 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.integrator.initType"
+      valueReference="100663450"
+      description="Type of initialization (1: no init, 2: steady state, 3,4: initial output)"
+      variability="constant">
+      <Enumeration
+        declaredType="Modelica.Blocks.Types.Init"
+        start="2"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 225 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.integrator.y_start"
+      valueReference="100663451"
+      description="Initial or guess value of output (= state)"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 226 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.integrator.u"
+      valueReference="637534358"
+      description="Connector of Real input signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 227 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.integrator.y"
+      valueReference="33554437"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 228 -->
+    <ScalarVariable
+      name="der(sT5B.imLimitedLeadLag.integrator.y)"
+      valueReference="587202565"
+      description="der(Connector of Real output signal)">
+      <Real
+        unit="s-1"
+        derivative="227"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 229 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.gain1.k"
+      valueReference="100663454"
+      description="Gain value multiplied with input signal"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 230 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.gain1.u"
+      valueReference="33554437"
+      description="Input signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 231 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.gain1.y"
+      valueReference="369098898"
+      description="Output signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 232 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.limiter.uMax"
+      valueReference="100663455"
+      description="Upper limits of input signals"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 233 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.limiter.uMin"
+      valueReference="100663456"
+      description="Lower limits of input signals"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 234 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.limiter.strict"
+      valueReference="100663457"
+      description="= true, if strict limits with noEvent(..)"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 235 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.limiter.homotopyType"
+      valueReference="100663458"
+      description="Simplified model for homotopy-based initialization"
+      variability="constant">
+      <Enumeration
+        declaredType="Modelica.Blocks.Types.LimiterHomotopy"
+        start="2"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 236 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.limiter.limitsAtInit"
+      valueReference="100663459"
+      description="Has no longer an effect and is only kept for backwards compatibility (the implementation uses now the homotopy operator)"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 237 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.limiter.u"
+      valueReference="369098901"
+      description="Connector of Real input signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 238 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag.limiter.y"
+      valueReference="369098892"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 239 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.u"
+      valueReference="369098892"
+      description="Connector of Real input signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 240 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.y"
+      valueReference="369098916"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 241 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.K"
+      valueReference="16777299"
+      description="Gain"
+      causality="parameter"
+      variability="fixed">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 242 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.T1"
+      valueReference="100663461"
+      description="Lead time constant"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 243 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.T2"
+      valueReference="100663462"
+      description="Lag time constant"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 244 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.outMax"
+      valueReference="100663463"
+      description="Maximum output value"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 245 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.outMin"
+      valueReference="100663464"
+      description="Minimum output value"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 246 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.y_start"
+      valueReference="100663465"
+      description="Output start value"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 247 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.add2.u1"
+      valueReference="369098892"
+      description="Connector of Real input signal 1">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 248 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.add2.u2"
+      valueReference="369098922"
+      description="Connector of Real input signal 2">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 249 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.add2.y"
+      valueReference="369098923"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 250 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.add2.k1"
+      valueReference="16777300"
+      description="Gain of input signal 1"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 251 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.add2.k2"
+      valueReference="16777301"
+      description="Gain of input signal 2"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 252 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.gain.k"
+      valueReference="100663468"
+      description="Gain value multiplied with input signal"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 253 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.gain.u"
+      valueReference="369098923"
+      description="Input signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 254 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.gain.y"
+      valueReference="369098925"
+      description="Output signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 255 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.add3.u1"
+      valueReference="369098916"
+      description="Connector of Real input signal 1">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 256 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.add3.u2"
+      valueReference="33554438"
+      description="Connector of Real input signal 2">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 257 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.add3.y"
+      valueReference="637534382"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 258 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.add3.k1"
+      valueReference="16777302"
+      description="Gain of input signal 1"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 259 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.add3.k2"
+      valueReference="16777303"
+      description="Gain of input signal 2"
+      causality="parameter"
+      variability="tunable">
+      <Real start="-1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 260 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.integrator.k"
+      valueReference="100663471"
+      description="Integrator gain"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 261 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.integrator.initType"
+      valueReference="100663474"
+      description="Type of initialization (1: no init, 2: steady state, 3,4: initial output)"
+      variability="constant">
+      <Enumeration
+        declaredType="Modelica.Blocks.Types.Init"
+        start="2"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 262 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.integrator.y_start"
+      valueReference="100663475"
+      description="Initial or guess value of output (= state)"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 263 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.integrator.u"
+      valueReference="637534382"
+      description="Connector of Real input signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 264 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.integrator.y"
+      valueReference="33554438"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 265 -->
+    <ScalarVariable
+      name="der(sT5B.imLimitedLeadLag2.integrator.y)"
+      valueReference="587202566"
+      description="der(Connector of Real output signal)">
+      <Real
+        unit="s-1"
+        derivative="264"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 266 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.gain1.k"
+      valueReference="100663478"
+      description="Gain value multiplied with input signal"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 267 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.gain1.u"
+      valueReference="33554438"
+      description="Input signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 268 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.gain1.y"
+      valueReference="369098922"
+      description="Output signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 269 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.limiter.uMax"
+      valueReference="100663479"
+      description="Upper limits of input signals"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 270 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.limiter.uMin"
+      valueReference="100663480"
+      description="Lower limits of input signals"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 271 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.limiter.strict"
+      valueReference="100663481"
+      description="= true, if strict limits with noEvent(..)"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 272 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.limiter.homotopyType"
+      valueReference="100663482"
+      description="Simplified model for homotopy-based initialization"
+      variability="constant">
+      <Enumeration
+        declaredType="Modelica.Blocks.Types.LimiterHomotopy"
+        start="2"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 273 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.limiter.limitsAtInit"
+      valueReference="100663483"
+      description="Has no longer an effect and is only kept for backwards compatibility (the implementation uses now the homotopy operator)"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 274 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.limiter.u"
+      valueReference="369098925"
+      description="Connector of Real input signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 275 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag2.limiter.y"
+      valueReference="369098916"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 276 -->
+    <ScalarVariable
+      name="sT5B.K_r.k"
+      valueReference="100663484"
+      description="Gain value multiplied with input signal"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 277 -->
+    <ScalarVariable
+      name="sT5B.K_r.u"
+      valueReference="369098916"
+      description="Input signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 278 -->
+    <ScalarVariable
+      name="sT5B.K_r.y"
+      valueReference="369098941"
+      description="Output signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 279 -->
+    <ScalarVariable
+      name="sT5B.limiter.uMax"
+      valueReference="100663486"
+      description="Upper limits of input signals"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 280 -->
+    <ScalarVariable
+      name="sT5B.limiter.uMin"
+      valueReference="100663487"
+      description="Lower limits of input signals"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 281 -->
+    <ScalarVariable
+      name="sT5B.limiter.strict"
+      valueReference="100663488"
+      description="= true, if strict limits with noEvent(..)"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 282 -->
+    <ScalarVariable
+      name="sT5B.limiter.homotopyType"
+      valueReference="100663489"
+      description="Simplified model for homotopy-based initialization"
+      variability="constant">
+      <Enumeration
+        declaredType="Modelica.Blocks.Types.LimiterHomotopy"
+        start="2"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 283 -->
+    <ScalarVariable
+      name="sT5B.limiter.limitsAtInit"
+      valueReference="100663490"
+      description="Has no longer an effect and is only kept for backwards compatibility (the implementation uses now the homotopy operator)"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 284 -->
+    <ScalarVariable
+      name="sT5B.limiter.u"
+      valueReference="369098941"
+      description="Connector of Real input signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 285 -->
+    <ScalarVariable
+      name="sT5B.limiter.y"
+      valueReference="369098947"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 286 -->
+    <ScalarVariable
+      name="sT5B.VERR2.u1"
+      valueReference="369098948"
+      description="Connector of Real input signal 1">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 287 -->
+    <ScalarVariable
+      name="sT5B.VERR2.u2"
+      valueReference="369098947"
+      description="Connector of Real input signal 2">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 288 -->
+    <ScalarVariable
+      name="sT5B.VERR2.y"
+      valueReference="369098949"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 289 -->
+    <ScalarVariable
+      name="sT5B.VERR2.k1"
+      valueReference="16777304"
+      description="Gain of input signal 1"
+      causality="parameter"
+      variability="tunable">
+      <Real start="-1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 290 -->
+    <ScalarVariable
+      name="sT5B.VERR2.k2"
+      valueReference="16777305"
+      description="Gain of input signal 2"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 291 -->
+    <ScalarVariable
+      name="sT5B.K_c.k"
+      valueReference="100663494"
+      description="Gain value multiplied with input signal"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 292 -->
+    <ScalarVariable
+      name="sT5B.K_c.u"
+      valueReference="369098802"
+      description="Input signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 293 -->
+    <ScalarVariable
+      name="sT5B.K_c.y"
+      valueReference="369098948"
+      description="Output signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 294 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.u"
+      valueReference="369098890"
+      description="Connector of Real input signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 295 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.y"
+      valueReference="637534407"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 296 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.K"
+      valueReference="16777306"
+      description="Gain"
+      causality="parameter"
+      variability="fixed">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 297 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.T1"
+      valueReference="100663496"
+      description="Lead time constant"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 298 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.T2"
+      valueReference="100663497"
+      description="Lag time constant"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 299 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.outMax"
+      valueReference="100663498"
+      description="Maximum output value"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 300 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.outMin"
+      valueReference="100663499"
+      description="Minimum output value"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 301 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.y_start"
+      valueReference="100663500"
+      description="Output start value"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 302 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.add2.u1"
+      valueReference="369098890"
+      description="Connector of Real input signal 1">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 303 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.add2.u2"
+      valueReference="637534413"
+      description="Connector of Real input signal 2">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 304 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.add2.y"
+      valueReference="637534414"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 305 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.add2.k1"
+      valueReference="16777307"
+      description="Gain of input signal 1"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 306 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.add2.k2"
+      valueReference="16777308"
+      description="Gain of input signal 2"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 307 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.gain.k"
+      valueReference="100663503"
+      description="Gain value multiplied with input signal"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 308 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.gain.u"
+      valueReference="637534414"
+      description="Input signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 309 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.gain.y"
+      valueReference="637534416"
+      description="Output signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 310 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.add3.u1"
+      valueReference="637534407"
+      description="Connector of Real input signal 1">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 311 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.add3.u2"
+      valueReference="33554439"
+      description="Connector of Real input signal 2">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 312 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.add3.y"
+      valueReference="637534417"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 313 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.add3.k1"
+      valueReference="16777309"
+      description="Gain of input signal 1"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 314 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.add3.k2"
+      valueReference="16777310"
+      description="Gain of input signal 2"
+      causality="parameter"
+      variability="tunable">
+      <Real start="-1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 315 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.integrator.k"
+      valueReference="100663506"
+      description="Integrator gain"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 316 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.integrator.initType"
+      valueReference="100663509"
+      description="Type of initialization (1: no init, 2: steady state, 3,4: initial output)"
+      variability="constant">
+      <Enumeration
+        declaredType="Modelica.Blocks.Types.Init"
+        start="2"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 317 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.integrator.y_start"
+      valueReference="100663510"
+      description="Initial or guess value of output (= state)"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 318 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.integrator.u"
+      valueReference="637534417"
+      description="Connector of Real input signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 319 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.integrator.y"
+      valueReference="33554439"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 320 -->
+    <ScalarVariable
+      name="der(sT5B.imLimitedLeadLag1.integrator.y)"
+      valueReference="587202567"
+      description="der(Connector of Real output signal)">
+      <Real
+        unit="s-1"
+        derivative="319"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 321 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.gain1.k"
+      valueReference="100663513"
+      description="Gain value multiplied with input signal"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 322 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.gain1.u"
+      valueReference="33554439"
+      description="Input signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 323 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.gain1.y"
+      valueReference="637534413"
+      description="Output signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 324 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.limiter.uMax"
+      valueReference="100663514"
+      description="Upper limits of input signals"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 325 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.limiter.uMin"
+      valueReference="100663515"
+      description="Lower limits of input signals"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 326 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.limiter.strict"
+      valueReference="100663516"
+      description="= true, if strict limits with noEvent(..)"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 327 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.limiter.homotopyType"
+      valueReference="100663517"
+      description="Simplified model for homotopy-based initialization"
+      variability="constant">
+      <Enumeration
+        declaredType="Modelica.Blocks.Types.LimiterHomotopy"
+        start="2"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 328 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.limiter.limitsAtInit"
+      valueReference="100663518"
+      description="Has no longer an effect and is only kept for backwards compatibility (the implementation uses now the homotopy operator)"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 329 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.limiter.u"
+      valueReference="637534416"
+      description="Connector of Real input signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 330 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag1.limiter.y"
+      valueReference="637534407"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 331 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.u"
+      valueReference="637534407"
+      description="Connector of Real input signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 332 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.y"
+      valueReference="637534431"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 333 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.K"
+      valueReference="16777311"
+      description="Gain"
+      causality="parameter"
+      variability="fixed">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 334 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.T1"
+      valueReference="100663520"
+      description="Lead time constant"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 335 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.T2"
+      valueReference="100663521"
+      description="Lag time constant"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 336 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.outMax"
+      valueReference="100663522"
+      description="Maximum output value"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 337 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.outMin"
+      valueReference="100663523"
+      description="Minimum output value"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 338 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.y_start"
+      valueReference="100663524"
+      description="Output start value"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 339 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.add2.u1"
+      valueReference="637534407"
+      description="Connector of Real input signal 1">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 340 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.add2.u2"
+      valueReference="637534437"
+      description="Connector of Real input signal 2">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 341 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.add2.y"
+      valueReference="637534438"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 342 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.add2.k1"
+      valueReference="16777312"
+      description="Gain of input signal 1"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 343 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.add2.k2"
+      valueReference="16777313"
+      description="Gain of input signal 2"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 344 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.gain.k"
+      valueReference="100663527"
+      description="Gain value multiplied with input signal"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 345 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.gain.u"
+      valueReference="637534438"
+      description="Input signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 346 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.gain.y"
+      valueReference="637534440"
+      description="Output signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 347 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.add3.u1"
+      valueReference="637534431"
+      description="Connector of Real input signal 1">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 348 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.add3.u2"
+      valueReference="33554440"
+      description="Connector of Real input signal 2">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 349 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.add3.y"
+      valueReference="637534441"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 350 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.add3.k1"
+      valueReference="16777314"
+      description="Gain of input signal 1"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 351 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.add3.k2"
+      valueReference="16777315"
+      description="Gain of input signal 2"
+      causality="parameter"
+      variability="tunable">
+      <Real start="-1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 352 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.integrator.k"
+      valueReference="100663530"
+      description="Integrator gain"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 353 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.integrator.initType"
+      valueReference="100663533"
+      description="Type of initialization (1: no init, 2: steady state, 3,4: initial output)"
+      variability="constant">
+      <Enumeration
+        declaredType="Modelica.Blocks.Types.Init"
+        start="2"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 354 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.integrator.y_start"
+      valueReference="100663534"
+      description="Initial or guess value of output (= state)"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 355 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.integrator.u"
+      valueReference="637534441"
+      description="Connector of Real input signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 356 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.integrator.y"
+      valueReference="33554440"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 357 -->
+    <ScalarVariable
+      name="der(sT5B.imLimitedLeadLag3.integrator.y)"
+      valueReference="587202568"
+      description="der(Connector of Real output signal)">
+      <Real
+        unit="s-1"
+        derivative="356"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 358 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.gain1.k"
+      valueReference="100663537"
+      description="Gain value multiplied with input signal"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 359 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.gain1.u"
+      valueReference="33554440"
+      description="Input signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 360 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.gain1.y"
+      valueReference="637534437"
+      description="Output signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 361 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.limiter.uMax"
+      valueReference="100663538"
+      description="Upper limits of input signals"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 362 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.limiter.uMin"
+      valueReference="100663539"
+      description="Lower limits of input signals"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 363 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.limiter.strict"
+      valueReference="100663540"
+      description="= true, if strict limits with noEvent(..)"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 364 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.limiter.homotopyType"
+      valueReference="100663541"
+      description="Simplified model for homotopy-based initialization"
+      variability="constant">
+      <Enumeration
+        declaredType="Modelica.Blocks.Types.LimiterHomotopy"
+        start="2"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 365 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.limiter.limitsAtInit"
+      valueReference="100663542"
+      description="Has no longer an effect and is only kept for backwards compatibility (the implementation uses now the homotopy operator)"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 366 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.limiter.u"
+      valueReference="637534440"
+      description="Connector of Real input signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 367 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag3.limiter.y"
+      valueReference="637534431"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 368 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.u"
+      valueReference="369098890"
+      description="Connector of Real input signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 369 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.y"
+      valueReference="637534455"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 370 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.K"
+      valueReference="16777316"
+      description="Gain"
+      causality="parameter"
+      variability="fixed">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 371 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.T1"
+      valueReference="100663544"
+      description="Lead time constant"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 372 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.T2"
+      valueReference="100663545"
+      description="Lag time constant"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 373 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.outMax"
+      valueReference="100663546"
+      description="Maximum output value"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 374 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.outMin"
+      valueReference="100663547"
+      description="Minimum output value"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 375 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.y_start"
+      valueReference="100663548"
+      description="Output start value"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 376 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.add2.u1"
+      valueReference="369098890"
+      description="Connector of Real input signal 1">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 377 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.add2.u2"
+      valueReference="637534461"
+      description="Connector of Real input signal 2">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 378 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.add2.y"
+      valueReference="637534462"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 379 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.add2.k1"
+      valueReference="16777317"
+      description="Gain of input signal 1"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 380 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.add2.k2"
+      valueReference="16777318"
+      description="Gain of input signal 2"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 381 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.gain.k"
+      valueReference="100663551"
+      description="Gain value multiplied with input signal"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 382 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.gain.u"
+      valueReference="637534462"
+      description="Input signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 383 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.gain.y"
+      valueReference="637534464"
+      description="Output signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 384 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.add3.u1"
+      valueReference="637534455"
+      description="Connector of Real input signal 1">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 385 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.add3.u2"
+      valueReference="33554441"
+      description="Connector of Real input signal 2">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 386 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.add3.y"
+      valueReference="637534465"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 387 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.add3.k1"
+      valueReference="16777319"
+      description="Gain of input signal 1"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 388 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.add3.k2"
+      valueReference="16777320"
+      description="Gain of input signal 2"
+      causality="parameter"
+      variability="tunable">
+      <Real start="-1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 389 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.integrator.k"
+      valueReference="100663554"
+      description="Integrator gain"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 390 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.integrator.initType"
+      valueReference="100663557"
+      description="Type of initialization (1: no init, 2: steady state, 3,4: initial output)"
+      variability="constant">
+      <Enumeration
+        declaredType="Modelica.Blocks.Types.Init"
+        start="2"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 391 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.integrator.y_start"
+      valueReference="100663558"
+      description="Initial or guess value of output (= state)"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 392 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.integrator.u"
+      valueReference="637534465"
+      description="Connector of Real input signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 393 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.integrator.y"
+      valueReference="33554441"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 394 -->
+    <ScalarVariable
+      name="der(sT5B.imLimitedLeadLag4.integrator.y)"
+      valueReference="587202569"
+      description="der(Connector of Real output signal)">
+      <Real
+        unit="s-1"
+        derivative="393"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 395 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.gain1.k"
+      valueReference="100663561"
+      description="Gain value multiplied with input signal"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 396 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.gain1.u"
+      valueReference="33554441"
+      description="Input signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 397 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.gain1.y"
+      valueReference="637534461"
+      description="Output signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 398 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.limiter.uMax"
+      valueReference="100663562"
+      description="Upper limits of input signals"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 399 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.limiter.uMin"
+      valueReference="100663563"
+      description="Lower limits of input signals"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 400 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.limiter.strict"
+      valueReference="100663564"
+      description="= true, if strict limits with noEvent(..)"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 401 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.limiter.homotopyType"
+      valueReference="100663565"
+      description="Simplified model for homotopy-based initialization"
+      variability="constant">
+      <Enumeration
+        declaredType="Modelica.Blocks.Types.LimiterHomotopy"
+        start="2"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 402 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.limiter.limitsAtInit"
+      valueReference="100663566"
+      description="Has no longer an effect and is only kept for backwards compatibility (the implementation uses now the homotopy operator)"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 403 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.limiter.u"
+      valueReference="637534464"
+      description="Connector of Real input signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 404 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag4.limiter.y"
+      valueReference="637534455"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 405 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.u"
+      valueReference="637534455"
+      description="Connector of Real input signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 406 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.y"
+      valueReference="637534479"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 407 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.K"
+      valueReference="16777321"
+      description="Gain"
+      causality="parameter"
+      variability="fixed">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 408 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.T1"
+      valueReference="100663568"
+      description="Lead time constant"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 409 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.T2"
+      valueReference="100663569"
+      description="Lag time constant"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 410 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.outMax"
+      valueReference="100663570"
+      description="Maximum output value"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 411 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.outMin"
+      valueReference="100663571"
+      description="Minimum output value"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 412 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.y_start"
+      valueReference="100663572"
+      description="Output start value"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 413 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.add2.u1"
+      valueReference="637534455"
+      description="Connector of Real input signal 1">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 414 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.add2.u2"
+      valueReference="637534485"
+      description="Connector of Real input signal 2">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 415 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.add2.y"
+      valueReference="637534486"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 416 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.add2.k1"
+      valueReference="16777322"
+      description="Gain of input signal 1"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 417 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.add2.k2"
+      valueReference="16777323"
+      description="Gain of input signal 2"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 418 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.gain.k"
+      valueReference="100663575"
+      description="Gain value multiplied with input signal"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 419 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.gain.u"
+      valueReference="637534486"
+      description="Input signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 420 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.gain.y"
+      valueReference="637534488"
+      description="Output signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 421 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.add3.u1"
+      valueReference="637534479"
+      description="Connector of Real input signal 1">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 422 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.add3.u2"
+      valueReference="33554442"
+      description="Connector of Real input signal 2">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 423 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.add3.y"
+      valueReference="637534489"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 424 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.add3.k1"
+      valueReference="16777324"
+      description="Gain of input signal 1"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 425 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.add3.k2"
+      valueReference="16777325"
+      description="Gain of input signal 2"
+      causality="parameter"
+      variability="tunable">
+      <Real start="-1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 426 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.integrator.k"
+      valueReference="100663578"
+      description="Integrator gain"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 427 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.integrator.initType"
+      valueReference="100663581"
+      description="Type of initialization (1: no init, 2: steady state, 3,4: initial output)"
+      variability="constant">
+      <Enumeration
+        declaredType="Modelica.Blocks.Types.Init"
+        start="2"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 428 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.integrator.y_start"
+      valueReference="100663582"
+      description="Initial or guess value of output (= state)"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 429 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.integrator.u"
+      valueReference="637534489"
+      description="Connector of Real input signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 430 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.integrator.y"
+      valueReference="33554442"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 431 -->
+    <ScalarVariable
+      name="der(sT5B.imLimitedLeadLag5.integrator.y)"
+      valueReference="587202570"
+      description="der(Connector of Real output signal)">
+      <Real
+        unit="s-1"
+        derivative="430"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 432 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.gain1.k"
+      valueReference="100663585"
+      description="Gain value multiplied with input signal"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 433 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.gain1.u"
+      valueReference="33554442"
+      description="Input signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 434 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.gain1.y"
+      valueReference="637534485"
+      description="Output signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 435 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.limiter.uMax"
+      valueReference="100663586"
+      description="Upper limits of input signals"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 436 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.limiter.uMin"
+      valueReference="100663587"
+      description="Lower limits of input signals"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 437 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.limiter.strict"
+      valueReference="100663588"
+      description="= true, if strict limits with noEvent(..)"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 438 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.limiter.homotopyType"
+      valueReference="100663589"
+      description="Simplified model for homotopy-based initialization"
+      variability="constant">
+      <Enumeration
+        declaredType="Modelica.Blocks.Types.LimiterHomotopy"
+        start="2"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 439 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.limiter.limitsAtInit"
+      valueReference="100663590"
+      description="Has no longer an effect and is only kept for backwards compatibility (the implementation uses now the homotopy operator)"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 440 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.limiter.u"
+      valueReference="637534488"
+      description="Connector of Real input signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 441 -->
+    <ScalarVariable
+      name="sT5B.imLimitedLeadLag5.limiter.y"
+      valueReference="637534479"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 442 -->
+    <ScalarVariable
+      name="sT5B.simpleLagLimVar.u"
+      valueReference="369098949"
+      description="Connector of Real input signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 443 -->
+    <ScalarVariable
+      name="sT5B.simpleLagLimVar.y"
+      valueReference="335544320"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 444 -->
+    <ScalarVariable
+      name="sT5B.simpleLagLimVar.outMax"
+      valueReference="369099047">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 445 -->
+    <ScalarVariable
+      name="sT5B.simpleLagLimVar.outMin"
+      valueReference="369099048">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 446 -->
+    <ScalarVariable
+      name="sT5B.simpleLagLimVar.const.y"
+      valueReference="100663593"
+      description="Value of Real output"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="s"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 447 -->
+    <ScalarVariable
+      name="sT5B.simpleLagLimVar.K"
+      valueReference="16777326"
+      description="Gain"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 448 -->
+    <ScalarVariable
+      name="sT5B.simpleLagLimVar.T"
+      valueReference="100663593"
+      description="Lag time constant"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 449 -->
+    <ScalarVariable
+      name="sT5B.simpleLagLimVar.y_start"
+      valueReference="100663594"
+      description="Output start value"
+      variability="fixed">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 450 -->
+    <ScalarVariable
+      name="sT5B.simpleLagLimVar.T_mod"
+      valueReference="100663595"
+      variability="tunable">
+      <Real
+        unit="s"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 451 -->
+    <ScalarVariable
+      name="sT5B.simpleLagLimVar.state"
+      valueReference="33554443">
+      <Real
+        unit="1"
+        reinit="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 452 -->
+    <ScalarVariable
+      name="der(sT5B.simpleLagLimVar.state)"
+      valueReference="587202571">
+      <Real
+        unit="s-1"
+        derivative="451"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 453 -->
+    <ScalarVariable
+      name="sT5B.high.k"
+      valueReference="100663596"
+      description="Gain value multiplied with input signal"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 454 -->
+    <ScalarVariable
+      name="sT5B.high.u"
+      valueReference="369098864"
+      description="Input signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 455 -->
+    <ScalarVariable
+      name="sT5B.high.y"
+      valueReference="369099047"
+      description="Output signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 456 -->
+    <ScalarVariable
+      name="sT5B.low.k"
+      valueReference="100663597"
+      description="Gain value multiplied with input signal"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 457 -->
+    <ScalarVariable
+      name="sT5B.low.u"
+      valueReference="369098864"
+      description="Input signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 458 -->
+    <ScalarVariable
+      name="sT5B.low.y"
+      valueReference="369099048"
+      description="Output signal connector">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 459 -->
+    <ScalarVariable
+      name="sT5B.TransducerDelay.u"
+      valueReference="369098864"
+      description="Connector of Real input signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 460 -->
+    <ScalarVariable
+      name="sT5B.TransducerDelay.y"
+      valueReference="369098866"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 461 -->
+    <ScalarVariable
+      name="sT5B.TransducerDelay.const.y"
+      valueReference="100663598"
+      description="Value of Real output"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="s"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 462 -->
+    <ScalarVariable
+      name="sT5B.TransducerDelay.state"
+      valueReference="33554444">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 463 -->
+    <ScalarVariable
+      name="der(sT5B.TransducerDelay.state)"
+      valueReference="587202572">
+      <Real
+        unit="s-1"
+        derivative="462"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 464 -->
+    <ScalarVariable
+      name="sT5B.TransducerDelay.K"
+      valueReference="16777327"
+      description="Gain"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 465 -->
+    <ScalarVariable
+      name="sT5B.TransducerDelay.T"
+      valueReference="100663598"
+      description="Lag time constant"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 466 -->
+    <ScalarVariable
+      name="sT5B.TransducerDelay.y_start"
+      valueReference="100663599"
+      description="Output start value"
+      variability="fixed">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 467 -->
+    <ScalarVariable
+      name="bus1.S_b"
+      valueReference="100663602"
+      description="System base power"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.ApparentPower"
+        displayUnit="MVA"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 468 -->
+    <ScalarVariable
+      name="bus1.enableS_b"
+      valueReference="100663603"
+      description="Enable S_b in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 469 -->
+    <ScalarVariable
+      name="bus1.V_b"
+      valueReference="16777328"
+      description="Base voltage of the bus"
+      causality="parameter"
+      variability="fixed">
+      <Real
+        declaredType="Modelica.SIunits.Voltage"
+        displayUnit="kV"
+        start="400000.0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 470 -->
+    <ScalarVariable
+      name="bus1.enableV_b"
+      valueReference="100663604"
+      description="Enable V_b in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 471 -->
+    <ScalarVariable
+      name="bus1.fn"
+      valueReference="100663605"
+      description="System frequency"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Frequency"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 472 -->
+    <ScalarVariable
+      name="bus1.enablefn"
+      valueReference="100663606"
+      description="Enable fn in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 473 -->
+    <ScalarVariable
+      name="bus1.P_0"
+      valueReference="16777329"
+      description="Initial active power"
+      causality="parameter"
+      variability="fixed">
+      <Real
+        declaredType="Modelica.SIunits.ActivePower"
+        displayUnit="MW"
+        start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 474 -->
+    <ScalarVariable
+      name="bus1.enableP_0"
+      valueReference="100663607"
+      description="Enable P_0 in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 475 -->
+    <ScalarVariable
+      name="bus1.Q_0"
+      valueReference="16777330"
+      description="Initial reactive power"
+      causality="parameter"
+      variability="fixed">
+      <Real
+        declaredType="Modelica.SIunits.ReactivePower"
+        displayUnit="Mvar"
+        start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 476 -->
+    <ScalarVariable
+      name="bus1.enableQ_0"
+      valueReference="100663608"
+      description="Enable Q_0 in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 477 -->
+    <ScalarVariable
+      name="bus1.v_0"
+      valueReference="16777331"
+      description="Initial voltage magnitude (pu)"
+      causality="parameter"
+      variability="fixed">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"
+        start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 478 -->
+    <ScalarVariable
+      name="bus1.enablev_0"
+      valueReference="100663609"
+      description="Enable v_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 479 -->
+    <ScalarVariable
+      name="bus1.angle_0"
+      valueReference="16777332"
+      description="Initial voltage angle"
+      causality="parameter"
+      variability="fixed">
+      <Real
+        declaredType="Modelica.SIunits.Conversions.NonSIunits.Angle_deg"
+        start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 480 -->
+    <ScalarVariable
+      name="bus1.enableangle_0"
+      valueReference="100663610"
+      description="Enable angle_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 481 -->
+    <ScalarVariable
+      name="bus1.displayPF"
+      valueReference="16777333"
+      description="Display power flow:"
+      causality="parameter"
+      variability="fixed">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 482 -->
+    <ScalarVariable
+      name="bus1.enabledisplayPF"
+      valueReference="100663611"
+      description="Enable displayPF in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 483 -->
+    <ScalarVariable
+      name="bus1.p.vr"
+      valueReference="100663613"
+      description="Real part of the voltage"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 484 -->
+    <ScalarVariable
+      name="bus1.p.vi"
+      valueReference="100663614"
+      description="Imaginary part of the voltage"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 485 -->
+    <ScalarVariable
+      name="bus1.p.ir"
+      valueReference="100663615"
+      description="Real part of the current"
+      variability="constant">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"
+        start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 486 -->
+    <ScalarVariable
+      name="bus1.p.ii"
+      valueReference="100663616"
+      description="Imaginary part of the current"
+      variability="constant">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"
+        start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 487 -->
+    <ScalarVariable
+      name="bus1.V"
+      valueReference="100663617"
+      description="Bus voltage magnitude (pu)"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 488 -->
+    <ScalarVariable
+      name="bus1.angle"
+      valueReference="100663618"
+      description="Bus voltage angle"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Conversions.NonSIunits.Angle_deg"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 489 -->
+    <ScalarVariable
+      name="pwLine.p.vr"
+      valueReference="369098764"
+      description="Real part of the voltage">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 490 -->
+    <ScalarVariable
+      name="pwLine.p.vi"
+      valueReference="369098765"
+      description="Imaginary part of the voltage">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 491 -->
+    <ScalarVariable
+      name="pwLine.p.ir"
+      valueReference="369099075"
+      description="Real part of the current">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 492 -->
+    <ScalarVariable
+      name="pwLine.p.ii"
+      valueReference="369099076"
+      description="Imaginary part of the current">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 493 -->
+    <ScalarVariable
+      name="pwLine.n.vr"
+      valueReference="100663613"
+      description="Real part of the voltage"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 494 -->
+    <ScalarVariable
+      name="pwLine.n.vi"
+      valueReference="100663614"
+      description="Imaginary part of the voltage"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 495 -->
+    <ScalarVariable
+      name="pwLine.n.ir"
+      valueReference="905969989"
+      description="Real part of the current">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 496 -->
+    <ScalarVariable
+      name="pwLine.n.ii"
+      valueReference="905969990"
+      description="Imaginary part of the current">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 497 -->
+    <ScalarVariable
+      name="pwLine.R"
+      valueReference="16777334"
+      description="Resistance (pu)"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"
+        start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 498 -->
+    <ScalarVariable
+      name="pwLine.X"
+      valueReference="16777335"
+      description="Reactance (pu)"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"
+        start="0.1169"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 499 -->
+    <ScalarVariable
+      name="pwLine.G"
+      valueReference="16777336"
+      description="Shunt half conductance (pu)"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"
+        start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 500 -->
+    <ScalarVariable
+      name="pwLine.B"
+      valueReference="16777337"
+      description="Shunt half susceptance (pu)"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"
+        start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 501 -->
+    <ScalarVariable
+      name="pwLine.S_b"
+      valueReference="100663623"
+      description="System base power"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.ApparentPower"
+        displayUnit="MVA"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 502 -->
+    <ScalarVariable
+      name="pwLine.t1"
+      valueReference="100663624"
+      variability="constant">
+      <Real
+        declaredType="Modelica.SIunits.Time"
+        start="1E+60"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 503 -->
+    <ScalarVariable
+      name="pwLine.t2"
+      valueReference="100663625"
+      variability="constant">
+      <Real
+        declaredType="Modelica.SIunits.Time"
+        start="1E+60"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 504 -->
+    <ScalarVariable
+      name="pwLine.opening"
+      valueReference="100663626"
+      variability="constant">
+      <Integer start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 505 -->
+    <ScalarVariable
+      name="pwLine.displayPF"
+      valueReference="16777338"
+      description="Display power flow results:"
+      causality="parameter"
+      variability="fixed">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 506 -->
+    <ScalarVariable
+      name="pwLine.P12"
+      valueReference="905969995">
+      <Real
+        declaredType="Modelica.SIunits.ActivePower"
+        displayUnit="MW"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 507 -->
+    <ScalarVariable
+      name="pwLine.P21"
+      valueReference="905969996">
+      <Real
+        declaredType="Modelica.SIunits.ActivePower"
+        displayUnit="MW"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 508 -->
+    <ScalarVariable
+      name="pwLine.Q12"
+      valueReference="905969997">
+      <Real
+        declaredType="Modelica.SIunits.ReactivePower"
+        displayUnit="Mvar"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 509 -->
+    <ScalarVariable
+      name="pwLine.Q21"
+      valueReference="905969998">
+      <Real
+        declaredType="Modelica.SIunits.ReactivePower"
+        displayUnit="Mvar"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 510 -->
+    <ScalarVariable
+      name="pwLine.vs.re"
+      valueReference="369098764"
+      description="Real part of complex number">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 511 -->
+    <ScalarVariable
+      name="pwLine.vs.im"
+      valueReference="369098765"
+      description="Imaginary part of complex number">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 512 -->
+    <ScalarVariable
+      name="pwLine.is.re"
+      valueReference="369099075"
+      description="Real part of complex number">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 513 -->
+    <ScalarVariable
+      name="pwLine.is.im"
+      valueReference="369099076"
+      description="Imaginary part of complex number">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 514 -->
+    <ScalarVariable
+      name="pwLine.vr.re"
+      valueReference="100663613"
+      description="Real part of complex number"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 515 -->
+    <ScalarVariable
+      name="pwLine.vr.im"
+      valueReference="100663614"
+      description="Imaginary part of complex number"
+      variability="tunable">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 516 -->
+    <ScalarVariable
+      name="pwLine.ir.re"
+      valueReference="905969989"
+      description="Real part of complex number">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 517 -->
+    <ScalarVariable
+      name="pwLine.ir.im"
+      valueReference="905969990"
+      description="Imaginary part of complex number">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 518 -->
+    <ScalarVariable
+      name="constantLoad.S_b"
+      valueReference="100663635"
+      description="System base power"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.ApparentPower"
+        displayUnit="MVA"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 519 -->
+    <ScalarVariable
+      name="constantLoad.enableS_b"
+      valueReference="100663636"
+      description="Enable S_b in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 520 -->
+    <ScalarVariable
+      name="constantLoad.V_b"
+      valueReference="16777339"
+      description="Base voltage of the bus"
+      causality="parameter"
+      variability="fixed">
+      <Real
+        declaredType="Modelica.SIunits.Voltage"
+        displayUnit="kV"
+        start="400000.0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 521 -->
+    <ScalarVariable
+      name="constantLoad.enableV_b"
+      valueReference="100663637"
+      description="Enable V_b in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 522 -->
+    <ScalarVariable
+      name="constantLoad.fn"
+      valueReference="100663638"
+      description="System frequency"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Frequency"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 523 -->
+    <ScalarVariable
+      name="constantLoad.enablefn"
+      valueReference="100663639"
+      description="Enable fn in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 524 -->
+    <ScalarVariable
+      name="constantLoad.P_0"
+      valueReference="100663640"
+      description="Initial active power"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.ActivePower"
+        displayUnit="MW"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 525 -->
+    <ScalarVariable
+      name="constantLoad.enableP_0"
+      valueReference="100663641"
+      description="Enable P_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 526 -->
+    <ScalarVariable
+      name="constantLoad.Q_0"
+      valueReference="100663642"
+      description="Initial reactive power"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.ReactivePower"
+        displayUnit="Mvar"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 527 -->
+    <ScalarVariable
+      name="constantLoad.enableQ_0"
+      valueReference="100663643"
+      description="Enable Q_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 528 -->
+    <ScalarVariable
+      name="constantLoad.v_0"
+      valueReference="100663644"
+      description="Initial voltage magnitude (pu)"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 529 -->
+    <ScalarVariable
+      name="constantLoad.enablev_0"
+      valueReference="100663645"
+      description="Enable v_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 530 -->
+    <ScalarVariable
+      name="constantLoad.angle_0"
+      valueReference="100663646"
+      description="Initial voltage angle"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Conversions.NonSIunits.Angle_deg"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 531 -->
+    <ScalarVariable
+      name="constantLoad.enableangle_0"
+      valueReference="100663647"
+      description="Enable angle_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 532 -->
+    <ScalarVariable
+      name="constantLoad.displayPF"
+      valueReference="16777340"
+      description="Display power flow:"
+      causality="parameter"
+      variability="fixed">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 533 -->
+    <ScalarVariable
+      name="constantLoad.enabledisplayPF"
+      valueReference="100663648"
+      description="Enable displayPF in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 534 -->
+    <ScalarVariable
+      name="constantLoad.S_p.re"
+      valueReference="100663650"
+      description="Real part of complex power (active power)"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.ActivePower"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 535 -->
+    <ScalarVariable
+      name="constantLoad.S_p.im"
+      valueReference="100663651"
+      description="Imaginary part of complex power (reactive power)"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.ReactivePower"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 536 -->
+    <ScalarVariable
+      name="constantLoad.S_i.re"
+      valueReference="16777341"
+      description="Real part of complex power (active power)"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.ActivePower"
+        start="0.0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 537 -->
+    <ScalarVariable
+      name="constantLoad.S_i.im"
+      valueReference="16777342"
+      description="Imaginary part of complex power (reactive power)"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.ReactivePower"
+        start="0.0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 538 -->
+    <ScalarVariable
+      name="constantLoad.S_y.re"
+      valueReference="16777343"
+      description="Real part of complex power (active power)"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.ActivePower"
+        start="0.0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 539 -->
+    <ScalarVariable
+      name="constantLoad.S_y.im"
+      valueReference="16777344"
+      description="Imaginary part of complex power (reactive power)"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.ReactivePower"
+        start="0.0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 540 -->
+    <ScalarVariable
+      name="constantLoad.a.re"
+      valueReference="16777345"
+      description="Real part of complex number"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1.0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 541 -->
+    <ScalarVariable
+      name="constantLoad.a.im"
+      valueReference="16777346"
+      description="Imaginary part of complex number"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 542 -->
+    <ScalarVariable
+      name="constantLoad.b.re"
+      valueReference="16777347"
+      description="Real part of complex number"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 543 -->
+    <ScalarVariable
+      name="constantLoad.b.im"
+      valueReference="16777348"
+      description="Imaginary part of complex number"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1.0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 544 -->
+    <ScalarVariable
+      name="constantLoad.PQBRAK"
+      valueReference="100663652"
+      description="Constant power characteristic threshold"
+      variability="constant">
+      <Real
+        unit="1"
+        start="0.7"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 545 -->
+    <ScalarVariable
+      name="constantLoad.characteristic"
+      valueReference="100663653"
+      variability="constant">
+      <Integer start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 546 -->
+    <ScalarVariable
+      name="constantLoad.p.vr"
+      valueReference="369098764"
+      description="Real part of the voltage">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 547 -->
+    <ScalarVariable
+      name="constantLoad.p.vi"
+      valueReference="369098765"
+      description="Imaginary part of the voltage">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 548 -->
+    <ScalarVariable
+      name="constantLoad.p.ir"
+      valueReference="369099110"
+      description="Real part of the current">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 549 -->
+    <ScalarVariable
+      name="constantLoad.p.ii"
+      valueReference="369099111"
+      description="Imaginary part of the current">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 550 -->
+    <ScalarVariable
+      name="constantLoad.angle"
+      valueReference="905970024"
+      description="Bus voltage angle">
+      <Real
+        declaredType="Modelica.SIunits.Angle"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 551 -->
+    <ScalarVariable
+      name="constantLoad.v"
+      valueReference="369099113"
+      description="Bus voltage magnitude (pu)">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 552 -->
+    <ScalarVariable
+      name="constantLoad.P"
+      valueReference="905970026"
+      description="Active power consumption (pu)">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 553 -->
+    <ScalarVariable
+      name="constantLoad.Q"
+      valueReference="905970027"
+      description="Reactive power consumption (pu)">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 554 -->
+    <ScalarVariable
+      name="infiniteBus.S_b"
+      valueReference="100663674"
+      description="System base power"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.ApparentPower"
+        displayUnit="MVA"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 555 -->
+    <ScalarVariable
+      name="infiniteBus.enableS_b"
+      valueReference="100663675"
+      description="Enable S_b in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 556 -->
+    <ScalarVariable
+      name="infiniteBus.V_b"
+      valueReference="16777355"
+      description="Base voltage of the bus"
+      causality="parameter"
+      variability="fixed">
+      <Real
+        declaredType="Modelica.SIunits.Voltage"
+        displayUnit="kV"
+        start="400000.0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 557 -->
+    <ScalarVariable
+      name="infiniteBus.enableV_b"
+      valueReference="100663676"
+      description="Enable V_b in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 558 -->
+    <ScalarVariable
+      name="infiniteBus.fn"
+      valueReference="100663677"
+      description="System frequency"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Frequency"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 559 -->
+    <ScalarVariable
+      name="infiniteBus.enablefn"
+      valueReference="100663678"
+      description="Enable fn in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 560 -->
+    <ScalarVariable
+      name="infiniteBus.P_0"
+      valueReference="16777356"
+      description="Initial active power"
+      causality="parameter"
+      variability="fixed">
+      <Real
+        declaredType="Modelica.SIunits.ActivePower"
+        displayUnit="MW"
+        start="1000000.0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 561 -->
+    <ScalarVariable
+      name="infiniteBus.enableP_0"
+      valueReference="100663679"
+      description="Enable P_0 in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 562 -->
+    <ScalarVariable
+      name="infiniteBus.Q_0"
+      valueReference="16777357"
+      description="Initial reactive power"
+      causality="parameter"
+      variability="fixed">
+      <Real
+        declaredType="Modelica.SIunits.ReactivePower"
+        displayUnit="Mvar"
+        start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 563 -->
+    <ScalarVariable
+      name="infiniteBus.enableQ_0"
+      valueReference="100663680"
+      description="Enable Q_0 in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 564 -->
+    <ScalarVariable
+      name="infiniteBus.v_0"
+      valueReference="16777358"
+      description="Initial voltage magnitude (pu)"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"
+        start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 565 -->
+    <ScalarVariable
+      name="infiniteBus.enablev_0"
+      valueReference="100663681"
+      description="Enable v_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 566 -->
+    <ScalarVariable
+      name="infiniteBus.angle_0"
+      valueReference="16777359"
+      description="Initial voltage angle"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Conversions.NonSIunits.Angle_deg"
+        start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 567 -->
+    <ScalarVariable
+      name="infiniteBus.enableangle_0"
+      valueReference="100663682"
+      description="Enable angle_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 568 -->
+    <ScalarVariable
+      name="infiniteBus.displayPF"
+      valueReference="16777360"
+      description="Display power flow:"
+      causality="parameter"
+      variability="fixed">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 569 -->
+    <ScalarVariable
+      name="infiniteBus.enabledisplayPF"
+      valueReference="100663683"
+      description="Enable displayPF in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 570 -->
+    <ScalarVariable
+      name="infiniteBus.P"
+      valueReference="905970053"
+      description="Active Power absorbed by the Infinite bus">
+      <Real
+        declaredType="Modelica.SIunits.ActivePower"
+        displayUnit="MW"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 571 -->
+    <ScalarVariable
+      name="infiniteBus.Q"
+      valueReference="905970054"
+      description="Reactive Power absorbed by the Infinite bus (MVAr)">
+      <Real
+        declaredType="Modelica.SIunits.ReactivePower"
+        displayUnit="Mvar"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 572 -->
+    <ScalarVariable
+      name="infiniteBus.p.vr"
+      valueReference="100663613"
+      description="Real part of the voltage"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 573 -->
+    <ScalarVariable
+      name="infiniteBus.p.vi"
+      valueReference="100663614"
+      description="Imaginary part of the voltage"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 574 -->
+    <ScalarVariable
+      name="infiniteBus.p.ir"
+      valueReference="905970055"
+      description="Real part of the current">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 575 -->
+    <ScalarVariable
+      name="infiniteBus.p.ii"
+      valueReference="905970056"
+      description="Imaginary part of the current">
+      <Real
+        declaredType="Modelica.SIunits.PerUnit"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 576 -->
+    <ScalarVariable
+      name="const3.k"
+      valueReference="16777361"
+      description="Constant output value"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 577 -->
+    <ScalarVariable
+      name="const3.y"
+      valueReference="234881169"
+      description="Connector of Real output signal"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 578 -->
+    <ScalarVariable
+      name="add3_1.k1"
+      valueReference="16777362"
+      description="Gain of input signal 1"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 579 -->
+    <ScalarVariable
+      name="add3_1.k2"
+      valueReference="16777363"
+      description="Gain of input signal 2"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 580 -->
+    <ScalarVariable
+      name="add3_1.k3"
+      valueReference="16777364"
+      description="Gain of input signal 3"
+      causality="parameter"
+      variability="tunable">
+      <Real start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 581 -->
+    <ScalarVariable
+      name="add3_1.u1"
+      valueReference="369098800"
+      description="Connector of Real input signal 1">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 582 -->
+    <ScalarVariable
+      name="add3_1.u2"
+      valueReference="369099145"
+      description="Connector of Real input signal 2"
+      variability="discrete">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 583 -->
+    <ScalarVariable
+      name="add3_1.u3"
+      valueReference="369099146"
+      description="Connector of Real input signal 3"
+      variability="discrete">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 584 -->
+    <ScalarVariable
+      name="add3_1.y"
+      valueReference="369098864"
+      description="Connector of Real output signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 585 -->
+    <ScalarVariable
+      name="const4.k"
+      valueReference="16777365"
+      description="Constant output value"
+      causality="parameter"
+      variability="fixed">
+      <Real
+        unit="1"
+        start="0.464073425"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 586 -->
+    <ScalarVariable
+      name="const4.y"
+      valueReference="234881173"
+      description="Connector of Real output signal"
+      variability="fixed">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 587 -->
+    <ScalarVariable
+      name="Efd"
+      valueReference="335544320"
+      causality="output">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 588 -->
+    <ScalarVariable
+      name="step1.height"
+      valueReference="16777366"
+      description="Height of step"
+      causality="parameter"
+      variability="tunable">
+      <Real start="-0.025"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 589 -->
+    <ScalarVariable
+      name="step1.y"
+      valueReference="369099146"
+      description="Connector of Real output signal"
+      variability="discrete">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 590 -->
+    <ScalarVariable
+      name="step1.offset"
+      valueReference="16777367"
+      description="Offset of output signal y"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 591 -->
+    <ScalarVariable
+      name="step1.startTime"
+      valueReference="16777368"
+      description="Output y = offset for time &lt; startTime"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"
+        start="2.67"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 592 -->
+    <ScalarVariable
+      name="step.height"
+      valueReference="16777369"
+      description="Height of step"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0.025"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 593 -->
+    <ScalarVariable
+      name="step.y"
+      valueReference="369099145"
+      description="Connector of Real output signal"
+      variability="discrete">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 594 -->
+    <ScalarVariable
+      name="step.offset"
+      valueReference="16777370"
+      description="Offset of output signal y"
+      causality="parameter"
+      variability="tunable">
+      <Real start="0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 595 -->
+    <ScalarVariable
+      name="step.startTime"
+      valueReference="16777371"
+      description="Output y = offset for time &lt; startTime"
+      causality="parameter"
+      variability="tunable">
+      <Real
+        declaredType="Modelica.SIunits.Time"
+        start="11.83"/>
+    </ScalarVariable>
+  </ModelVariables>
+  <ModelStructure>
+    <Outputs>
+      <Unknown index="587"
+        dependencies="136 149 151 153 227 264 451 462"
+        dependenciesKind="dependent dependent dependent dependent fixed fixed dependent fixed"/>
+    </Outputs>
+    <Derivatives>
+      <Unknown index="135"
+        dependencies="134 136 149 151 153"
+        dependenciesKind="dependent dependent fixed fixed dependent"/>
+      <Unknown index="137"
+        dependencies="134"
+        dependenciesKind="fixed"/>
+      <Unknown index="150"
+        dependencies="136 149 151 153 227 264 451 462"
+        dependenciesKind="dependent dependent dependent dependent fixed fixed dependent fixed"/>
+      <Unknown index="152"
+        dependencies="136 149 151 153"
+        dependenciesKind="dependent fixed fixed dependent"/>
+      <Unknown index="154"
+        dependencies="136 149 151 153"
+        dependenciesKind="dependent fixed fixed dependent"/>
+      <Unknown index="228"
+        dependencies="136 149 151 153 227 462"
+        dependenciesKind="dependent fixed fixed dependent fixed fixed"/>
+      <Unknown index="265"
+        dependencies="136 149 151 153 227 264 462"
+        dependenciesKind="dependent fixed fixed dependent fixed fixed fixed"/>
+      <Unknown index="320"
+        dependencies="136 149 151 153 319 462"
+        dependenciesKind="dependent fixed fixed dependent fixed fixed"/>
+      <Unknown index="357"
+        dependencies="136 149 151 153 319 356 462"
+        dependenciesKind="dependent fixed fixed dependent fixed fixed fixed"/>
+      <Unknown index="394"
+        dependencies="136 149 151 153 393 462"
+        dependenciesKind="dependent fixed fixed dependent fixed fixed"/>
+      <Unknown index="431"
+        dependencies="136 149 151 153 393 430 462"
+        dependenciesKind="dependent fixed fixed dependent fixed fixed fixed"/>
+      <Unknown index="452"
+        dependencies="136 149 151 153 227 264 451 462"
+        dependenciesKind="dependent dependent dependent dependent fixed fixed dependent fixed"/>
+      <Unknown index="463"
+        dependencies="136 149 151 153 462"
+        dependenciesKind="dependent fixed fixed dependent fixed"/>
+    </Derivatives>
+    <InitialUnknowns>
+      <Unknown index="134"
+        dependencies=""
+        dependenciesKind=""/>
+      <Unknown index="135"
+        dependencies="1 3 4 5 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 64 66 100 106 170 171 194 195 213 214 221 222 250 251 258 259 289 290 447 464 497 498 499 500 536 537 538 539 540 541 542 543 564 566 576 578 579 580 585 588 590 591 592 594 595"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="136"
+        dependencies="4 8 10 18 19 20 100 106"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="137"
+        dependencies=""
+        dependenciesKind=""/>
+      <Unknown index="149"
+        dependencies="1 3 4 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 64 66 100 106 170 171 194 195 213 214 221 222 250 251 258 259 289 290 447 464 497 498 499 500 536 537 538 539 540 541 542 543 564 566 576 578 579 580 585 588 590 591 592 594 595"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="150"
+        dependencies=""
+        dependenciesKind=""/>
+      <Unknown index="151"
+        dependencies="1 3 4 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 64 66 100 106 170 171 194 195 213 214 221 222 250 251 258 259 289 290 447 464 497 498 499 500 536 537 538 539 540 541 542 543 564 566 576 578 579 580 585 588 590 591 592 594 595"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="152"
+        dependencies=""
+        dependenciesKind=""/>
+      <Unknown index="153"
+        dependencies="1 3 4 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 64 66 100 106 170 171 194 195 213 214 221 222 250 251 258 259 289 290 447 464 497 498 499 500 536 537 538 539 540 541 542 543 564 566 576 578 579 580 585 588 590 591 592 594 595"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="154"
+        dependencies=""
+        dependenciesKind=""/>
+      <Unknown index="227"
+        dependencies="1 3 4 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 64 66 100 106 170 171 194 195 213 214 221 222 250 251 258 259 289 290 447 464 497 498 499 500 536 537 538 539 540 541 542 543 564 566 576 578 579 580 585 588 590 591 592 594 595"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="228"
+        dependencies=""
+        dependenciesKind=""/>
+      <Unknown index="264"
+        dependencies="1 3 4 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 64 66 100 106 170 171 194 195 213 214 221 222 250 251 258 259 289 290 447 464 497 498 499 500 536 537 538 539 540 541 542 543 564 566 576 578 579 580 585 588 590 591 592 594 595"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="265"
+        dependencies=""
+        dependenciesKind=""/>
+      <Unknown index="319"
+        dependencies="1 3 4 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 64 66 100 106 170 171 194 195 213 214 221 222 250 251 258 259 289 290 305 306 313 314 447 464 497 498 499 500 536 537 538 539 540 541 542 543 564 566 576 578 579 580 585 588 590 591 592 594 595"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="320"
+        dependencies=""
+        dependenciesKind=""/>
+      <Unknown index="356"
+        dependencies="1 3 4 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 64 66 100 106 170 171 194 195 213 214 221 222 250 251 258 259 289 290 305 306 313 314 342 343 350 351 447 464 497 498 499 500 536 537 538 539 540 541 542 543 564 566 576 578 579 580 585 588 590 591 592 594 595"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="357"
+        dependencies=""
+        dependenciesKind=""/>
+      <Unknown index="393"
+        dependencies="1 3 4 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 35 36 64 66 100 106 170 171 194 195 213 214 221 222 250 251 258 259 289 290 379 380 387 388 447 464 497 498 499 500 536 537 538 539 540 541 542 543 564 566 576 578 579 580 585 588 590 591 592 594 595"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="394"
+        dependencies=""
+        dependenciesKind=""/>
+      <Unknown index="430"
+        dependencies="1 3 4 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 35 36 64 66 100 106 170 171 194 195 213 214 221 222 250 251 258 259 289 290 379 380 387 388 416 417 424 425 447 464 497 498 499 500 536 537 538 539 540 541 542 543 564 566 576 578 579 580 585 588 590 591 592 594 595"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="431"
+        dependencies=""
+        dependenciesKind=""/>
+      <Unknown index="451"
+        dependencies="585"
+        dependenciesKind="dependent"/>
+      <Unknown index="452"
+        dependencies="1 3 4 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 64 66 100 106 170 171 194 195 213 214 221 222 250 251 258 259 289 290 447 464 497 498 499 500 536 537 538 539 540 541 542 543 564 566 576 578 579 580 585 588 590 591 592 594 595"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="462"
+        dependencies="1 3 4 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 64 66 100 106 170 171 194 195 213 214 221 222 250 251 258 259 289 290 447 464 497 498 499 500 536 537 538 539 540 541 542 543 564 566 576 578 579 580 585 588 590 591 592 594 595"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="463"
+        dependencies="1 3 4 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 64 66 100 106 170 171 194 195 213 214 221 222 250 251 258 259 289 290 447 464 497 498 499 500 536 537 538 539 540 541 542 543 564 566 576 578 579 580 585 588 590 591 592 594 595"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+      <Unknown index="587"
+        dependencies="1 3 4 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 64 66 100 106 170 171 194 195 213 214 221 222 250 251 258 259 289 290 447 464 497 498 499 500 536 537 538 539 540 541 542 543 564 566 576 578 579 580 585 588 590 591 592 594 595"
+        dependenciesKind="dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent dependent"/>
+    </InitialUnknowns>
+  </ModelStructure>
+</fmiModelDescription>

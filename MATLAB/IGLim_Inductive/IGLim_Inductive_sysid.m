@@ -20,10 +20,10 @@ y=Efd;
 %%plot(t,u,'r',t,y_sim,'b',t,y,'k')
 
 data=iddata(y,u,Ts)
-%opt = bjOptions;
-%opt.Focus = 'prediction';
-%model=bj(data,[2 2 2 2 1],opt);
-model = tfest(data,4,2)
+opt = bjOptions;
+opt.Focus = 'prediction';
+model=bj(data,[2 2 2 2 1],opt);
+%model = tfest(data,4,2)
 figure(1)
 compare(data,model);
 figure(2);
