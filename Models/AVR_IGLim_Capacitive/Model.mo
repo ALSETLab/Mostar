@@ -5,8 +5,9 @@ model Model
           extent={{42,66},{50,74}})));
   Modelica.Blocks.Interfaces.RealOutput Qout
     annotation (Placement(transformation(extent={{44,6},{52,14}})));
-  Data2Model.IG_Lim_Capacitive.init machineData
-    annotation (Placement(transformation(extent={{-108,76},{-88,96}})));
+  Data2Model.IG_Lim_Capacitive.avr_pso
+                                    machineData
+    annotation (Placement(transformation(extent={{-108,74},{-88,94}})));
   Modelica.Blocks.Discrete.Sampler Psampler(samplePeriod=0.05)
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Discrete.Sampler Qsampler(samplePeriod=0.05)
@@ -1772,12 +1773,12 @@ equation
   connect(add3_1.y, sT5B.ECOMP) annotation (Line(points={{-98.4,-16},{-104,-16},
           {-104,-4},{-127,-4},{-127,19}},
                                         color={0,0,127}));
-  connect(sT5B.EFD0, Gen1.EFD0) annotation (Line(points={{-127,15.4},{-118,15.4},
-          {-118,42},{-124.8,42}}, color={0,0,127}));
   connect(Gen1.ETERM, add3_1.u1) annotation (Line(points={{-124.8,44.4},{-76,
           44.4},{-76,-13.6},{-89.2,-13.6}}, color={0,0,127}));
   connect(infiniteBus.p, bus1.p) annotation (Line(points={{-30,50},{-36,50},{
           -36,48},{-52,48}}, color={0,0,255}));
+  connect(const3.y, sT5B.EFD0) annotation (Line(points={{-102.5,19},{-120,19},{
+          -120,15.4},{-127,15.4}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-40},
             {200,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-40},{200,100}})),

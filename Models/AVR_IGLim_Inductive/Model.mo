@@ -5,7 +5,7 @@ model Model
           extent={{42,66},{50,74}})));
   Modelica.Blocks.Interfaces.RealOutput Qout
     annotation (Placement(transformation(extent={{44,6},{52,14}})));
-  Data2Model.IG_Lim_Inductive.init machineData
+  Data2Model.IG_Lim_Inductive.PSO  machineData
     annotation (Placement(transformation(extent={{-108,76},{-88,96}})));
   Modelica.Blocks.Discrete.Sampler Psampler(samplePeriod=99.5/2000)
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
