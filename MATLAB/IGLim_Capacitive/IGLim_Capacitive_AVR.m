@@ -4,14 +4,14 @@
 rapidSettings=RaPIdClass();
 
 %Output data
-rapidSettings.experimentData.pathToReferenceData = 'AVR_IG_Capacitive_scaled.mat'; %Data file name
+rapidSettings.experimentData.pathToReferenceData = 'Capacitive_simulation.mat'; %Data file name
 rapidSettings.experimentData.expressionReferenceTime = 'time'; %Time variable name
 rapidSettings.experimentData.expressionReferenceData = 'Efd'; %Data variable name
 
 %Input data
-rapidSettings.experimentData.pathToInData = '';
-rapidSettings.experimentData.expressionInDataTime = ''; %Time variable name
-rapidSettings.experimentData.expressionInData = ''; %Data variable name
+rapidSettings.experimentData.pathToInData = 'Capacitive_simulation.mat';
+rapidSettings.experimentData.expressionInDataTime = 'time'; %Time variable name
+rapidSettings.experimentData.expressionInData = 'V'; %Data variable name
 
 %% ==========Experiment settings==========
 %General settings 
