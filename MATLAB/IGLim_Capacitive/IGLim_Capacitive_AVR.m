@@ -11,7 +11,7 @@ rapidSettings.experimentData.expressionReferenceData = 'Efd'; %Data variable nam
 %Input data
 rapidSettings.experimentData.pathToInData = 'Capacitive_simulation.mat';
 rapidSettings.experimentData.expressionInDataTime = 'time'; %Time variable name
-rapidSettings.experimentData.expressionInData = 'V'; %Data variable name
+rapidSettings.experimentData.expressionInData = 'signal_in'; %Data variable name
 
 %% ==========Experiment settings==========
 %General settings 
@@ -28,9 +28,9 @@ rapidSettings.experimentSettings.saveHist = 0; %Don't save history
 
 %Model related settings
 rapidSettings.experimentSettings.pathToSimulinkModel = 'Mostar_Efd.mdl'; %Simulink model file name
-rapidSettings.experimentSettings.pathToFMUModel = 'fmu.fmu'; %FMU file name
+rapidSettings.experimentSettings.pathToFMUModel = 'fmu_AVR.fmu'; %FMU file name
 rapidSettings.experimentSettings.modelName = 'Mostar_Efd'; %Simulink model name
-rapidSettings.experimentSettings.blockName = 'Mostar_Efd/fmu'; %FMU name
+rapidSettings.experimentSettings.blockName = 'Mostar_Efd/fmu_AVR'; %FMU name
 rapidSettings.experimentSettings.scopeName = 'simout'; %Result sink name
 rapidSettings.experimentSettings.displayMode = 'Show';
 
@@ -78,7 +78,7 @@ parameters = {'machineData.data.Xd','machineData.data.R_a','machineData.data.H',
               'machineData.data.T_R','machineData.data.T_C1','machineData.data.T_B1','machineData.data.T_C2','machineData.data.T_B2','machineData.data.K_R','machineData.data.T_1','machineData.data.K_C','machineData.data.V_RMAX','machineData.data.V_RMIN'};
 
 rapidSettings.parameterNames = parameters(x:y);
-rapidSettings.fmuInputNames = {}; %Input variable names
+rapidSettings.fmuInputNames = {'V','Ifd'}; %Input variable names
 rapidSettings.fmuOutputNames = {'Efd'}; %Output variable names
 
 %% ==========Running the computation==========
