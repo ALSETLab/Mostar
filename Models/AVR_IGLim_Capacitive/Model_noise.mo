@@ -1383,7 +1383,7 @@ model Model_noise
         extent={{-5,-5},{5,5}},
         rotation=90,
         origin={-169,31})));
-  Modelica.Blocks.Noise.NormalNoise normalNoise(samplePeriod=0.005, sigma=0.05)
+  Modelica.Blocks.Noise.NormalNoise normalNoise(samplePeriod=0.005, sigma=0.5)
     annotation (Placement(transformation(extent={{-194,2},{-178,18}})));
   inner Modelica.Blocks.Noise.GlobalSeed globalSeed
     annotation (Placement(transformation(extent={{-154,72},{-134,92}})));
@@ -1426,9 +1426,6 @@ equation
           -132,-21},{-147.5,-21}},  color={0,0,127}));
   connect(sT5B.VOTHSG, const4.y) annotation (Line(points={{-127,22.6},{-112,
           22.6},{-112,5},{-94.5,5}}, color={0,0,127}));
-  connect(sT5B.XADIFD, Gen1.XADIFD) annotation (Line(points={{-146,9.1},{-126,
-          9.1},{-126,18},{-124.8,18},{-124.8,37.2}},
-                                                  color={0,0,127}));
   connect(bus1.p, pwLine.n)
     annotation (Line(points={{-52,48},{-59,48}}, color={0,0,255}));
   connect(pwLine.p, bus.p)
@@ -1446,12 +1443,14 @@ equation
           44.4},{-76,-13.6},{-89.2,-13.6}}, color={0,0,127}));
   connect(infiniteBus.p, bus1.p) annotation (Line(points={{-28,48},{-52,48}},
                              color={0,0,255}));
-  connect(add.y, Gen1.EFD) annotation (Line(points={{-169,36.5},{-169,42},{
-          -152.4,42}}, color={0,0,127}));
-  connect(add.u2, sT5B.EFD)
-    annotation (Line(points={{-166,25},{-166,19},{-149,19}}, color={0,0,127}));
   connect(normalNoise.y, add.u1) annotation (Line(points={{-177.2,10},{-172,10},
           {-172,25}}, color={0,0,127}));
+  connect(Gen1.EFD, add.y) annotation (Line(points={{-152.4,42},{-164,42},{-164,
+          40},{-169,40},{-169,36.5}}, color={0,0,127}));
+  connect(add.u2, sT5B.EFD) annotation (Line(points={{-166,25},{-160,25},{-160,
+          12},{-149,12},{-149,19}}, color={0,0,127}));
+  connect(Gen1.XADIFD, sT5B.XADIFD) annotation (Line(points={{-124.8,37.2},{
+          -124,37.2},{-124,9.1},{-146,9.1}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-40},
             {200,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-40},{200,100}})),
