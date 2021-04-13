@@ -1,7 +1,7 @@
 within Mostar.Models.AVR_IGLim_Inductive.FMU;
 model AVR "System with the original generator parameters"
 
-  Data2Model.IG_Lim_Inductive.PSO  machineData
+  Data2Model.IG_Lim_Inductive.init machineData
     annotation (Placement(transformation(extent={{-30,34},{-10,54}})));
   Modelica.Blocks.Sources.Constant const1(k=-Modelica.Constants.inf)
                                                   annotation (Placement(transformation(extent={{-90,-74},
@@ -380,11 +380,6 @@ model AVR "System with the original generator parameters"
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-80,-32})));
-  Modelica.Blocks.Sources.Step step(
-    offset=1.023715203000000,
-    startTime=1.36,
-    height=-0.05)                                                annotation (Placement(transformation(extent={{74,-18},
-            {66,-10}})));
   Modelica.Blocks.Sources.CombiTimeTable Efd_real(
     tableOnFile=false,
     startTime=0,
@@ -724,6 +719,10 @@ model AVR "System with the original generator parameters"
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-82,26})));
+  Modelica.Blocks.Interfaces.RealInput XadIfd
+    annotation (Placement(transformation(extent={{140,-80},{100,-40}})));
+  Modelica.Blocks.Interfaces.RealInput ECOMP
+    annotation (Placement(transformation(extent={{140,-40},{100,0}})));
 equation
 
   connect(sT5B.VOEL,const2. y) annotation (Line(points={{-22,-16.9},{-22,-45},{
@@ -736,10 +735,10 @@ equation
           -110,0}}, color={0,0,127}));
   connect(const3.y, sT5B.EFD0) annotation (Line(points={{65.5,-37},{-4,-37},{-4,
           -10.6},{-11,-10.6}},                         color={0,0,127}));
-  connect(Ifd_real.y[1], sT5B.XADIFD) annotation (Line(points={{-69,-32},{-30,
-          -32},{-30,-16.9}},                     color={0,0,127}));
-  connect(step.y, sT5B.ECOMP) annotation (Line(points={{65.6,-14},{0,-14},{0,-7},
-          {-11,-7}},                               color={0,0,127}));
+  connect(sT5B.XADIFD, XadIfd) annotation (Line(points={{-30,-16.9},{-30,-60},{
+          120,-60}}, color={0,0,127}));
+  connect(sT5B.ECOMP, ECOMP) annotation (Line(points={{-11,-7},{49.5,-7},{49.5,
+          -20},{120,-20}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -80},{100,60}})),
       experiment(

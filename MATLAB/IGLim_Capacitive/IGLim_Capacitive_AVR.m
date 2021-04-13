@@ -4,7 +4,7 @@
 rapidSettings=RaPIdClass();
 
 %Output data
-rapidSettings.experimentData.pathToReferenceData = 'IGLim_Capacitive.mat'; %Data file name
+rapidSettings.experimentData.pathToReferenceData = 'AVR_IG_Capacitive_scaled.mat'; %Data file name
 rapidSettings.experimentData.expressionReferenceTime = 'time'; %Time variable name
 rapidSettings.experimentData.expressionReferenceData = 'Efd'; %Data variable name
 
@@ -28,9 +28,9 @@ rapidSettings.experimentSettings.saveHist = 0; %Don't save history
 
 %Model related settings
 rapidSettings.experimentSettings.pathToSimulinkModel = 'Mostar_Efd.mdl'; %Simulink model file name
-rapidSettings.experimentSettings.pathToFMUModel = 'fmu_AVR.fmu'; %FMU file name
+rapidSettings.experimentSettings.pathToFMUModel = 'fmu.fmu'; %FMU file name
 rapidSettings.experimentSettings.modelName = 'Mostar_Efd'; %Simulink model name
-rapidSettings.experimentSettings.blockName = 'Mostar_Efd/fmu_AVR'; %FMU name
+rapidSettings.experimentSettings.blockName = 'Mostar_Efd/fmu'; %FMU name
 rapidSettings.experimentSettings.scopeName = 'simout'; %Result sink name
 rapidSettings.experimentSettings.displayMode = 'Show';
 

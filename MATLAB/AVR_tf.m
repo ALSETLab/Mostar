@@ -1,37 +1,42 @@
 %% AVR parameters
 Tr = 0.01;
-Tc1 = 2;
-Tb1 = 20;
-Tc2 = 0.02;
-Tb2 = 0.005;
+Tb1 = 2;
+Tc1 = 20;
+Tb2 = 0.02;
+Tc2 = 0.005;
 Kr = 500;
 T1 = 0.005;
 Kc = 1;
 Vrmax = 4.35;
 Vrmin = -3.825;
-
+Efd0 = Efd(1);
+XadIfd = Ifd(1);
+Vinit = V(1);
+PSS= 0;
+VR0 = Efd0 + Kc*XadIfd;
 %% AVR parameters - Capacitive
 Tr = 0.01;
-Tc1 = 1.49432157800359;
-Tb1 = 20.00657894736842105;
-Tc2 = 0.00362976406533575;
-Tb2 = 0.00657894736842105;
-Kr = 200;
-T1 = 0.00657894736842105;
-Kc = 0.3997207818109294;
+Tc1 = 1;
+Tb1 = 10;
+Tc2 = 0.1;
+Tb2 = 0.1;
+Kr = 500;
+T1 = 0.005;
+Kc = 1;
 Vrmax = 4.35;
 Vrmin = -3.825;
-
+PSS= 0;
 %%
 
 s = tf('s');
 
+Vref = (Efd0 + Kc*XadIfd)/Kr + Vinit;
 trans = 1/(Tr*s+1);
-LL1 = (Tc1*s+1)/(Tb1*s+1);
-LL2 = (Tc2*s+1)/(Tb2*s+1);
+LL1 = (Tb1*s+1)/(Tc1*s+1);
+LL2 = (Tb2*s+1)/(Tc2*s+1);
 lag = (1)/(T1*s+1);
 
-efd = lag*trans*LL1*LL2*Kr; %V to summing junction with Ifd
+efd = lag*(Vref-trans+PSS)*LL1*LL2*Kr; %V to summing junction with Ifd
 
 a = efd.numerator{1,1};
 b = efd.denominator{1,1};
@@ -41,11 +46,11 @@ ifd = Kc*lag;
 c = ifd.numerator{1,1};
 d = ifd.denominator{1,1};
 
-num = {a,c};
-den = {b,d};
+num = {c,a};
+den = {d,b};
 
 sys = tf(num,den);
-bode(sys(1),'g')
+bode(sys,'r',linsys1,'b')
 [A,B,C,D] = tf2ss(a,b);
 state_space_V = ss(A,B,C,D);
 
