@@ -2,3 +2,6 @@ Model
 Optimization
 fmu
 Model_fmu
+Model_AVR
+Generator
+Generator_fmu

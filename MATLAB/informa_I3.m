@@ -3,7 +3,7 @@ clear
 close all
 
 Ts=0.005;
-
+%%
 
  %%%%%% Definition of the model for the grey-box identification
 
@@ -11,7 +11,7 @@ odefun = 'AVR_greyest2';
 
 %%%% True parameters
 
-Tr = 0.01;
+    Tr = 0.01;
     Tb1 = 2;
     Tc1 = 20;
     Tb2 = 0.02;
@@ -21,6 +21,17 @@ Tr = 0.01;
     T1 = 0.005;
     Kc = 1;
     
+    
+%%
+    Tr = 0.0108;
+    Tb1 = 1.7733;
+    Tc1 = 18.4518;
+    Tb2 = 0.02500;
+    Tc2 = 0.005;
+    Kr = 554.3601;
+    Krbis=-554.3601;
+    T1 = 0.0063;
+    Kc = 0.94;
  
 %%% Lead/lag is modeled as (1 + Tb s) / (1 + Tc s) as in original file
 
@@ -32,7 +43,7 @@ parameters0 = {'Tr',Tr;'Tc1',Tc1;'Tb1',Tb1;'Tc2',Tc2;'Tb2',Tb2;'Krbis',Krbis;'T1
 fcn_type = 'c';
 
 sys_true = idgrey(odefun,parameters0,fcn_type); %%% True system (it is equivalent to your linearized model)
-
+%%
 
 %%%%%% Model with only V excitation
 
@@ -43,7 +54,7 @@ load('Capacitive_simulation.mat');
  t=time;   
  
  
- V=V-mean(V(1:60));
+  V=V-mean(V(1:60));
   Efd=Efd-mean(Efd(1:60));
   Ifd=Ifd-mean(Ifd(1:60));
  
@@ -56,8 +67,10 @@ load('Capacitive_simulation.mat');
   figure(1); bode(modelv,'r',sys_true,'b');
   
   figure(2); compare(data,modelv,'r',sys_true,'b')
+  zpk(d2c(modelv))
+  zpk(sys_true)
   
-
+%%
 
 %%%%% Data excited with V AND r
 
@@ -66,7 +79,7 @@ load('Capacitive_simulation_r.mat');
 
 
   
-   V_r=V_r-mean(V_r(1));
+  V_r=V_r-mean(V_r(1));
   Efd_r=Efd_r-mean(Efd_r(1));
   Ifd_r=Ifd_r-mean(Ifd_r(1));
 
@@ -74,18 +87,20 @@ data_r=iddata(Efd_r,[V_r Ifd_r],Ts);
   
   model=oe(data_r,[[3 3],[3 3],[0 0]]);
   
-  figure(3); bode(modelv,'r',sys_true,'b',model,'k');
+  figure(3); bode(sys_true,'b',model,'k');
   
   figure(4); compare(data_r,modelv,'r',sys_true,'b',model,'k')
   
+  zpk(d2c(model))
+  zpk(sys_true)
   
   
-  
+%%
  
 opt = greyestOptions;
 opt.InitialState = 'zero';
- opt.Display = 'on'; 
- model_grey=greyest(data_r,sys_true,opt);
+opt.Display = 'on'; 
+model_grey=greyest(data_r,sys_true,opt);
 
 
 
@@ -95,16 +110,21 @@ Efdsimu=lsim(sys_true,[V_r,Ifd_r],t);
 
 figure(5); bode(modelv,'r',sys_true,'b',model,'k',model_grey,'m');
 %   
-figure(6); compare(data_r,modelv,'r',sys_true,'b',model,'k',model_grey,'m');
+figure(6); compare(data_r,sys_true,'b',model,'k',model_grey,'m');
 
 
+
+
+
+
+%%
 
 Vrmax = 4.35;
-    Vrmin = -3.825;
+Vrmin = -3.825;
 
 Efd0 = Efd(1);
-    XadIfd = Ifd(1);
-    Vinit = V(1);
+XadIfd = Ifd(1);
+Vinit = V(1);
 
 VV_basis=(Efd0 + Kc*XadIfd)/Kr + Vinit;
 

@@ -1,3 +1,4 @@
+
 %% ==========Reference data settings==========
 
 % Create a rapidSettings (optional but recommended - will work with just a structure)
@@ -6,7 +7,7 @@ rapidSettings=RaPIdClass();
 %Output data
 rapidSettings.experimentData.pathToReferenceData = 'AVR_IG_Capacitive.mat'; %Data file name
 rapidSettings.experimentData.expressionReferenceTime = 'time'; %Time variable name
-rapidSettings.experimentData.expressionReferenceData = 'Q'; %Data variable name
+rapidSettings.experimentData.expressionReferenceData = 'signal'; %Data variable name
 
 %Input data
 rapidSettings.experimentData.pathToInData = '';
@@ -18,7 +19,7 @@ rapidSettings.experimentData.expressionInData = ''; %Data variable name
 rapidSettings.experimentSettings.tf = 4.5; %Simulation length
 rapidSettings.experimentSettings.ts = 0.005; %Sampling time
 rapidSettings.experimentSettings.t_fitness_start = 0; %Start calculating fintess function after t_fintess_start
-rapidSettings.experimentSettings.timeOut = 500; %Seconds before simulation timeout
+rapidSettings.experimentSettings.timeOut = 50000; %Seconds before simulation timeout
 rapidSettings.experimentSettings.integrationMethod = 'ode45'; %Solver selection
 rapidSettings.experimentSettings.solverMode = 'Simulink';
 rapidSettings.experimentSettings.optimizationAlgorithm = 'pso'; % %Selection of optimization algorithm
@@ -28,9 +29,9 @@ rapidSettings.experimentSettings.saveHist = 0; %Don't save history
 
 %Model related settings
 rapidSettings.experimentSettings.pathToSimulinkModel = 'Mostar.mdl'; %Simulink model file name
-rapidSettings.experimentSettings.pathToFMUModel = 'fmu.fmu'; %FMU file name
+rapidSettings.experimentSettings.pathToFMUModel = 'fmu_gen.fmu'; %FMU file name
 rapidSettings.experimentSettings.modelName = 'Mostar'; %Simulink model name
-rapidSettings.experimentSettings.blockName = 'Mostar/fmu'; %FMU name
+rapidSettings.experimentSettings.blockName = 'Mostar/fmu_gen'; %FMU name
 rapidSettings.experimentSettings.scopeName = 'simout'; %Result sink name
 rapidSettings.experimentSettings.displayMode = 'Show';
 
@@ -38,11 +39,11 @@ rapidSettings.experimentSettings.displayMode = 'Show';
 % %Estimation parameter settings
 x=1;
 y = 12;
-p_0 =[1.183	0.004799183673	2.137	0.371	0	0.62	0.241	0.215	3.77	0.0552	0.0823	0.1...
+p_0 =[1.0183	0.004799183673	2.137	0.371	0	0.62	0.241	0.215	3.77	0.0552	0.0823	0.1...
       0    5.0000   30.0000    1.0000    0.1000  408.0381    1.0000    2.0000    0.1058         0]; %Maximum values of parameters
-p_min = [0.01,0.0001,1,0.1,0.01,0.1,0.1,0.1,1,0.1,0.1,0.01,...
-         0, 0.5,3,1e-3,1e-3,300,1e-6,0.1,1e-4,-11];%Minimum values of parameters
-p_max =[2,0.5,15,2,1,2,2,2,20,10,10,1,...
+p_min = [1,  0.0001,2,0.1, 0,   0.5,0.1,0.1,1,0.05,0.05,0.01,...
+         0, 0.5, 3,1e-3,1e-3,300,1e-6,0.1,1e-4,-11];%Minimum values of parameters
+p_max = [1.5,0.01,  5,0.50,0.1, 1,  0.5,0.5,10,0.1,0.1,0.3,...
         0.1, 5,30,1,0.1,700,1,2,11,0]; %Maximum values of parameters
 r = [0.6349    0.1792   14.6201    0.3195    0.8964    1.7046    0.3310    0.3891   15.2940    1.8497    6.0038    0.4648];
 rapidSettings.experimentSettings.p_0 = p_0(x:y);
@@ -78,7 +79,7 @@ parameters = {'machineData.data.Xd','machineData.data.R_a','machineData.data.H',
 
 rapidSettings.parameterNames = parameters(x:y);
 rapidSettings.fmuInputNames = {}; %Input variable names
-rapidSettings.fmuOutputNames = {'Qout'}; %Output variable names
+rapidSettings.fmuOutputNames = {'Pout','Qout'}; %Output variable names
 
 %% ==========Running the computation==========
 

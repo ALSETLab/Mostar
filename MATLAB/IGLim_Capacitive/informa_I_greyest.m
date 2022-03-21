@@ -100,9 +100,9 @@ figure(2); compare(modelv,data);
 
 %%
 %%%% Further verification of the informativity problem. Condition (7) in my note is not respected 
- load exc_r_I2  %excitation r with little perturbation both on Efd and Ifd  %r=0.5*randn(size(t));
+ load exc_r  %excitation r with little perturbation both on Efd and Ifd  %r=0.5*randn(size(t));
  
- r = r(1:901);
+ r = r(1:1201);
 
   
   I2=Ifd + r; %I2 is the signal entering the AVR

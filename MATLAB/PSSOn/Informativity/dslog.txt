@@ -1,0 +1,29 @@
+Log-file of program ./dymosim
+(generated: Fri Nov 12 11:06:46 2021)
+
+dymosim started
+Model: Mostar.Models.PSS_on.AVR
+... "dsin.txt" loading (dymosim input file)
+... "AVR.mat" creating (simulation result file)
+
+Integration started at T = 0 using integration method DASSL
+(DAE multi-step solver (dassl/dasslrt of Petzold modified by Dassault Systemes))
+Integration terminated successfully at T = 4.5
+   CPU-time for integration      : 0.25 seconds
+   CPU-time for one GRID interval: 0.278 milliseconds
+   CPU-time for initialization   : 0.544 seconds
+   Number of result points       : 1819
+   Number of GRID   points       : 901
+   Number of (successful) steps  : 17474
+   Number of F-evaluations       : 95347
+   Number of H-evaluations       : 18383
+   Number of Jacobian-evaluations: 7977
+   Number of (model) time events : 909
+   Number of (U) time events     : 0
+   Number of state    events     : 0
+   Number of step     events     : 0
+   Minimum integration stepsize  : 4.16e-008
+   Maximum integration stepsize  : 0.00245
+   Maximum integration order     : 5
+Calling terminal section
+... "dsfinal.txt" creating (final states)

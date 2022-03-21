@@ -1,0 +1,2269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fmiModelDescription
+  fmiVersion="1.0"
+  modelName="RaPId"
+  modelIdentifier="RaPId"
+  guid="{f29b2c25-5fb1-47e3-8415-ade2dc40c0c2}"
+  generationTool="Dymola Version 2019 FD01 (64-bit), 2018-10-10 (requires license to execute)"
+  generationDateAndTime="2021-07-16T19:02:43Z"
+  variableNamingConvention="structured"
+  numberOfContinuousStates="5"
+  numberOfEventIndicators="10">
+  <UnitDefinitions>
+    <BaseUnit
+      unit="V">
+      <DisplayUnitDefinition
+        displayUnit="kV"
+        gain="0.001"/>
+    </BaseUnit>
+    <BaseUnit
+      unit="VA">
+      <DisplayUnitDefinition
+        displayUnit="MVA"
+        gain="1E-06"/>
+    </BaseUnit>
+    <BaseUnit
+      unit="W">
+      <DisplayUnitDefinition
+        displayUnit="MW"
+        gain="1E-06"/>
+    </BaseUnit>
+    <BaseUnit
+      unit="rad">
+      <DisplayUnitDefinition
+        displayUnit="deg"
+        gain="57.29577951308232"/>
+    </BaseUnit>
+    <BaseUnit
+      unit="var">
+      <DisplayUnitDefinition
+        displayUnit="MVA"
+        gain="1E-06"/>
+    </BaseUnit>
+  </UnitDefinitions>
+  <TypeDefinitions>
+    <Type
+      name="Modelica.Blocks.Interfaces.RealInput">
+      <RealType/>
+    </Type>
+    <Type
+      name="Modelica.Blocks.Interfaces.RealOutput">
+      <RealType/>
+    </Type>
+    <Type
+      name="Modelica.SIunits.ActivePower">
+      <RealType
+        quantity="Power"
+        unit="W"/>
+    </Type>
+    <Type
+      name="Modelica.SIunits.Conversions.NonSIunits.Angle_deg">
+      <RealType
+        quantity="Angle"
+        unit="deg"/>
+    </Type>
+    <Type
+      name="Modelica.SIunits.ReactivePower">
+      <RealType
+        quantity="Power"
+        unit="var"/>
+    </Type>
+    <Type
+      name="OpenIPSL.Types.ActivePower">
+      <RealType
+        quantity="Power"
+        unit="W"
+        displayUnit="MW"
+        nominal="100000000.0"/>
+    </Type>
+    <Type
+      name="OpenIPSL.Types.Angle">
+      <RealType
+        quantity="Angle"
+        unit="rad"
+        displayUnit="deg"/>
+    </Type>
+    <Type
+      name="OpenIPSL.Types.AngularVelocity">
+      <RealType
+        quantity="AngularVelocity"
+        unit="rad/s"/>
+    </Type>
+    <Type
+      name="OpenIPSL.Types.ApparentPower">
+      <RealType
+        quantity="Power"
+        unit="VA"
+        displayUnit="MVA"
+        nominal="100000000.0"/>
+    </Type>
+    <Type
+      name="OpenIPSL.Types.Frequency">
+      <RealType
+        quantity="Frequency"
+        unit="Hz"/>
+    </Type>
+    <Type
+      name="OpenIPSL.Types.PerUnit">
+      <RealType
+        unit="1"/>
+    </Type>
+    <Type
+      name="OpenIPSL.Types.ReactivePower">
+      <RealType
+        quantity="Power"
+        unit="var"
+        displayUnit="MVA"
+        nominal="100000000.0"/>
+    </Type>
+    <Type
+      name="OpenIPSL.Types.Time">
+      <RealType
+        quantity="Time"
+        unit="s"/>
+    </Type>
+    <Type
+      name="OpenIPSL.Types.Voltage">
+      <RealType
+        quantity="ElectricPotential"
+        unit="V"
+        displayUnit="kV"
+        nominal="10000.0"/>
+    </Type>
+  </TypeDefinitions>
+  <DefaultExperiment startTime="0.0"
+    stopTime="4.5"
+    tolerance="1E-06"/>
+  <ModelVariables>
+    <ScalarVariable
+      name="SysData.S_b"
+      valueReference="16777216"
+      description="System base"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.ApparentPower"
+        start="30000000"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="SysData.fn"
+      valueReference="16777217"
+      description="System frequency"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Frequency"
+        start="50"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.Xd"
+      valueReference="16777218"
+      variability="parameter">
+      <Real
+        unit="1"
+        start="1.01216"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.R_a"
+      valueReference="16777219"
+      variability="parameter">
+      <Real
+        unit="1"
+        start="0.0033415"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.H"
+      valueReference="16777220"
+      variability="parameter">
+      <Real
+        unit="s"
+        start="2.35"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.D"
+      valueReference="16777221"
+      variability="parameter">
+      <Real start="0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.Xpd"
+      valueReference="16777222"
+      variability="parameter">
+      <Real
+        unit="1"
+        start="0.36847"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.Xppd"
+      valueReference="16777223"
+      variability="parameter">
+      <Real
+        unit="1"
+        start="0.29965"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.Xppq"
+      valueReference="16777224"
+      variability="parameter">
+      <Real
+        unit="1"
+        start="0.21"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.Xq"
+      valueReference="16777225"
+      variability="parameter">
+      <Real
+        unit="1"
+        start="0.6005"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.Tpd0"
+      valueReference="16777226"
+      variability="parameter">
+      <Real
+        unit="s"
+        start="3.776"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.Tppd0"
+      valueReference="16777227"
+      variability="parameter">
+      <Real
+        unit="s"
+        start="0.0798"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.Tppq0"
+      valueReference="16777228"
+      variability="parameter">
+      <Real
+        unit="s"
+        start="0.0524"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.Xl"
+      valueReference="16777229"
+      variability="parameter">
+      <Real
+        unit="1"
+        start="0.1257"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.S10"
+      valueReference="16777230"
+      variability="parameter">
+      <Real
+        unit="1"
+        start="0.1"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.S12"
+      valueReference="16777231"
+      variability="parameter">
+      <Real
+        unit="1"
+        start="0.4"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.V_0"
+      valueReference="16777232"
+      variability="parameter">
+      <Real
+        unit="1"
+        start="0.9745"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.A_0"
+      valueReference="16777233"
+      variability="parameter">
+      <Real
+        unit="rad"
+        start="-15"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.P_0"
+      valueReference="16777234"
+      variability="parameter">
+      <Real
+        unit="W"
+        start="4996435.71"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.Q_0"
+      valueReference="16777235"
+      variability="parameter">
+      <Real
+        unit="var"
+        start="-2475000.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_R"
+      valueReference="16777236"
+      variability="parameter">
+      <Real start="0.012"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_C1"
+      valueReference="16777237"
+      variability="parameter">
+      <Real start="1.85"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_B1"
+      valueReference="16777238"
+      variability="parameter">
+      <Real start="22.85"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_C2"
+      valueReference="16777239"
+      variability="parameter">
+      <Real start="0.025302356"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_B2"
+      valueReference="16777240"
+      variability="parameter">
+      <Real start="0.00460734"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.K_R"
+      valueReference="16777241"
+      variability="parameter">
+      <Real start="500.6942"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.V_RMAX"
+      valueReference="16777242"
+      variability="parameter">
+      <Real start="4.35"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.V_RMIN"
+      valueReference="16777243"
+      variability="parameter">
+      <Real start="-3.825"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_1_AVR"
+      valueReference="16777244"
+      variability="parameter">
+      <Real start="0.0060734"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.K_C"
+      valueReference="16777245"
+      variability="parameter">
+      <Real start="0.99"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_UC1"
+      valueReference="16777246"
+      variability="parameter">
+      <Real start="1"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_UB1"
+      valueReference="16777247"
+      variability="parameter">
+      <Real start="1"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_UC2"
+      valueReference="16777248"
+      variability="parameter">
+      <Real start="1"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_UB2"
+      valueReference="16777249"
+      variability="parameter">
+      <Real start="1"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_OC1"
+      valueReference="16777250"
+      variability="parameter">
+      <Real start="1"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_OB1"
+      valueReference="16777251"
+      variability="parameter">
+      <Real start="1"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_OC2"
+      valueReference="16777252"
+      variability="parameter">
+      <Real start="1"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_OB2"
+      valueReference="16777253"
+      variability="parameter">
+      <Real start="1"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_w1"
+      valueReference="16777254"
+      variability="parameter">
+      <Real start="10"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_w2"
+      valueReference="16777255"
+      variability="parameter">
+      <Real start="10"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_6"
+      valueReference="16777256"
+      variability="parameter">
+      <Real start="1E-09"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_w3"
+      valueReference="16777257"
+      variability="parameter">
+      <Real start="10"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_w4"
+      valueReference="16777258"
+      variability="parameter">
+      <Real start="1E-09"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_7"
+      valueReference="16777259"
+      variability="parameter">
+      <Real start="10"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.K_S2"
+      valueReference="16777260"
+      variability="parameter">
+      <Real start="0.99"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.K_S3"
+      valueReference="16777261"
+      variability="parameter">
+      <Real start="1"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_8"
+      valueReference="16777262"
+      variability="parameter">
+      <Real start="0.5"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_9"
+      valueReference="16777263"
+      variability="parameter">
+      <Real start="0.1"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.K_S1"
+      valueReference="16777264"
+      variability="parameter">
+      <Real start="20"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_1"
+      valueReference="16777265"
+      variability="parameter">
+      <Real start="0.15"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_2"
+      valueReference="16777266"
+      variability="parameter">
+      <Real start="0.025"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_3"
+      valueReference="16777267"
+      variability="parameter">
+      <Real start="1"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_4"
+      valueReference="16777268"
+      variability="parameter">
+      <Real start="1"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_10"
+      valueReference="16777269"
+      variability="parameter">
+      <Real start="1"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.T_11"
+      valueReference="16777270"
+      variability="parameter">
+      <Real start="1"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.V_S1MAX"
+      valueReference="16777271"
+      variability="parameter">
+      <Real start="0.8"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.V_S1MIN"
+      valueReference="16777272"
+      variability="parameter">
+      <Real start="-0.8"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.V_S2MAX"
+      valueReference="16777273"
+      variability="parameter">
+      <Real start="1.25"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.V_S2MIN"
+      valueReference="16777274"
+      variability="parameter">
+      <Real start="-1.25"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.V_STMAX"
+      valueReference="16777275"
+      variability="parameter">
+      <Real start="0.1"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.V_STMIN"
+      valueReference="16777276"
+      variability="parameter">
+      <Real start="-0.1"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.M"
+      valueReference="16777277"
+      variability="parameter">
+      <Integer start="1"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="machineData.data.N"
+      valueReference="16777278"
+      variability="parameter">
+      <Integer start="1"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.S_b"
+      valueReference="100663296"
+      description="System base power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.ApparentPower"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.enableS_b"
+      valueReference="100663297"
+      description="Enable S_b in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.V_b"
+      valueReference="16777279"
+      description="Base voltage of the bus"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Voltage"
+        start="400000.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.enableV_b"
+      valueReference="100663298"
+      description="Enable V_b in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.fn"
+      valueReference="100663299"
+      description="System frequency"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Frequency"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.enablefn"
+      valueReference="100663300"
+      description="Enable fn in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.P_0"
+      valueReference="16777280"
+      description="Initial active power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.ActivePower"
+        start="1000000.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.enableP_0"
+      valueReference="100663301"
+      description="Enable P_0 in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.Q_0"
+      valueReference="16777281"
+      description="Initial reactive power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.ReactivePower"
+        start="0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.enableQ_0"
+      valueReference="100663302"
+      description="Enable Q_0 in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.v_0"
+      valueReference="100663303"
+      description="Initial voltage magnitude"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.enablev_0"
+      valueReference="100663304"
+      description="Enable v_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.angle_0"
+      valueReference="100663305"
+      description="Initial voltage angle"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Angle"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.enableangle_0"
+      valueReference="100663306"
+      description="Enable angle_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.displayPF"
+      valueReference="16777282"
+      description="Display power flow:"
+      variability="parameter">
+      <Boolean start="false"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.enabledisplayPF"
+      valueReference="100663307"
+      description="Enable displayPF in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.p.vr"
+      valueReference="369098764"
+      description="Real part of the voltage">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.p.vi"
+      valueReference="369098765"
+      description="Imaginary part of the voltage">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.p.ir"
+      valueReference="100663310"
+      description="Real part of the current"
+      variability="constant">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"
+        start="0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.p.ii"
+      valueReference="100663311"
+      description="Imaginary part of the current"
+      variability="constant">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"
+        start="0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.V"
+      valueReference="905969680"
+      description="Bus voltage magnitude">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.angle"
+      valueReference="905969681"
+      description="Bus voltage angle">
+      <Real
+        declaredType="OpenIPSL.Types.Angle"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.angleDisplay"
+      valueReference="905969682"
+      description="Angle in degrees for display purposes">
+      <Real
+        declaredType="Modelica.SIunits.Conversions.NonSIunits.Angle_deg"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.S_b"
+      valueReference="100663315"
+      description="System base power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.ApparentPower"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.enableS_b"
+      valueReference="100663316"
+      description="Enable S_b in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.V_b"
+      valueReference="16777283"
+      description="Base voltage of the bus"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Voltage"
+        start="400000.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.enableV_b"
+      valueReference="100663317"
+      description="Enable V_b in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.fn"
+      valueReference="100663318"
+      description="System frequency"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Frequency"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.enablefn"
+      valueReference="100663319"
+      description="Enable fn in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.P_0"
+      valueReference="100663320"
+      description="Initial active power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.ActivePower"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.enableP_0"
+      valueReference="100663321"
+      description="Enable P_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Q_0"
+      valueReference="100663322"
+      description="Initial reactive power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.ReactivePower"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.enableQ_0"
+      valueReference="100663323"
+      description="Enable Q_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.v_0"
+      valueReference="100663324"
+      description="Initial voltage magnitude"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.enablev_0"
+      valueReference="100663325"
+      description="Enable v_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.angle_0"
+      valueReference="100663326"
+      description="Initial voltage angle"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Angle"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.enableangle_0"
+      valueReference="100663327"
+      description="Enable angle_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.displayPF"
+      valueReference="16777284"
+      description="Display power flow:"
+      variability="parameter">
+      <Boolean start="false"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.enabledisplayPF"
+      valueReference="100663328"
+      description="Enable displayPF in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.M_b"
+      valueReference="16777285"
+      description="Machine base power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.ApparentPower"
+        start="30000000"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Tpd0"
+      valueReference="100663329"
+      description="d-axis transient open-circuit time constant"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Time"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Tppd0"
+      valueReference="100663330"
+      description="d-axis sub-transient open-circuit time constant"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Time"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Tppq0"
+      valueReference="100663331"
+      description="q-axis sub-transient open-circuit time constant"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Time"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.H"
+      valueReference="100663332"
+      description="Inertia constant"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Time"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.D"
+      valueReference="100663333"
+      description="Speed damping"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Xd"
+      valueReference="100663334"
+      description="d-axis reactance"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Xq"
+      valueReference="100663335"
+      description="q-axis reactance"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Xpd"
+      valueReference="100663336"
+      description="d-axis transient reactance"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Xppd"
+      valueReference="100663337"
+      description="d-axis sub-transient reactance"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Xppq"
+      valueReference="100663338"
+      description="q-axis sub-transient reactance"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Xl"
+      valueReference="100663339"
+      description="leakage reactance"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.S10"
+      valueReference="100663340"
+      description="Saturation factor at 1.0 pu"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.S12"
+      valueReference="100663341"
+      description="Saturation factor at 1.2 pu"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.R_a"
+      valueReference="100663342"
+      description="Armature resistance"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.w0"
+      valueReference="16777286"
+      description="Initial speed deviation from nominal"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"
+        min="-0.999999999999999"
+        start="0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.p.vr"
+      valueReference="369098764"
+      description="Real part of the voltage"
+      alias="alias">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.p.vi"
+      valueReference="369098765"
+      description="Imaginary part of the voltage"
+      alias="alias">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.p.ir"
+      valueReference="369098799"
+      description="Real part of the current">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.p.ii"
+      valueReference="369098800"
+      description="Imaginary part of the current">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.SPEED"
+      valueReference="33554432"
+      description="Machine speed deviation from nominal [pu]"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PMECH"
+      valueReference="100663402"
+      description="Turbine mechanical power (machine base)"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PMECH0"
+      valueReference="100663402"
+      description="Initial value of machine electrical power (machine base)"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.ETERM"
+      valueReference="335544320"
+      description="Machine terminal voltage [pu]"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.EFD"
+      valueReference="436207616"
+      description="Generator main field voltage [pu]"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.EFD0"
+      valueReference="100663401"
+      description="Initial generator main field voltage [pu]"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PELEC"
+      valueReference="905969713"
+      description="Machine electrical power (machine base)">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.ISORCE"
+      valueReference="335544321"
+      description="Machine source current [pu]"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.ANGLE"
+      valueReference="33554433"
+      description="Machine relative rotor angle"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="rad"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.XADIFD"
+      valueReference="335544321"
+      description="Machine field current [pu]"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.w"
+      valueReference="33554432"
+      description="Machine speed deviation">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="der(Gen1.w)"
+      valueReference="587202560"
+      description="der(Machine speed deviation)">
+      <Real
+        unit="s-1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.delta"
+      valueReference="33554433"
+      description="Rotor angle">
+      <Real
+        declaredType="OpenIPSL.Types.Angle"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="der(Gen1.delta)"
+      valueReference="587202561"
+      description="der(Rotor angle)">
+      <Real
+        unit="rad/s"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Vt"
+      valueReference="335544320"
+      description="Bus voltage magnitude"
+      alias="alias">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.anglev"
+      valueReference="905969714"
+      description="Bus voltage angle">
+      <Real
+        declaredType="OpenIPSL.Types.Angle"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.I"
+      valueReference="905969715"
+      description="Terminal current magnitude">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.anglei"
+      valueReference="905969716"
+      description="Terminal current angle">
+      <Real
+        declaredType="OpenIPSL.Types.Angle"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.P"
+      valueReference="905969717"
+      description="Active power (system base)">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Q"
+      valueReference="905969718"
+      description="Reactive power (system base)">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Te"
+      valueReference="637534263"
+      description="Electrical torque [pu]">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.id"
+      valueReference="369098808"
+      description="d-axis armature current [pu]">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.iq"
+      valueReference="369098809"
+      description="q-axis armature current [pu]">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.ud"
+      valueReference="369098810"
+      description="d-axis terminal voltage [pu]">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.uq"
+      valueReference="369098811"
+      description="q-axis terminal voltage [pu]">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.w_b"
+      valueReference="100663356"
+      description="System base speed"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.AngularVelocity"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.CoB"
+      valueReference="100663357"
+      variability="parameter">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.vr0"
+      valueReference="100663358"
+      description="Real component of initial terminal voltage"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.vi0"
+      valueReference="100663359"
+      description="Imaginary component of initial terminal voltage"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.ir0"
+      valueReference="100663360"
+      description="Real component of initial armature current (system base)"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.ii0"
+      valueReference="100663361"
+      description="Imaginary component of initial armature current (system base)"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.p0"
+      valueReference="100663362"
+      description="Initial active power generation (machine base)"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.q0"
+      valueReference="100663363"
+      description="Initial reactive power generation (machine base)"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Epq"
+      valueReference="33554434"
+      description="q-axis voltage behind transient reactance">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="der(Gen1.Epq)"
+      valueReference="587202562"
+      description="der(q-axis voltage behind transient reactance)">
+      <Real
+        unit="s-1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIkd"
+      valueReference="33554435"
+      description="d-axis rotor flux linkage">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="der(Gen1.PSIkd)"
+      valueReference="587202563"
+      description="der(d-axis rotor flux linkage)">
+      <Real
+        unit="s-1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIppq"
+      valueReference="33554436"
+      description="q-axis subtransient flux linkage">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="der(Gen1.PSIppq)"
+      valueReference="587202564"
+      description="der(q-axis subtransient flux linkage)">
+      <Real
+        unit="s-1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIppd"
+      valueReference="369098820"
+      description="d-axis subtransient flux linkage">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSId"
+      valueReference="369098821"
+      description="d-axis flux linkage">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIq"
+      valueReference="369098822"
+      description="q-axis flux linkage">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.XadIfd"
+      valueReference="335544321"
+      description="Machine field current"
+      alias="alias">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Zs.re"
+      valueReference="100663367"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Zs.im"
+      valueReference="100663368"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Is.re"
+      valueReference="100663369"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Is.im"
+      valueReference="100663370"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIpp0.re"
+      valueReference="100663371"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIpp0.im"
+      valueReference="100663372"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.a.re"
+      valueReference="100663373"
+      description="Real part of complex number"
+      variability="constant">
+      <Real start="0.0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.a.im"
+      valueReference="100663374"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Epqp.re"
+      valueReference="100663375"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Epqp.im"
+      valueReference="100663376"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.delta0"
+      valueReference="100663377"
+      description="rotor angle in radians"
+      variability="parameter">
+      <Real
+        unit="rad"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.VT.re"
+      valueReference="100663378"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.VT.im"
+      valueReference="100663379"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.S.re"
+      valueReference="100663380"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.S.im"
+      valueReference="100663381"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.It.re"
+      valueReference="100663382"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.It.im"
+      valueReference="100663383"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.DQ_dq.re"
+      valueReference="100663384"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.DQ_dq.im"
+      valueReference="100663385"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.I_dq.re"
+      valueReference="100663386"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.I_dq.im"
+      valueReference="100663387"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.iq0"
+      valueReference="100663388"
+      description="q-axis component of initial current"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.id0"
+      valueReference="100663389"
+      description="d-axis component of initial current"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.ud0"
+      valueReference="100663390"
+      description="d-axis component of initial voltage"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.uq0"
+      valueReference="100663391"
+      description="q-axis component of initial voltage"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIpp0_dq.re"
+      valueReference="100663392"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIpp0_dq.im"
+      valueReference="100663393"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIppq0"
+      valueReference="100663394"
+      description="q-axis component of the sub-transient flux linkage"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIppd0"
+      valueReference="100663395"
+      description="d-axis component of the sub-transient flux linkage"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIkd0"
+      valueReference="100663396"
+      description="d-axis initial rotor flux linkage"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSId0"
+      valueReference="100663397"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIq0"
+      valueReference="100663398"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Epq0"
+      valueReference="100663399"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.dsat"
+      valueReference="100663400"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.efd0"
+      valueReference="100663401"
+      description="Initial field voltage magnitude"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.pm0"
+      valueReference="100663402"
+      description="Initial mechanical power (machine base)"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.K1d"
+      valueReference="100663403"
+      variability="parameter">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.K2d"
+      valueReference="100663404"
+      variability="parameter">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.K3d"
+      valueReference="100663405"
+      variability="parameter">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.K4d"
+      valueReference="100663406"
+      variability="parameter">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_b"
+      valueReference="100663407"
+      description="System base power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.ApparentPower"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.enableS_b"
+      valueReference="100663408"
+      description="Enable S_b in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.V_b"
+      valueReference="16777287"
+      description="Base voltage of the bus"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Voltage"
+        start="400000.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.enableV_b"
+      valueReference="100663409"
+      description="Enable V_b in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.fn"
+      valueReference="100663410"
+      description="System frequency"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Frequency"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.enablefn"
+      valueReference="100663411"
+      description="Enable fn in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.P_0"
+      valueReference="16777288"
+      description="Initial active power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.ActivePower"
+        start="0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.enableP_0"
+      valueReference="100663412"
+      description="Enable P_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.Q_0"
+      valueReference="16777289"
+      description="Initial reactive power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.ReactivePower"
+        start="0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.enableQ_0"
+      valueReference="100663413"
+      description="Enable Q_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.v_0"
+      valueReference="100663414"
+      description="Initial voltage magnitude"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.enablev_0"
+      valueReference="100663415"
+      description="Enable v_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.angle_0"
+      valueReference="100663416"
+      description="Initial voltage angle"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Angle"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.enableangle_0"
+      valueReference="100663417"
+      description="Enable angle_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.displayPF"
+      valueReference="16777290"
+      description="Display power flow:"
+      variability="parameter">
+      <Boolean start="false"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.enabledisplayPF"
+      valueReference="100663418"
+      description="Enable displayPF in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_p.re"
+      valueReference="100663419"
+      description="Real part of complex power (active power)"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.SIunits.ActivePower"
+        displayUnit="MW"
+        nominal="100000000.0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_p.im"
+      valueReference="100663420"
+      description="Imaginary part of complex power (reactive power)"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.SIunits.ReactivePower"
+        displayUnit="MVA"
+        nominal="100000000.0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_i.re"
+      valueReference="16777291"
+      description="Real part of complex power (active power)"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.SIunits.ActivePower"
+        displayUnit="MW"
+        nominal="100000000.0"
+        start="0.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_i.im"
+      valueReference="16777292"
+      description="Imaginary part of complex power (reactive power)"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.SIunits.ReactivePower"
+        displayUnit="MVA"
+        nominal="100000000.0"
+        start="0.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_y.re"
+      valueReference="16777293"
+      description="Real part of complex power (active power)"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.SIunits.ActivePower"
+        displayUnit="MW"
+        nominal="100000000.0"
+        start="0.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_y.im"
+      valueReference="16777294"
+      description="Imaginary part of complex power (reactive power)"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.SIunits.ReactivePower"
+        displayUnit="MVA"
+        nominal="100000000.0"
+        start="0.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.a.re"
+      valueReference="16777295"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real start="1.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.a.im"
+      valueReference="16777296"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real start="0.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.b.re"
+      valueReference="16777297"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real start="0.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.b.im"
+      valueReference="16777298"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real start="1.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.PQBRAK"
+      valueReference="100663421"
+      description="Constant power characteristic threshold"
+      variability="constant">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"
+        start="0.7"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.characteristic"
+      valueReference="100663422"
+      variability="constant">
+      <Integer start="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.p.vr"
+      valueReference="369098764"
+      description="Real part of the voltage"
+      alias="alias">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.p.vi"
+      valueReference="369098765"
+      description="Imaginary part of the voltage"
+      alias="alias">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.p.ir"
+      valueReference="369098879"
+      description="Real part of the current">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.p.ii"
+      valueReference="369098880"
+      description="Imaginary part of the current">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.angle"
+      valueReference="905969793"
+      description="Bus voltage angle">
+      <Real
+        declaredType="OpenIPSL.Types.Angle"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.v"
+      valueReference="369098882"
+      description="Bus voltage magnitude">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.P"
+      valueReference="905969795"
+      description="Active power consumption">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.Q"
+      valueReference="905969796"
+      description="Reactive power consumption">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.p0"
+      valueReference="100663429"
+      description="Initial active power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.q0"
+      valueReference="100663430"
+      description="Initial reactive power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.vr0"
+      valueReference="100663431"
+      description="Initial real voltage"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.vi0"
+      valueReference="100663432"
+      description="Initial imaginary voltage"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.ir0"
+      valueReference="100663433"
+      description="Initial real current"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.ii0"
+      valueReference="100663434"
+      description="Initial imaginary current"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_P.re"
+      valueReference="100663435"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_P.im"
+      valueReference="100663436"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_I.re"
+      valueReference="100663437"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_I.im"
+      valueReference="100663438"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_Y.re"
+      valueReference="100663439"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_Y.im"
+      valueReference="100663440"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.a2"
+      valueReference="16777299"
+      variability="parameter">
+      <Real start="1.502"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.b2"
+      valueReference="16777300"
+      variability="parameter">
+      <Real start="1.769"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.a0"
+      valueReference="16777301"
+      variability="parameter">
+      <Real start="0.4881"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.a1"
+      valueReference="16777302"
+      variability="parameter">
+      <Real start="-0.4999"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.b1"
+      valueReference="16777303"
+      variability="parameter">
+      <Real start="0.1389"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.wp"
+      valueReference="16777304"
+      variability="parameter">
+      <Real start="3.964"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.kP"
+      valueReference="369098897">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.kI"
+      valueReference="100663442"
+      variability="constant">
+      <Real start="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.d_P"
+      valueReference="16777305"
+      description="Active Load Variation"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"
+        start="0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.t1"
+      valueReference="100663443"
+      description="Time of Load Variation"
+      variability="constant">
+      <Real
+        declaredType="OpenIPSL.Types.Time"
+        start="0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.d_t"
+      valueReference="100663444"
+      description="Time duration of load variation"
+      variability="constant">
+      <Real
+        declaredType="OpenIPSL.Types.Time"
+        start="0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.PF"
+      valueReference="100663445"
+      description="Ration between active and reactive power; Not Power Factor"
+      variability="parameter">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.d_Q"
+      valueReference="100663446"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.u"
+      valueReference="436207617"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.x"
+      valueReference="436207618"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="EFD1"
+      valueReference="352321536"
+      description="Generator main field voltage [pu]"
+      causality="input">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Eterm"
+      valueReference="335544320"
+      description="Initial generator main field voltage [pu]"
+      causality="output">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+      <DirectDependency>
+        <Name>P</Name>
+        <Name>Q</Name>
+      </DirectDependency>
+    </ScalarVariable>
+    <ScalarVariable
+      name="P"
+      valueReference="352321537"
+      causality="input">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"
+        start="0.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Q"
+      valueReference="352321538"
+      causality="input">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"
+        start="0.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="XadIfd"
+      valueReference="335544321"
+      description="Machine field current [pu]"
+      causality="output">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+      <DirectDependency>
+        <Name>P</Name>
+        <Name>Q</Name>
+      </DirectDependency>
+    </ScalarVariable>
+    <ScalarVariable
+      name="w"
+      valueReference="335544322"
+      description="Machine speed deviation from nominal [pu]"
+      causality="output">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="rad"/>
+      <DirectDependency/>
+    </ScalarVariable>
+  </ModelVariables>
+</fmiModelDescription>

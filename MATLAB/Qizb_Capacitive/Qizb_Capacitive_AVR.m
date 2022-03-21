@@ -4,47 +4,47 @@
 rapidSettings=RaPIdClass();
 
 %Output data
-rapidSettings.experimentData.pathToReferenceData = 'Qizb_Capacitive.mat'; %Data file name
+rapidSettings.experimentData.pathToReferenceData = 'Qizb_capacitive_simulation_r.mat'; %Data file name
 rapidSettings.experimentData.expressionReferenceTime = 'time'; %Time variable name
-rapidSettings.experimentData.expressionReferenceData = 'Efd'; %Data variable name
+rapidSettings.experimentData.expressionReferenceData = 'Efd_r'; %Data variable name
 
 %Input data
-rapidSettings.experimentData.pathToInData = '';
-rapidSettings.experimentData.expressionInDataTime = ''; %Time variable name
-rapidSettings.experimentData.expressionInData = ''; %Data variable name
+rapidSettings.experimentData.pathToInData = 'Qizb_capacitive_simulation_r.mat';
+rapidSettings.experimentData.expressionInDataTime = 'time'; %Time variable name
+rapidSettings.experimentData.expressionInData = 'signal_in'; %Data variable name
 
 %% ==========Experiment settings==========
 %General settings 
-rapidSettings.experimentSettings.tf = 25; %Simulation length
-rapidSettings.experimentSettings.ts = 0.05; %Sampling time
+rapidSettings.experimentSettings.tf = 6; %Simulation length
+rapidSettings.experimentSettings.ts = 0.005; %Sampling time
 rapidSettings.experimentSettings.t_fitness_start = 0; %Start calculating fintess function after t_fintess_start
 rapidSettings.experimentSettings.timeOut = 500; %Seconds before simulation timeout
 rapidSettings.experimentSettings.integrationMethod = 'ode45'; %Solver selection
 rapidSettings.experimentSettings.solverMode = 'Simulink';
-rapidSettings.experimentSettings.optimizationAlgorithm = 'pso'; % %Selection of optimization algorithm
-rapidSettings.experimentSettings.maxIterations = 1000; %Maximum number of estimation iterations
+rapidSettings.experimentSettings.optimizationAlgorithm = 'ga'; % %Selection of optimization algorithm
+rapidSettings.experimentSettings.maxIterations = 100; %Maximum number of estimation iterations
 rapidSettings.experimentSettings.verbose = 1; %Can trigger more data for debugging
 rapidSettings.experimentSettings.saveHist = 0; %Don't save history
 
 %Model related settings
-rapidSettings.experimentSettings.pathToSimulinkModel = 'Mostar_AVR.mdl'; %Simulink model file name
+rapidSettings.experimentSettings.pathToSimulinkModel = 'Mostar_Efd2020a.slx'; %Simulink model file name
 rapidSettings.experimentSettings.pathToFMUModel = 'fmu_AVR.fmu'; %FMU file name
-rapidSettings.experimentSettings.modelName = 'Mostar_AVR'; %Simulink model name
-rapidSettings.experimentSettings.blockName = 'Mostar_AVR/fmu_AVR'; %FMU name
+rapidSettings.experimentSettings.modelName = 'Mostar_Efd2020a'; %Simulink model name
+rapidSettings.experimentSettings.blockName = 'Mostar_Efd2020a/fmu_AVR'; %FMU name
 rapidSettings.experimentSettings.scopeName = 'simout'; %Result sink name
 rapidSettings.experimentSettings.displayMode = 'Show';
 
 
 % %Estimation parameter settings
 x=13;
-y = 22;
-p_0 =[1.216     0.201002      9.84703      1.97195     0.563883      1.87382      1.46865      1.01967      13.1416       8.8876      2.06749     0.401413...
-      0.01	2	20	0.02	0.005	500	 0.005	1	4.35	-3.825]; %Maximum values of parameters
-p_min = [0.01,0.0001,1,0.1,0.01,0.1,0.1,0.1,1,0.1,0.1,0.01,...
-         0, 0.5,3,1e-3,1e-3,300,1e-6,0.1,1e-4,-11];%Minimum values of parameters
-p_max =[2,0.5,15,2,1,2,2,2,20,10,10,1,...
-        0.5, 5,30,1,0.1,700,1,2,11,0]; %Maximum values of parameters
+y = 20;
+p_0 =[1.7216     0.201002      9.84703      1.97195     0.563883      1.87382      1.46865      1.01967      13.1416       8.8876      2.06749     0.401413...
+      0.01 2 20 0.02 0.005 500 0.005 1  4.35 -3.825]; %Maximum values of parameters
 
+p_min = [0.01,0.0001,1,0.1,0.01,0.1,0.1,0.1,1,0.1,0.1,0.01,...
+        0.005, 1.5,15,0.01,0.005,300,0.005,0.75,1e-4,-5];%Minimum values of parameters
+p_max =[2,0.5,15,2,1,2,2,2,20,10,10,1,...
+       0.025, 2.5,25,0.05,0.01,600,0.01,1.5,6,0]; %Maximum values of parameters
 
 rapidSettings.experimentSettings.p_0 = p_0(x:y);
 rapidSettings.experimentSettings.p_min = p_min(x:y);
@@ -78,7 +78,7 @@ parameters = {'machineData.data.Xd','machineData.data.R_a','machineData.data.H',
               'machineData.data.T_R','machineData.data.T_C1','machineData.data.T_B1','machineData.data.T_C2','machineData.data.T_B2','machineData.data.K_R','machineData.data.T_1','machineData.data.K_C','machineData.data.V_RMAX','machineData.data.V_RMIN'};
 
 rapidSettings.parameterNames = parameters(x:y);
-rapidSettings.fmuInputNames = {}; %Input variable names
+rapidSettings.fmuInputNames = {'V','Ifd'}; %Input variable names
 rapidSettings.fmuOutputNames = {'Efd'}; %Output variable names
 
 %% ==========Running the computation==========

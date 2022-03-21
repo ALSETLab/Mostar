@@ -123,6 +123,6 @@ equation
             -80},{100,60}}),
         graphics={
         Rectangle(extent={{40,-54},{74,-70}}, lineColor={28,108,200})}),
-      experiment(StopTime=95, __Dymola_NumberOfIntervals=5000),
+      experiment(StopTime=6, Interval=0.005),
     Icon(coordinateSystem(extent={{-100,-80},{100,60}})));
 end All_controls;

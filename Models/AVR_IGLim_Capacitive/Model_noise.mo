@@ -1379,7 +1379,8 @@ model Model_noise
             {-102,24}})));
   OpenIPSL.Electrical.Buses.InfiniteBus infiniteBus
     annotation (Placement(transformation(extent={{-8,38},{-28,58}})));
-  Modelica.Blocks.Math.Add add annotation (Placement(transformation(
+  Modelica.Blocks.Math.Add add(k1=0)
+                               annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
         rotation=90,
         origin={-169,31})));

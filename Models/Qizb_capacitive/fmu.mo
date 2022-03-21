@@ -111,8 +111,8 @@ model fmu
   Modelica.Blocks.Sources.Step step1(startTime=8.45, height=-0.76) annotation (Placement(transformation(extent={{-66,-20},
             {-74,-12}})));
   Modelica.Blocks.Sources.Step step(startTime(displayUnit="s") = 8.44, height=0.7)
-                                                                 annotation (Placement(transformation(extent={{-64,-8},
-            {-72,0}})));
+                                                                 annotation (Placement(transformation(extent={{-66,-4},
+            {-74,4}})));
 equation
 
       Efd = sT5B.EFD;
@@ -147,7 +147,7 @@ equation
   connect(step1.y, add3_1.u3) annotation (Line(points={{-74.4,-16},{-78,-16},{
           -78,-11.2},{-83.2,-11.2}}, color={0,0,127}));
   connect(add3_1.u2, step.y) annotation (Line(points={{-83.2,-8},{-78,-8},{-78,
-          -4},{-72.4,-4}}, color={0,0,127}));
+          0},{-74.4,0}},   color={0,0,127}));
   connect(add3_1.u1, Gen1.ETERM) annotation (Line(points={{-83.2,-4.8},{-83.2,
           -4},{-82,-4},{-82,50.4},{-122.8,50.4}}, color={0,0,127}));
   connect(sT5B.VOTHSG, pSS2B.VOTHSG) annotation (Line(points={{-125,28.6},{-114,

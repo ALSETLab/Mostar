@@ -258,21 +258,20 @@ model System_all_controls_tables
 equation
   Pout = Gen.P;
   Qout = Gen.Q;
-  connect(const.y, sT5B.VUEL) annotation (Line(points={{-69.5,-69},{-57.5,-69},{
-          -57.5,-38}},                                                                          color={0,0,127}));
-  connect(const1.y, sT5B.VOEL) annotation (Line(points={{-69.5,-51},{-60.5,-51},
-          {-60.5,-38}},                                                                          color={0,0,127}));
+  connect(const.y, sT5B.VUEL) annotation (Line(points={{-69.5,-69},{-60,-69},{
+          -60,-38.9}},                                                                          color={0,0,127}));
+  connect(const1.y, sT5B.VOEL) annotation (Line(points={{-69.5,-51},{-64,-51},{
+          -64,-38.9}},                                                                           color={0,0,127}));
   connect(Gen.p, bus.p)
     annotation (Line(points={{-48,0},{-8,0}}, color={0,0,255}));
-  connect(sT5B.ECOMP, Gen.ETERM) annotation (Line(points={{-54,-28},{-40,
-          -28},{-40,-3.6},{-46.8,-3.6}},
+  connect(sT5B.ECOMP, Gen.ETERM) annotation (Line(points={{-53,-29},{-40,-29},{
+          -40,-3.6},{-46.8,-3.6}},
                                color={0,0,127}));
-  connect(sT5B.XADIFD, Gen.XADIFD) annotation (Line(points={{-54,-31},{
-          -42,-31},{-42,-10.8},{-47.04,-10.8}},
+  connect(sT5B.XADIFD, Gen.XADIFD) annotation (Line(points={{-72,-38.9},{-42,
+          -38.9},{-42,-10.8},{-46.8,-10.8}},
                                        color={0,0,127}));
-  connect(sT5B.EFD0, Gen.EFD0) annotation (Line(points={{-54,-34.5},{-34,
-          -34.5},{-34,-6},{-46.8,-6}},
-                                color={0,0,127}));
+  connect(sT5B.EFD0, Gen.EFD0) annotation (Line(points={{-53,-32.6},{-34,-32.6},
+          {-34,-6},{-46.8,-6}}, color={0,0,127}));
   connect(Gen.PMECH, Gen.PMECH0) annotation (Line(points={{-74.4,6},{-86,
           6},{-86,16},{-36,16},{-36,6},{-46.8,6}},
                                            color={0,0,127}));
@@ -281,10 +280,10 @@ equation
   connect(Vim_input.y[1], voltageSource.u1) annotation (Line(points={{109,18},
           {100,18},{100,4},{68,4}},
                                color={0,0,127}));
-  connect(Gen.EFD, sT5B.EFD) annotation (Line(points={{-74.4,-6},{-80,-6},
-          {-80,-28},{-74.5,-28}}, color={0,0,127}));
-  connect(sT5B.VOTHSG, const4.y) annotation (Line(points={{-54,-23.5},{
-          -52,-23.5},{-52,-19},{-50.3,-19}}, color={0,0,127}));
+  connect(Gen.EFD, sT5B.EFD) annotation (Line(points={{-74.4,-6},{-80,-6},{-80,
+          -29},{-75,-29}},        color={0,0,127}));
+  connect(sT5B.VOTHSG, const4.y) annotation (Line(points={{-53,-25.4},{-52,
+          -25.4},{-52,-19},{-50.3,-19}},     color={0,0,127}));
   connect(voltageSource.p, bus.p)
     annotation (Line(points={{45,0},{-8,0}}, color={0,0,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

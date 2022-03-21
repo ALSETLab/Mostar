@@ -23,12 +23,28 @@ XadIfd = Ifd(1);
 Vinit = V(1);
 PSS= 0;
 VR0 = Efd0 + Kc*XadIfd;
+ %% simulation parameters - PSO results
+Efd_plot = [time,Efd];
+Tr = 0.007069137;
+Tb1 = 2.173881;
+Tc1 = 21.60729;
+Tb2 = 0.02;
+Tc2 = 0.007771073;
+Kr = 555;
+T1 = 0.008810354;
+Kc = 0.8175357;
+Vrmax = 4.35;
+Vrmin = -3.825;
+Efd0 = Efd(1);
+XadIfd = Ifd(1);
+Vinit = V(1);
+PSS= 0;
+VR0 = Efd0 + Kc*XadIfd;
  %% run ST5B simulink model
  mdl = 'ST5B';
  set_param(mdl,'SimulationCommand','Start') 
  pause(2)
  Efd_sim = out.Efd.data;
- 
 %% Identify model, no excitation added
 
 V = V - mean(V(1:60));
@@ -55,14 +71,14 @@ zpk(d2c(modelv(1)))
  load exc_r  %excitation r with little perturbation both on Efd and Ifd
  r = r(1:901);
  Ifd= Ifd+r;
- V = V+r;
+ V = V;
  
  set_param(mdl,'SimulationCommand','Start') 
  Efd_sim = out.Efd.data;
  
  outputAVR=Efd_sim-r;
  data2=iddata(outputAVR,[Ifd V],Ts);
- model=oe(data2,[[3 3],[3 3],[1 1]]);
+ model=oe(data2,[[1 3],[1 3],[1 1]]);
  
  figure(3); bode(model,'r',linsys1,'b');
  figure(4); compare(model,data2)

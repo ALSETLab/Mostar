@@ -2,8 +2,8 @@ within ;
 package Mostar
 annotation (uses(Modelica(version="3.2.3"),
     OptimizationLibraryExamples(version="1"),
-    OpenIPSL(version="2.0.0-dev"),
-    Optimization(version="2.2.3")),
+    Optimization(version="2.2.3"),
+    OpenIPSL(version="2.0.0-beta.1")),
   version="3",
   conversion(noneFromVersion="", noneFromVersion="1",
     noneFromVersion="2"));

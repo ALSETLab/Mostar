@@ -1,0 +1,253 @@
+<html>
+<head>
+  <title>Analysis of a state space system from Modelica LinearSystems2</title>
+</head>
+<style type="text/css">
+* { font-size: 10pt; font-family: Arial,sans-serif; }
+</style>
+<h1>System report</h1>
+
+<h2>General information</h2>
+
+<h3>Matrices</h3>
+<p>
+The system described in the state space representation
+</p>
+<table style="font-size:10pt; font-family:Arial; border-collapse:collapse; margin: 20px 0 20px 20px" cellpadding="3" border="0"> 
+<tr><td>der(x) </td> <td>=</td> <td> Ax</td> <td> +</td><td> Bu</td></tr>
+         <tr><td> y </td>     <td>=</td> <td> Cx</td> <td> + </td><td>Du</td></tr>
+</table>
+<p>
+is defined by
+</p>
+<table border="0">
+<tr>
+  <td valign="middle">&nbsp;&nbsp;&nbsp;uNames</td>
+  <td valign="middle">=</td>
+  <td>
+    <table style="background-color:rgb(100, 100, 100);" cellpadding="3" border="0" cellspacing="1">
+    <tr style="background-color:white">
+      <td align="left">EFD1</td>
+    </tr>
+    <tr style="background-color:white">
+      <td align="left">P</td>
+    </tr>
+    <tr style="background-color:white">
+      <td align="left">Q</td>
+    </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<table border="0">
+<tr>
+  <td valign="middle">&nbsp;&nbsp;&nbsp;yNames</td>
+  <td valign="middle">=</td>
+  <td>
+    <table style="background-color:rgb(100, 100, 100);" cellpadding="3" border="0" cellspacing="1">
+    <tr style="background-color:white">
+      <td align="left">Eterm</td>
+    </tr>
+    <tr style="background-color:white">
+      <td align="left">XadIfd</td>
+    </tr>
+    <tr style="background-color:white">
+      <td align="left">w</td>
+    </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<table border="0">
+<tr>
+  <td valign="middle">&nbsp;&nbsp;&nbsp;xNames</td>
+  <td valign="middle">=</td>
+  <td>
+    <table style="background-color:rgb(100, 100, 100);" cellpadding="3" border="0" cellspacing="1">
+    <tr style="background-color:white">
+      <td align="left">Gen1.w</td>
+    </tr>
+    <tr style="background-color:white">
+      <td align="left">Gen1.delta</td>
+    </tr>
+    <tr style="background-color:white">
+      <td align="left">Gen1.Epq</td>
+    </tr>
+    <tr style="background-color:white">
+      <td align="left">Gen1.PSIkd</td>
+    </tr>
+    <tr style="background-color:white">
+      <td align="left">Gen1.PSIppq</td>
+    </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<table border="0">
+<tr>
+  <td valign="middle">&nbsp;&nbsp;&nbsp;A</td>
+  <td valign="middle">=</td>
+  <td>
+    <table style="background-color:rgb(100, 100, 100);" cellpadding="3" border="0" cellspacing="1">
+    <tr style="background-color:white">
+
+      <td align="right">-0.0351912</td>
+      <td align="right">0</td>
+      <td align="right">0</td>
+      <td align="right">0</td>
+      <td align="right">0</td>
+    </tr>
+    <tr style="background-color:white">
+
+      <td align="right">314.159</td>
+      <td align="right">0</td>
+      <td align="right">0</td>
+      <td align="right">0</td>
+      <td align="right">0</td>
+    </tr>
+    <tr style="background-color:white">
+
+      <td align="right">0</td>
+      <td align="right">0</td>
+      <td align="right">-0.856253</td>
+      <td align="right">0.434944</td>
+      <td align="right">0</td>
+    </tr>
+    <tr style="background-color:white">
+
+      <td align="right">0</td>
+      <td align="right">0</td>
+      <td align="right">14.3472</td>
+      <td align="right">-14.3472</td>
+      <td align="right">0</td>
+    </tr>
+    <tr style="background-color:white">
+
+      <td align="right">0</td>
+      <td align="right">0</td>
+      <td align="right">0</td>
+      <td align="right">0</td>
+      <td align="right">-12.0192</td>
+    </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<table border="0">
+<tr>
+  <td valign="middle">&nbsp;&nbsp;&nbsp;B</td>
+  <td valign="middle">=</td>
+  <td>
+    <table style="background-color:rgb(100, 100, 100);" cellpadding="3" border="0" cellspacing="1">
+    <tr style="background-color:white">
+
+      <td align="right">0</td>
+      <td align="right">-0.21097</td>
+      <td align="right">0</td>
+    </tr>
+    <tr style="background-color:white">
+
+      <td align="right">0</td>
+      <td align="right">0</td>
+      <td align="right">0</td>
+    </tr>
+    <tr style="background-color:white">
+
+      <td align="right">0.266106</td>
+      <td align="right">0</td>
+      <td align="right">-0.103827</td>
+    </tr>
+    <tr style="background-color:white">
+
+      <td align="right">0</td>
+      <td align="right">1.68101e-16</td>
+      <td align="right">-4.32468</td>
+    </tr>
+    <tr style="background-color:white">
+
+      <td align="right">0</td>
+      <td align="right">4.61152</td>
+      <td align="right">4.84693e-21</td>
+    </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<table border="0">
+<tr>
+  <td valign="middle">&nbsp;&nbsp;&nbsp;C</td>
+  <td valign="middle">=</td>
+  <td>
+    <table style="background-color:rgb(100, 100, 100);" cellpadding="3" border="0" cellspacing="1">
+    <tr style="background-color:white">
+
+      <td align="right">0</td>
+      <td align="right">4.77667e-11</td>
+      <td align="right">0.441945</td>
+      <td align="right">0.558055</td>
+      <td align="right">-1.11022e-07</td>
+    </tr>
+    <tr style="background-color:white">
+
+      <td align="right">0</td>
+      <td align="right">0</td>
+      <td align="right">3.21771</td>
+      <td align="right">-1.63448</td>
+      <td align="right">0</td>
+    </tr>
+    <tr style="background-color:white">
+
+      <td align="right">0</td>
+      <td align="right">1</td>
+      <td align="right">0</td>
+      <td align="right">0</td>
+      <td align="right">0</td>
+    </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<table border="0">
+<tr>
+  <td valign="middle">&nbsp;&nbsp;&nbsp;D</td>
+  <td valign="middle">=</td>
+  <td>
+    <table style="background-color:rgb(100, 100, 100);" cellpadding="3" border="0" cellspacing="1">
+    <tr style="background-color:white">
+
+      <td align="right">0</td>
+      <td align="right">-0.00776534</td>
+      <td align="right">-0.240401</td>
+    </tr>
+    <tr style="background-color:white">
+
+      <td align="right">0</td>
+      <td align="right">0</td>
+      <td align="right">0.390173</td>
+    </tr>
+    <tr style="background-color:white">
+
+      <td align="right">0</td>
+      <td align="right">0</td>
+      <td align="right">0</td>
+    </tr>
+    </table>
+  </td>
+</tr>
+</table>
+
+<h2>Characteristics</h2>
+<p>
+The system
+</p>
+<p> is 
+<b>not</b> stable
+<br>but it is controllable
+<br> and therefore it is stabilizable.
+<br> The system is  observable
+<br> and therefore it is detectable.
+<br>
+</p>
+<p>
+<img src="systemReportStep.png">
+</p>

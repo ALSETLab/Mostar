@@ -37,7 +37,7 @@ model AVR "System with the original generator parameters"
             {56,26}})));
   Modelica.Blocks.Interfaces.RealOutput Efd "Excitation Voltage (pu)"
     annotation (Placement(transformation(extent={{-100,-10},{-120,10}})));
-  Modelica.Blocks.Sources.Constant const3(k=0.588)
+  Modelica.Blocks.Sources.Constant const3(k=1.79671070000000)
                                                   annotation (Placement(transformation(extent={{76,-42},
             {66,-32}})));
   Modelica.Blocks.Sources.CombiTimeTable Ifd_real(

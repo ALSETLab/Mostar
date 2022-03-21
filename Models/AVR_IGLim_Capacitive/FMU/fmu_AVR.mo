@@ -1,8 +1,7 @@
 within Mostar.Models.AVR_IGLim_Capacitive.FMU;
 model fmu_AVR "System with the original generator parameters"
 
-  Data2Model.IG_Lim_Capacitive.avr_pso
-                                    machineData
+  Data2Model.IG_Lim_Capacitive.init machineData
     annotation (Placement(transformation(extent={{-40,58},{-20,78}})));
   inner OpenIPSL.Electrical.SystemBase SysData(S_b=30000000, fn=50)
                                                               annotation (Placement(transformation(extent={{6,60},{
@@ -36,7 +35,7 @@ model fmu_AVR "System with the original generator parameters"
             42}})));
   Modelica.Blocks.Sources.Constant const4(k=0)    annotation (Placement(transformation(extent={{-38,34},
             {-28,44}})));
-  Modelica.Blocks.Sources.Constant const3(k=0.332057384)
+  Modelica.Blocks.Sources.Constant const3(k=0.937844400000000)
                                                   annotation (Placement(transformation(extent={{-90,-2},
             {-80,8}})));
   Modelica.Blocks.Interfaces.RealOutput Efd annotation (Placement(

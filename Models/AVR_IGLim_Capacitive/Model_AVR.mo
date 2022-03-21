@@ -1,7 +1,6 @@
 within Mostar.Models.AVR_IGLim_Capacitive;
 model Model_AVR
-  Data2Model.IG_Lim_Capacitive.avr_pso
-                                    machineData
+  Data2Model.IG_Lim_Capacitive.init machineData
     annotation (Placement(transformation(extent={{-108,76},{-88,96}})));
   inner OpenIPSL.Electrical.SystemBase SysData(S_b=30000000,
                                                        fn=50) annotation (Placement(transformation(extent={{-64,74},
@@ -521,7 +520,7 @@ model Model_AVR
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={-78,-8})));
+        origin={-100,-8})));
   Modelica.Blocks.Interfaces.RealOutput Efd annotation (Placement(
         transformation(extent={{-18,34},{-10,42}}),iconTransformation(extent={{42,
             66},{50,74}})));
@@ -816,15 +815,15 @@ model Model_AVR
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-156,48})));
-  Modelica.Blocks.Math.Add  add3_1 annotation (Placement(transformation(extent={{-132,30},
+  Modelica.Blocks.Math.Add  add3_1(k1=1)
+                                   annotation (Placement(transformation(extent={{-132,30},
             {-124,38}})));
   Modelica.Blocks.Sources.Step step1(
     offset=0,
     startTime=0.4,
     height=0.035)                                                  annotation (Placement(transformation(extent={{-146,24},
             {-138,32}})));
-  Modelica.Blocks.Sources.Constant const3(k=0.332057384)
-                                                  annotation (Placement(transformation(extent={{-158,8},
+  Modelica.Blocks.Sources.Constant const3(k=0.98) annotation (Placement(transformation(extent={{-158,8},
             {-148,18}})));
   Modelica.Blocks.Sources.CombiTimeTable Efd_ident(
     tableOnFile=false,
@@ -1163,6 +1162,12 @@ model Model_AVR
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={8,-20})));
+  Modelica.Blocks.Math.Gain gain(k=2.78)
+    annotation (Placement(transformation(extent={{-80,-14},{-68,-2}})));
+  Modelica.Blocks.Math.Gain gain1(k=2.78) annotation (Placement(transformation(
+        extent={{-4,-4},{4,4}},
+        rotation=90,
+        origin={34,18})));
 equation
       Efd = sT5B.EFD;
 
@@ -1170,8 +1175,6 @@ equation
     annotation (Line(points={{-4,38},{-14,38}},  color={0,0,127}));
   connect(Efd_error.u1, Efdsampler.y)
     annotation (Line(points={{26,38},{19,38}},   color={0,0,127}));
-  connect(Efd_error.u2, Efd_real.y[1])
-    annotation (Line(points={{34,30},{34,10},{19,10}},    color={0,0,127}));
   connect(sT5B.VOEL,const2. y) annotation (Line(points={{-72,18.4},{-134,18.4},{
           -134,-3},{-147.5,-3}},       color={0,0,127}));
   connect(sT5B.VUEL,const1. y) annotation (Line(points={{-78.4,18.4},{-132,18.4},
@@ -1184,10 +1187,16 @@ equation
           {-138,48},{-145,48}}, color={0,0,127}));
   connect(const3.y, sT5B.EFD0) annotation (Line(points={{-147.5,13},{-136,13},{-136,
           22},{-112,22},{-112,29.6},{-89.6,29.6}}, color={0,0,127}));
-  connect(Ifd_real.y[1], sT5B.XADIFD) annotation (Line(points={{-67,-8},{-62,-8},
-          {-62,4},{-59.2,4},{-59.2,18.4}}, color={0,0,127}));
   connect(sT5B.ECOMP, add3_1.y) annotation (Line(points={{-89.6,36},{-118,36},{
           -118,34},{-123.6,34}}, color={0,0,127}));
+  connect(Ifd_real.y[1], gain.u)
+    annotation (Line(points={{-89,-8},{-81.2,-8}}, color={0,0,127}));
+  connect(gain.y, sT5B.XADIFD) annotation (Line(points={{-67.4,-8},{-60,-8},{
+          -60,18.4},{-59.2,18.4}}, color={0,0,127}));
+  connect(Efd_real.y[1], gain1.u)
+    annotation (Line(points={{19,10},{34,10},{34,13.2}}, color={0,0,127}));
+  connect(Efd_error.u2, gain1.y)
+    annotation (Line(points={{34,30},{34,22.4}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,
             -40},{60,100}})),                                    Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-40},{60,100}})),

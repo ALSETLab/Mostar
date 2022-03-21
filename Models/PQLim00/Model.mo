@@ -5729,7 +5729,7 @@ equation
   connect(add3_1.u2, step1.y) annotation (Line(points={{-99.2,-18.4},{-92,-18.4},
           {-92,-22},{-86.4,-22}}, color={0,0,127}));
   connect(Gen1.EFD, sT5B.EFD) annotation (Line(points={{-162.4,42},{-170,42},{
-          -170,38},{-168,38},{-168,19},{-159,19}},   color={0,0,127}));
+          -170,19},{-159,19}},                       color={0,0,127}));
   connect(pwLine.p, constantLoad.p)
     annotation (Line(points={{-87,48},{-92,48},{-92,34}}, color={0,0,255}));
   connect(pSS2B.VOTHSG, sT5B.VOTHSG) annotation (Line(points={{-115,9},{
