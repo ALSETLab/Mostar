@@ -1,29 +1,62 @@
-Log-file of program ./dymosim
-(generated: Thu Feb 10 13:57:57 2022)
-
-dymosim started
-Model: Mostar.Models.PSS_on.Generator_Correct
-... "dsin.txt" loading (dymosim input file)
-... "Generator_Correct.mat" creating (simulation result file)
-
-Integration started at T = 0 using integration method DASSL
-(DAE multi-step solver (dassl/dasslrt of Petzold modified by Dassault Systemes))
-Integration terminated successfully at T = 4.5
-   CPU-time for integration      : 0.036 seconds
-   CPU-time for one GRID interval: 0.04 milliseconds
-   CPU-time for initialization   : 0.65 seconds
-   Number of result points       : 904
-   Number of GRID   points       : 901
-   Number of (successful) steps  : 425
-   Number of F-evaluations       : 1141
-   Number of H-evaluations       : 1328
-   Number of Jacobian-evaluations: 51
-   Number of (model) time events : 1
-   Number of (U) time events     : 0
-   Number of state    events     : 1
-   Number of step     events     : 0
-   Minimum integration stepsize  : 5e-006
-   Maximum integration stepsize  : 0.0274
-   Maximum integration order     : 5
-Calling terminal section
-... "dsfinal.txt" creating (final states)
+Building FMU (Visual C++) 
+64-bit mode activated. 
+32-bit mode disabled 
+**********************************************************************
+** Visual Studio 2017 Developer Command Prompt v15.9.15
+** Copyright (c) 2017 Microsoft Corporation
+**********************************************************************
+[vcvarsall.bat] Environment initialized for: 'x64'
+Compiling the model (Visual C++) with FMI. 
+ 
+fmiFunctions.c
+dsmodel.c
+C:/Program Files/Dymola 2019 FD01\source\matrixop.h(201): warning C4267: 'function': conversion from 'size_t' to 'SizeType', possible loss of data
+C:/Program Files/Dymola 2019 FD01\source\matrixop.h(993): warning C4267: 'function': conversion from 'size_t' to 'SizeType', possible loss of data
+c:\program files\dymola 2019 fd01\source\matrixop.c(157): warning C4090: 'function': different 'const' qualifiers
+c:\program files\dymola 2019 fd01\source\matrixop.c(3129): warning C4267: 'function': conversion from 'size_t' to 'SizeType', possible loss of data
+c:\program files\dymola 2019 fd01\source\matrixop.c(3519): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\program files\dymola 2019 fd01\source\matrixop.c(3567): warning C4267: 'function': conversion from 'size_t' to 'SizeType', possible loss of data
+c:\program files\dymola 2019 fd01\source\matrixop.c(3577): warning C4267: 'function': conversion from 'size_t' to 'SizeType', possible loss of data
+c:\program files\dymola 2019 fd01\source\matrixop.c(3586): warning C4267: 'function': conversion from 'size_t' to 'SizeType', possible loss of data
+c:\program files\dymola 2019 fd01\source\matrixop.c(3595): warning C4267: 'function': conversion from 'size_t' to 'SizeType', possible loss of data
+c:\program files\dymola 2019 fd01\source\matrixop.c(3607): warning C4267: 'function': conversion from 'size_t' to 'SizeType', possible loss of data
+c:\program files\dymola 2019 fd01\source\matrixop.c(3617): warning C4267: 'function': conversion from 'size_t' to 'SizeType', possible loss of data
+c:\program files\dymola 2019 fd01\source\matrixop.c(3627): warning C4267: 'function': conversion from 'size_t' to 'SizeType', possible loss of data
+c:\program files\dymola 2019 fd01\source\matrixop.c(3712): warning C4267: 'function': conversion from 'size_t' to 'SizeType', possible loss of data
+C:/Program Files/Dymola 2019 FD01\source\ModelicaStrings.c(99): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:/Program Files/Dymola 2019 FD01\source\ModelicaStrings.c(132): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:/Program Files/Dymola 2019 FD01\source\ModelicaStrings.c(230): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+dsmodelext1.c
+dsmodelext2.c
+dsmodelext3.c
+dsmodelext4.c
+Generating Code...
+   Creating library ~FMUOutput\binaries\win64\SineInput.lib and object ~FMUOutput\binaries\win64\SineInput.exp
+Adding [modelDescription.xml] ... OK
+Adding [binaries\win64\SineInput.dll] ... OK
+Adding [documentation\index.html] ... OK
+Adding [documentation\LICENSE_CVODE.txt] ... OK
+Adding [documentation\LICENSE_f2c.txt] ... OK
+Adding [documentation\LICENSE_FMI.txt] ... OK
+Adding [documentation\LICENSE_HDF5.txt] ... OK
+Adding [documentation\LICENSE_LAPACK.txt] ... OK
+Adding [documentation\LICENSE_ModelicaFFT.txt] ... OK
+Adding [documentation\LICENSE_ModelicaInternal.txt] ... OK
+Adding [documentation\LICENSE_ModelicaIO.txt] ... OK
+Adding [documentation\LICENSE_ModelicaMatIO.txt] ... OK
+Adding [documentation\LICENSE_ModelicaRandom.txt] ... OK
+Adding [documentation\LICENSE_ModelicaStandardTables.txt] ... OK
+Adding [documentation\LICENSE_ModelicaStrings.txt] ... OK
+Adding [documentation\LICENSE_ModelicaUtilities.txt] ... OK
+Adding [documentation\LICENSE_SUNDIALS.txt] ... OK
+Adding [documentation\LICENSE_SuperLU_MT.txt] ... OK
+Adding [documentation\LICENSE_TPL.txt] ... OK
+Adding [documentation\LICENSE_uthash.txt] ... OK
+Adding [documentation\LICENSE_win32_dirent.txt] ... OK
+Adding [documentation\LICENSE_ZLIB.txt] ... OK
+Adding [documentation\ModelicaLicense2.html] ... OK
+Adding [documentation\_main.html] ... OK
+Adding [documentation\_opensource.html] ... OK
+ 
+Successful creation of SineInput.fmu. 
+ 

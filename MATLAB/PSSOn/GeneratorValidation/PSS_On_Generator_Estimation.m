@@ -4,12 +4,12 @@
 rapidSettings=RaPIdClass();
 
 %Output data
-rapidSettings.experimentData.pathToReferenceData = 'Xd_13013_noisy.mat'; %Data file name
+rapidSettings.experimentData.pathToReferenceData = 'MS_25.mat'; %Data file name
 rapidSettings.experimentData.expressionReferenceTime = 'time'; %Time variable name
 rapidSettings.experimentData.expressionReferenceData = 'signal'; %Data variable name
 
 %Input data
-rapidSettings.experimentData.pathToInData = 'Xd_13013_noisy.mat';
+rapidSettings.experimentData.pathToInData = 'MS_25.mat';
 rapidSettings.experimentData.expressionInDataTime = 'time'; %Time variable name
 rapidSettings.experimentData.expressionInData = 'signal_in'; %Data variable name
 
@@ -38,7 +38,7 @@ rapidSettings.experimentSettings.displayMode = 'Show';
 % %Estimation parameter settings
 x=1;
 y = 12;
-p_0 =[1.23	0.004799183673	2.137	0.371	0	0.62	0.215	0.261	3.77	0.0552	0.0823	0.1...
+p_0 =[1.183	0.004799183673	2.137	0.371	0	0.62	0.255	0.241	3.77	0.0552	0.0823	0.1...
       0.01 2 20 0.02 0.005 500 0.005 1  4.35 -3.825]; %Maximum values of parameters
 
 p_min = [1.183*0.95, 0.004799183673*0.9,	2.137*0.9,	0.371*0.9,	0*0.9,	0.62*0.9,	0.241*0.9,	0.215*0.9,	3.77*0.9,	1.0552*0.9,	0.0823*0.9,	0.1*0.9,...
@@ -78,8 +78,8 @@ parameters = {'machineData.data.Xd','machineData.data.R_a','machineData.data.H',
               'machineData.data.T_R','machineData.data.T_C1','machineData.data.T_B1','machineData.data.T_C2','machineData.data.T_B2','machineData.data.K_R','machineData.data.T_1','machineData.data.K_C','machineData.data.V_RMAX','machineData.data.V_RMIN'};
 
 rapidSettings.parameterNames = parameters(x:y);
-rapidSettings.fmuInputNames = {'V','Ifd'}; %Input variable names
-rapidSettings.fmuOutputNames = {'Efd'}; %Output variable names
+rapidSettings.fmuInputNames = {'P','Q','EFD'}; %Input variable names
+rapidSettings.fmuOutputNames = {'Vt','Ifd','w'}; %Output variable names
 
 %% ==========Running the computation==========
 

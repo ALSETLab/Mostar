@@ -1,22 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fmiModelDescription
   fmiVersion="1.0"
-  modelName="AVR"
-  modelIdentifier="AVR"
-  guid="{d37f5d6c-f3cc-4707-b35d-bfb2bf24bd81}"
-  description="System with the original generator parameters"
+  modelName="fmu"
+  modelIdentifier="fmu"
+  guid="{bbca4922-254c-4c49-9908-ff341187db35}"
   generationTool="Dymola Version 2019 FD01 (64-bit), 2018-10-10 (requires license to execute)"
-  generationDateAndTime="2021-09-16T07:45:41Z"
+  generationDateAndTime="2022-04-22T14:29:19Z"
   variableNamingConvention="structured"
-  numberOfContinuousStates="8"
-  numberOfEventIndicators="40">
+  numberOfContinuousStates="13"
+  numberOfEventIndicators="50">
   <UnitDefinitions>
+    <BaseUnit
+      unit="V">
+      <DisplayUnitDefinition
+        displayUnit="kV"
+        gain="0.001"/>
+    </BaseUnit>
     <BaseUnit
       unit="VA">
       <DisplayUnitDefinition
         displayUnit="MVA"
         gain="1E-06"/>
     </BaseUnit>
+    <BaseUnit
+      unit="W">
+      <DisplayUnitDefinition
+        displayUnit="MW"
+        gain="1E-06"/>
+    </BaseUnit>
+    <BaseUnit
+      unit="rad">
+      <DisplayUnitDefinition
+        displayUnit="deg"
+        gain="57.29577951308232"/>
+    </BaseUnit>
+    <BaseUnit
+      unit="var"/>
   </UnitDefinitions>
   <TypeDefinitions>
     <Type
@@ -30,6 +49,51 @@
     <Type
       name="Modelica.Blocks.Interfaces.RealOutput">
       <RealType/>
+    </Type>
+    <Type
+      name="Modelica.SIunits.ActivePower">
+      <RealType
+        quantity="Power"
+        unit="W"/>
+    </Type>
+    <Type
+      name="Modelica.SIunits.Conversions.NonSIunits.Angle_deg">
+      <RealType
+        quantity="Angle"
+        unit="deg"/>
+    </Type>
+    <Type
+      name="Modelica.SIunits.ReactivePower">
+      <RealType
+        quantity="Power"
+        unit="var"/>
+    </Type>
+    <Type
+      name="Modelica.SIunits.Time">
+      <RealType
+        quantity="Time"
+        unit="s"/>
+    </Type>
+    <Type
+      name="OpenIPSL.Types.ActivePower">
+      <RealType
+        quantity="Power"
+        unit="W"
+        displayUnit="MW"
+        nominal="100000000.0"/>
+    </Type>
+    <Type
+      name="OpenIPSL.Types.Angle">
+      <RealType
+        quantity="Angle"
+        unit="rad"
+        displayUnit="deg"/>
+    </Type>
+    <Type
+      name="OpenIPSL.Types.AngularVelocity">
+      <RealType
+        quantity="AngularVelocity"
+        unit="rad/s"/>
     </Type>
     <Type
       name="OpenIPSL.Types.ApparentPower">
@@ -51,10 +115,26 @@
         unit="1"/>
     </Type>
     <Type
+      name="OpenIPSL.Types.ReactivePower">
+      <RealType
+        quantity="Power"
+        unit="var"
+        displayUnit="MVA"
+        nominal="100000000.0"/>
+    </Type>
+    <Type
       name="OpenIPSL.Types.Time">
       <RealType
         quantity="Time"
         unit="s"/>
+    </Type>
+    <Type
+      name="OpenIPSL.Types.Voltage">
+      <RealType
+        quantity="ElectricPotential"
+        unit="V"
+        displayUnit="kV"
+        nominal="10000.0"/>
     </Type>
     <Type
       name="Modelica.Blocks.Types.Init">
@@ -86,8 +166,8 @@
     </Type>
   </TypeDefinitions>
   <DefaultExperiment startTime="0.0"
-    stopTime="20.0"
-    tolerance="0.01"/>
+    stopTime="4.5"
+    tolerance="1E-06"/>
   <ModelVariables>
     <ScalarVariable
       name="SysData.S_b"
@@ -113,21 +193,27 @@
       name="machineData.data.Xd"
       valueReference="16777218"
       variability="parameter">
-      <Real start="1.183"
+      <Real
+        unit="1"
+        start="1.183"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.R_a"
       valueReference="16777219"
       variability="parameter">
-      <Real start="0.004799183673469388"
+      <Real
+        unit="1"
+        start="0.004799183673469388"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.H"
       valueReference="16777220"
       variability="parameter">
-      <Real start="2.137"
+      <Real
+        unit="s"
+        start="2.137"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
@@ -141,98 +227,126 @@
       name="machineData.data.Xpd"
       valueReference="16777222"
       variability="parameter">
-      <Real start="0.371"
+      <Real
+        unit="1"
+        start="0.371"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.Xppd"
       valueReference="16777223"
       variability="parameter">
-      <Real start="0.215"
+      <Real
+        unit="1"
+        start="0.215"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.Xppq"
       valueReference="16777224"
       variability="parameter">
-      <Real start="0.241"
+      <Real
+        unit="1"
+        start="0.241"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.Xq"
       valueReference="16777225"
       variability="parameter">
-      <Real start="0.62"
+      <Real
+        unit="1"
+        start="0.62"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.Tpd0"
       valueReference="16777226"
       variability="parameter">
-      <Real start="3.77"
+      <Real
+        unit="s"
+        start="3.77"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.Tppd0"
       valueReference="16777227"
       variability="parameter">
-      <Real start="0.0552"
+      <Real
+        unit="s"
+        start="0.0552"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.Tppq0"
       valueReference="16777228"
       variability="parameter">
-      <Real start="0.0823"
+      <Real
+        unit="s"
+        start="0.0823"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.Xl"
       valueReference="16777229"
       variability="parameter">
-      <Real start="0.1"
+      <Real
+        unit="1"
+        start="0.1"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.S10"
       valueReference="16777230"
       variability="parameter">
-      <Real start="0.1"
+      <Real
+        unit="1"
+        start="0.1"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.S12"
       valueReference="16777231"
       variability="parameter">
-      <Real start="0.4"
+      <Real
+        unit="1"
+        start="0.4"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.V_0"
       valueReference="16777232"
       variability="parameter">
-      <Real start="0.9745"
+      <Real
+        unit="1"
+        start="1.001"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.A_0"
       valueReference="16777233"
       variability="parameter">
-      <Real start="-15"
+      <Real
+        unit="rad"
+        start="0"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.P_0"
       valueReference="16777234"
       variability="parameter">
-      <Real start="4996435.71"
+      <Real
+        unit="W"
+        start="18189000.0"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.Q_0"
       valueReference="16777235"
       variability="parameter">
-      <Real start="-2475000.0"
+      <Real
+        unit="var"
+        start="150000.0"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
@@ -250,7 +364,7 @@
       variability="parameter">
       <Real
         unit="s"
-        start="2"
+        start="1.07"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
@@ -259,7 +373,7 @@
       variability="parameter">
       <Real
         unit="s"
-        start="20"
+        start="10"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
@@ -268,7 +382,7 @@
       variability="parameter">
       <Real
         unit="s"
-        start="0.02"
+        start="3.414283"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
@@ -277,7 +391,7 @@
       variability="parameter">
       <Real
         unit="s"
-        start="0.005"
+        start="1.701033"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
@@ -286,7 +400,7 @@
       variability="parameter">
       <Real
         unit="1"
-        start="500"
+        start="386"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
@@ -322,7 +436,7 @@
       variability="parameter">
       <Real
         unit="1"
-        start="1"
+        start="0.3"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
@@ -401,49 +515,49 @@
       name="machineData.data.T_w1"
       valueReference="16777254"
       variability="parameter">
-      <Real start="10"
+      <Real start="2"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.T_w2"
       valueReference="16777255"
       variability="parameter">
-      <Real start="10"
+      <Real start="2"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.T_6"
       valueReference="16777256"
       variability="parameter">
-      <Real start="1E-09"
+      <Real start="0.01"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.T_w3"
       valueReference="16777257"
       variability="parameter">
-      <Real start="10"
+      <Real start="2"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.T_w4"
       valueReference="16777258"
       variability="parameter">
-      <Real start="1E-09"
+      <Real start="2"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.T_7"
       valueReference="16777259"
       variability="parameter">
-      <Real start="10"
+      <Real start="2"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.K_S2"
       valueReference="16777260"
       variability="parameter">
-      <Real start="0.99"
+      <Real start="0.4"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
@@ -457,7 +571,7 @@
       name="machineData.data.T_8"
       valueReference="16777262"
       variability="parameter">
-      <Real start="0.5"
+      <Real start="0"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
@@ -471,49 +585,49 @@
       name="machineData.data.K_S1"
       valueReference="16777264"
       variability="parameter">
-      <Real start="20"
+      <Real start="5"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.T_1"
       valueReference="16777265"
       variability="parameter">
-      <Real start="0.15"
+      <Real start="0.2"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.T_2"
       valueReference="16777266"
       variability="parameter">
-      <Real start="0.025"
+      <Real start="0.04"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.T_3"
       valueReference="16777267"
       variability="parameter">
-      <Real start="1"
+      <Real start="0.36"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.T_4"
       valueReference="16777268"
       variability="parameter">
-      <Real start="1"
+      <Real start="0.12"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.T_10"
       valueReference="16777269"
       variability="parameter">
-      <Real start="1"
+      <Real start="0.01"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="machineData.data.T_11"
       valueReference="16777270"
       variability="parameter">
-      <Real start="1"
+      <Real start="0.01"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
@@ -562,7 +676,7 @@
       name="machineData.data.M"
       valueReference="16777277"
       variability="parameter">
-      <Integer start="1"
+      <Integer start="5"
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
@@ -573,8 +687,187 @@
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
-      name="const1.k"
+      name="bus.S_b"
+      valueReference="100663296"
+      description="System base power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.ApparentPower"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.enableS_b"
+      valueReference="100663297"
+      description="Enable S_b in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.V_b"
       valueReference="16777279"
+      description="Base voltage of the bus"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Voltage"
+        start="400000.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.enableV_b"
+      valueReference="100663298"
+      description="Enable V_b in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.fn"
+      valueReference="100663299"
+      description="System frequency"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Frequency"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.enablefn"
+      valueReference="100663300"
+      description="Enable fn in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.P_0"
+      valueReference="16777280"
+      description="Initial active power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.ActivePower"
+        start="1000000.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.enableP_0"
+      valueReference="100663301"
+      description="Enable P_0 in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.Q_0"
+      valueReference="16777281"
+      description="Initial reactive power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.ReactivePower"
+        start="0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.enableQ_0"
+      valueReference="100663302"
+      description="Enable Q_0 in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.v_0"
+      valueReference="100663303"
+      description="Initial voltage magnitude"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.enablev_0"
+      valueReference="100663304"
+      description="Enable v_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.angle_0"
+      valueReference="100663305"
+      description="Initial voltage angle"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Angle"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.enableangle_0"
+      valueReference="100663306"
+      description="Enable angle_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.displayPF"
+      valueReference="16777282"
+      description="Display power flow:"
+      variability="parameter">
+      <Boolean start="false"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.enabledisplayPF"
+      valueReference="100663307"
+      description="Enable displayPF in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.p.vr"
+      valueReference="369098764"
+      description="Real part of the voltage">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.p.vi"
+      valueReference="369098765"
+      description="Imaginary part of the voltage">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.p.ir"
+      valueReference="100663310"
+      description="Real part of the current"
+      variability="constant">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"
+        start="0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.p.ii"
+      valueReference="100663311"
+      description="Imaginary part of the current"
+      variability="constant">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"
+        start="0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.V"
+      valueReference="905969680"
+      description="Bus voltage magnitude">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.angle"
+      valueReference="905969681"
+      description="Bus voltage angle">
+      <Real
+        declaredType="OpenIPSL.Types.Angle"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="bus.angleDisplay"
+      valueReference="905969682"
+      description="Angle in degrees for display purposes">
+      <Real
+        declaredType="Modelica.SIunits.Conversions.NonSIunits.Angle_deg"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="const1.k"
+      valueReference="16777283"
       description="Constant output value"
       variability="parameter">
       <Real start="-1E+60"
@@ -582,7 +875,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="const1.y"
-      valueReference="234881087"
+      valueReference="234881091"
       description="Connector of Real output signal"
       alias="alias">
       <Real
@@ -590,7 +883,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="const2.k"
-      valueReference="16777280"
+      valueReference="16777284"
       description="Constant output value"
       variability="parameter">
       <Real start="1E+60"
@@ -598,38 +891,939 @@
     </ScalarVariable>
     <ScalarVariable
       name="const2.y"
-      valueReference="234881088"
+      valueReference="234881092"
       description="Connector of Real output signal"
       alias="alias">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
     </ScalarVariable>
     <ScalarVariable
-      name="sT5B.VUEL"
-      valueReference="234881087"
-      alias="alias">
+      name="Gen1.S_b"
+      valueReference="100663315"
+      description="System base power"
+      variability="parameter">
       <Real
-        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+        declaredType="OpenIPSL.Types.ApparentPower"/>
     </ScalarVariable>
     <ScalarVariable
-      name="sT5B.VOEL"
-      valueReference="234881088"
-      alias="alias">
-      <Real
-        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+      name="Gen1.enableS_b"
+      valueReference="100663316"
+      description="Enable S_b in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
     </ScalarVariable>
     <ScalarVariable
-      name="sT5B.EFD"
-      valueReference="335544320"
-      description="Excitation Voltage [pu]"
+      name="Gen1.V_b"
+      valueReference="16777285"
+      description="Base voltage of the bus"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Voltage"
+        start="400000.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.enableV_b"
+      valueReference="100663317"
+      description="Enable V_b in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.fn"
+      valueReference="100663318"
+      description="System frequency"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Frequency"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.enablefn"
+      valueReference="100663319"
+      description="Enable fn in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.P_0"
+      valueReference="100663320"
+      description="Initial active power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.ActivePower"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.enableP_0"
+      valueReference="100663321"
+      description="Enable P_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Q_0"
+      valueReference="100663322"
+      description="Initial reactive power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.ReactivePower"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.enableQ_0"
+      valueReference="100663323"
+      description="Enable Q_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.v_0"
+      valueReference="100663324"
+      description="Initial voltage magnitude"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.enablev_0"
+      valueReference="100663325"
+      description="Enable v_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.angle_0"
+      valueReference="100663326"
+      description="Initial voltage angle"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Angle"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.enableangle_0"
+      valueReference="100663327"
+      description="Enable angle_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.displayPF"
+      valueReference="16777286"
+      description="Display power flow:"
+      variability="parameter">
+      <Boolean start="false"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.enabledisplayPF"
+      valueReference="100663328"
+      description="Enable displayPF in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.M_b"
+      valueReference="16777287"
+      description="Machine base power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.ApparentPower"
+        start="30000000"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Tpd0"
+      valueReference="100663329"
+      description="d-axis transient open-circuit time constant"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Time"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Tppd0"
+      valueReference="100663330"
+      description="d-axis sub-transient open-circuit time constant"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Time"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Tppq0"
+      valueReference="100663331"
+      description="q-axis sub-transient open-circuit time constant"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Time"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.H"
+      valueReference="100663332"
+      description="Inertia constant"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Time"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.D"
+      valueReference="100663333"
+      description="Speed damping"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Xd"
+      valueReference="100663334"
+      description="d-axis reactance"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Xq"
+      valueReference="100663335"
+      description="q-axis reactance"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Xpd"
+      valueReference="100663336"
+      description="d-axis transient reactance"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Xppd"
+      valueReference="100663337"
+      description="d-axis sub-transient reactance"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Xppq"
+      valueReference="100663338"
+      description="q-axis sub-transient reactance"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Xl"
+      valueReference="100663339"
+      description="leakage reactance"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.S10"
+      valueReference="100663340"
+      description="Saturation factor at 1.0 pu"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.S12"
+      valueReference="100663341"
+      description="Saturation factor at 1.2 pu"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.R_a"
+      valueReference="100663342"
+      description="Armature resistance"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.w0"
+      valueReference="16777288"
+      description="Initial speed deviation from nominal"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"
+        min="-0.999999999999999"
+        start="0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.p.vr"
+      valueReference="369098764"
+      description="Real part of the voltage"
+      alias="alias">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.p.vi"
+      valueReference="369098765"
+      description="Imaginary part of the voltage"
+      alias="alias">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.p.ir"
+      valueReference="369098799"
+      description="Real part of the current">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.p.ii"
+      valueReference="369098800"
+      description="Imaginary part of the current">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.SPEED"
+      valueReference="33554432"
+      description="Machine speed deviation from nominal [pu]"
       alias="alias">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"
         unit="1"/>
     </ScalarVariable>
     <ScalarVariable
+      name="Gen1.PMECH"
+      valueReference="100663402"
+      description="Turbine mechanical power (machine base)"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PMECH0"
+      valueReference="100663402"
+      description="Initial value of machine electrical power (machine base)"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.ETERM"
+      valueReference="335544320"
+      description="Machine terminal voltage [pu]"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.EFD"
+      valueReference="436207616"
+      description="Generator main field voltage [pu]"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.EFD0"
+      valueReference="100663401"
+      description="Initial generator main field voltage [pu]"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PELEC"
+      valueReference="905969713"
+      description="Machine electrical power (machine base)">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.ISORCE"
+      valueReference="335544321"
+      description="Machine source current [pu]"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.ANGLE"
+      valueReference="33554433"
+      description="Machine relative rotor angle"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="rad"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.XADIFD"
+      valueReference="335544321"
+      description="Machine field current [pu]"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.w"
+      valueReference="33554432"
+      description="Machine speed deviation">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="der(Gen1.w)"
+      valueReference="587202560"
+      description="der(Machine speed deviation)">
+      <Real
+        unit="s-1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.delta"
+      valueReference="33554433"
+      description="Rotor angle">
+      <Real
+        declaredType="OpenIPSL.Types.Angle"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="der(Gen1.delta)"
+      valueReference="587202561"
+      description="der(Rotor angle)">
+      <Real
+        unit="rad/s"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Vt"
+      valueReference="335544320"
+      description="Bus voltage magnitude"
+      alias="alias">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.anglev"
+      valueReference="905969714"
+      description="Bus voltage angle">
+      <Real
+        declaredType="OpenIPSL.Types.Angle"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.I"
+      valueReference="905969715"
+      description="Terminal current magnitude">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.anglei"
+      valueReference="905969716"
+      description="Terminal current angle">
+      <Real
+        declaredType="OpenIPSL.Types.Angle"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.P"
+      valueReference="905969717"
+      description="Active power (system base)">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Q"
+      valueReference="905969718"
+      description="Reactive power (system base)">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Te"
+      valueReference="637534263"
+      description="Electrical torque [pu]">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.id"
+      valueReference="369098808"
+      description="d-axis armature current [pu]">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.iq"
+      valueReference="369098809"
+      description="q-axis armature current [pu]">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.ud"
+      valueReference="369098810"
+      description="d-axis terminal voltage [pu]">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.uq"
+      valueReference="369098811"
+      description="q-axis terminal voltage [pu]">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.w_b"
+      valueReference="100663356"
+      description="System base speed"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.AngularVelocity"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.CoB"
+      valueReference="100663357"
+      variability="parameter">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.vr0"
+      valueReference="100663358"
+      description="Real component of initial terminal voltage"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.vi0"
+      valueReference="100663359"
+      description="Imaginary component of initial terminal voltage"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.ir0"
+      valueReference="100663360"
+      description="Real component of initial armature current (system base)"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.ii0"
+      valueReference="100663361"
+      description="Imaginary component of initial armature current (system base)"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.p0"
+      valueReference="100663362"
+      description="Initial active power generation (machine base)"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.q0"
+      valueReference="100663363"
+      description="Initial reactive power generation (machine base)"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Epq"
+      valueReference="33554434"
+      description="q-axis voltage behind transient reactance">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="der(Gen1.Epq)"
+      valueReference="587202562"
+      description="der(q-axis voltage behind transient reactance)">
+      <Real
+        unit="s-1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIkd"
+      valueReference="33554435"
+      description="d-axis rotor flux linkage">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="der(Gen1.PSIkd)"
+      valueReference="587202563"
+      description="der(d-axis rotor flux linkage)">
+      <Real
+        unit="s-1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIppq"
+      valueReference="33554436"
+      description="q-axis subtransient flux linkage">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="der(Gen1.PSIppq)"
+      valueReference="587202564"
+      description="der(q-axis subtransient flux linkage)">
+      <Real
+        unit="s-1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIppd"
+      valueReference="369098820"
+      description="d-axis subtransient flux linkage">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSId"
+      valueReference="369098821"
+      description="d-axis flux linkage">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIq"
+      valueReference="369098822"
+      description="q-axis flux linkage">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.XadIfd"
+      valueReference="335544321"
+      description="Machine field current"
+      alias="alias">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Zs.re"
+      valueReference="100663367"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Zs.im"
+      valueReference="100663368"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Is.re"
+      valueReference="100663369"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Is.im"
+      valueReference="100663370"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIpp0.re"
+      valueReference="100663371"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIpp0.im"
+      valueReference="100663372"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.a.re"
+      valueReference="100663373"
+      description="Real part of complex number"
+      variability="constant">
+      <Real start="0.0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.a.im"
+      valueReference="100663374"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Epqp.re"
+      valueReference="100663375"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Epqp.im"
+      valueReference="100663376"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.delta0"
+      valueReference="100663377"
+      description="rotor angle in radians"
+      variability="parameter">
+      <Real
+        unit="rad"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.VT.re"
+      valueReference="100663378"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.VT.im"
+      valueReference="100663379"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.S.re"
+      valueReference="100663380"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.S.im"
+      valueReference="100663381"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.It.re"
+      valueReference="100663382"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.It.im"
+      valueReference="100663383"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.DQ_dq.re"
+      valueReference="100663384"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.DQ_dq.im"
+      valueReference="100663385"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.I_dq.re"
+      valueReference="100663386"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.I_dq.im"
+      valueReference="100663387"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.iq0"
+      valueReference="100663388"
+      description="q-axis component of initial current"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.id0"
+      valueReference="100663389"
+      description="d-axis component of initial current"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.ud0"
+      valueReference="100663390"
+      description="d-axis component of initial voltage"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.uq0"
+      valueReference="100663391"
+      description="q-axis component of initial voltage"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIpp0_dq.re"
+      valueReference="100663392"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIpp0_dq.im"
+      valueReference="100663393"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIppq0"
+      valueReference="100663394"
+      description="q-axis component of the sub-transient flux linkage"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIppd0"
+      valueReference="100663395"
+      description="d-axis component of the sub-transient flux linkage"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIkd0"
+      valueReference="100663396"
+      description="d-axis initial rotor flux linkage"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSId0"
+      valueReference="100663397"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.PSIq0"
+      valueReference="100663398"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.Epq0"
+      valueReference="100663399"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.dsat"
+      valueReference="100663400"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.efd0"
+      valueReference="100663401"
+      description="Initial field voltage magnitude"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.pm0"
+      valueReference="100663402"
+      description="Initial mechanical power (machine base)"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.K1d"
+      valueReference="100663403"
+      variability="parameter">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.K2d"
+      valueReference="100663404"
+      variability="parameter">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.K3d"
+      valueReference="100663405"
+      variability="parameter">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Gen1.K4d"
+      valueReference="100663406"
+      variability="parameter">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="sT5B.VUEL"
+      valueReference="234881091"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="sT5B.VOEL"
+      valueReference="234881092"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="sT5B.EFD"
+      valueReference="637534319"
+      description="Excitation Voltage [pu]">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
       name="sT5B.EFD0"
-      valueReference="234881128"
+      valueReference="100663401"
       alias="alias">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealInput"
@@ -637,22 +1831,21 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.VOTHSG"
-      valueReference="234881127"
+      valueReference="234881135"
       alias="alias">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealInput"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.ECOMP"
-      valueReference="436207616"
-      alias="alias">
+      valueReference="637534320">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealInput"
         unit="1"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.VoltageReference.k"
-      valueReference="100663296"
+      valueReference="100663409"
       description="Constant output value"
       variability="parameter">
       <Real
@@ -660,7 +1853,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.VoltageReference.y"
-      valueReference="100663296"
+      valueReference="100663409"
       description="Connector of Real output signal"
       alias="alias">
       <Real
@@ -669,7 +1862,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.DiffV.u1"
-      valueReference="100663296"
+      valueReference="100663409"
       description="Connector of Real input signal 1"
       alias="alias">
       <Real
@@ -678,7 +1871,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.DiffV.u2"
-      valueReference="369098753"
+      valueReference="637534322"
       description="Connector of Real input signal 2">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealInput"
@@ -686,14 +1879,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.DiffV.y"
-      valueReference="369098754"
+      valueReference="637534323"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.DiffV.k1"
-      valueReference="16777281"
+      valueReference="16777289"
       description="Gain of input signal 1"
       variability="parameter">
       <Real start="1"
@@ -701,7 +1894,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.DiffV.k2"
-      valueReference="16777282"
+      valueReference="16777290"
       description="Gain of input signal 2"
       variability="parameter">
       <Real start="-1"
@@ -709,35 +1902,36 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.Efd0"
-      valueReference="100663299"
+      valueReference="100663412"
       variability="parameter">
       <Real
         unit="1"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.V_REF"
-      valueReference="100663300"
+      valueReference="100663413"
       variability="parameter">
       <Real
         unit="1"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.ECOMP0"
-      valueReference="100663301"
+      valueReference="100663414"
       variability="parameter">
       <Real
         unit="1"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.XADIFD"
-      valueReference="436207617"
+      valueReference="335544321"
       alias="alias">
       <Real
-        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.T_R"
-      valueReference="100663302"
+      valueReference="100663415"
       description="Regulator input filter time constant"
       variability="parameter">
       <Real
@@ -745,7 +1939,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.T_C1"
-      valueReference="100663303"
+      valueReference="100663416"
       description="Voltage regulator numerator (lead) time constant (first block)"
       variability="parameter">
       <Real
@@ -753,7 +1947,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.T_B1"
-      valueReference="100663304"
+      valueReference="100663417"
       description="Voltage regulator denominator (lag) time constant (first block)"
       variability="parameter">
       <Real
@@ -761,7 +1955,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.T_C2"
-      valueReference="100663305"
+      valueReference="100663418"
       description="Voltage regulator numerator (lead) time constant (second block)"
       variability="parameter">
       <Real
@@ -769,7 +1963,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.T_B2"
-      valueReference="100663306"
+      valueReference="100663419"
       description="Voltage regulator denominator (lag) time constant (second block)"
       variability="parameter">
       <Real
@@ -777,7 +1971,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.K_R"
-      valueReference="100663307"
+      valueReference="100663420"
       description="Voltage regulator gain"
       variability="parameter">
       <Real
@@ -785,7 +1979,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.V_RMAX"
-      valueReference="100663308"
+      valueReference="100663421"
       description="Maximum regulator output"
       variability="parameter">
       <Real
@@ -793,7 +1987,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.V_RMIN"
-      valueReference="100663309"
+      valueReference="100663422"
       description="Minimum regulator output"
       variability="parameter">
       <Real
@@ -801,7 +1995,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.T_1"
-      valueReference="100663310"
+      valueReference="100663423"
       description="Thyristor bridge firing control equivalent time constant"
       variability="parameter">
       <Real
@@ -809,7 +2003,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.K_C"
-      valueReference="100663311"
+      valueReference="100663424"
       description="Rectifier loading factor proportional to commutating reactance"
       variability="parameter">
       <Real
@@ -817,7 +2011,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.T_UC1"
-      valueReference="100663312"
+      valueReference="100663425"
       description="UEL regulator numerator (lead) time constant (first block)"
       variability="parameter">
       <Real
@@ -825,7 +2019,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.T_UB1"
-      valueReference="100663313"
+      valueReference="100663426"
       description="UEL regulator denominator (lag) time constant (first block)"
       variability="parameter">
       <Real
@@ -833,7 +2027,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.T_UC2"
-      valueReference="100663314"
+      valueReference="100663427"
       description="UEL regulator numerator (lead) time constant (second block)"
       variability="parameter">
       <Real
@@ -841,7 +2035,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.T_UB2"
-      valueReference="100663315"
+      valueReference="100663428"
       description="UEL regulator denominator (lag) time constant (second block)"
       variability="parameter">
       <Real
@@ -849,7 +2043,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.T_OC1"
-      valueReference="100663316"
+      valueReference="100663429"
       description="OEL regulator numerator (lead) time constant (first block)"
       variability="parameter">
       <Real
@@ -857,7 +2051,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.T_OB1"
-      valueReference="100663317"
+      valueReference="100663430"
       description="OEL regulator denominator (lag) time constant (first block)"
       variability="parameter">
       <Real
@@ -865,7 +2059,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.T_OC2"
-      valueReference="100663318"
+      valueReference="100663431"
       description="OEL regulator numerator (lead) time constant (second block)"
       variability="parameter">
       <Real
@@ -873,7 +2067,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.T_OB2"
-      valueReference="100663319"
+      valueReference="100663432"
       description="OEL regulator denominator (lag) time constant (second block)"
       variability="parameter">
       <Real
@@ -881,7 +2075,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.VERR1.u1"
-      valueReference="234881127"
+      valueReference="234881135"
       description="Connector of Real input signal 1"
       alias="alias">
       <Real
@@ -889,21 +2083,21 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.VERR1.u2"
-      valueReference="369098776"
+      valueReference="637534345"
       description="Connector of Real input signal 2">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealInput"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.VERR1.y"
-      valueReference="369098777"
+      valueReference="637534346"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.VERR1.k1"
-      valueReference="16777283"
+      valueReference="16777291"
       description="Gain of input signal 1"
       variability="parameter">
       <Real start="1"
@@ -911,7 +2105,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.VERR1.k2"
-      valueReference="16777284"
+      valueReference="16777292"
       description="Gain of input signal 2"
       variability="parameter">
       <Real start="1"
@@ -919,48 +2113,48 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.lV_Gate.n1"
-      valueReference="234881088"
+      valueReference="234881092"
       alias="alias">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealInput"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.lV_Gate.n2"
-      valueReference="369098778">
+      valueReference="637534347">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealInput"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.lV_Gate.p"
-      valueReference="369098776"
+      valueReference="637534345"
       alias="alias">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.hV_Gate.n1"
-      valueReference="234881087"
+      valueReference="234881091"
       alias="alias">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealInput"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.hV_Gate.n2"
-      valueReference="369098754"
+      valueReference="637534323"
       alias="alias">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealInput"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.hV_Gate.p"
-      valueReference="369098778"
+      valueReference="637534347"
       alias="alias">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.u"
-      valueReference="369098777"
+      valueReference="637534346"
       description="Connector of Real input signal"
       alias="alias">
       <Real
@@ -968,7 +2162,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.y"
-      valueReference="369098779"
+      valueReference="637534348"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"
@@ -976,7 +2170,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.K"
-      valueReference="16777285"
+      valueReference="16777293"
       description="Gain"
       variability="parameter">
       <Real start="1"
@@ -984,7 +2178,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.T1"
-      valueReference="100663324"
+      valueReference="100663437"
       description="Lead time constant"
       variability="parameter">
       <Real
@@ -992,7 +2186,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.T2"
-      valueReference="100663325"
+      valueReference="100663438"
       description="Lag time constant"
       variability="parameter">
       <Real
@@ -1000,7 +2194,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.outMax"
-      valueReference="100663326"
+      valueReference="100663439"
       description="Maximum output value"
       variability="parameter">
       <Real
@@ -1008,7 +2202,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.outMin"
-      valueReference="100663327"
+      valueReference="100663440"
       description="Minimum output value"
       variability="parameter">
       <Real
@@ -1016,7 +2210,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.y_start"
-      valueReference="100663328"
+      valueReference="100663441"
       description="Output start value"
       variability="parameter">
       <Real
@@ -1024,7 +2218,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.add2.u1"
-      valueReference="369098777"
+      valueReference="637534346"
       description="Connector of Real input signal 1"
       alias="alias">
       <Real
@@ -1032,7 +2226,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.add2.u2"
-      valueReference="369098785"
+      valueReference="637534354"
       description="Connector of Real input signal 2">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealInput"
@@ -1040,14 +2234,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.add2.y"
-      valueReference="369098786"
+      valueReference="637534355"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.add2.k1"
-      valueReference="16777286"
+      valueReference="16777294"
       description="Gain of input signal 1"
       variability="parameter">
       <Real start="1"
@@ -1055,7 +2249,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.add2.k2"
-      valueReference="16777287"
+      valueReference="16777295"
       description="Gain of input signal 2"
       variability="parameter">
       <Real start="1"
@@ -1063,7 +2257,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.gain.k"
-      valueReference="100663331"
+      valueReference="100663444"
       description="Gain value multiplied with input signal"
       variability="parameter">
       <Real
@@ -1071,7 +2265,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.gain.u"
-      valueReference="369098786"
+      valueReference="637534355"
       description="Input signal connector"
       alias="alias">
       <Real
@@ -1079,7 +2273,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.gain.y"
-      valueReference="369098788"
+      valueReference="637534357"
       description="Output signal connector">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"
@@ -1087,7 +2281,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.add3.u1"
-      valueReference="369098779"
+      valueReference="637534348"
       description="Connector of Real input signal 1"
       alias="alias">
       <Real
@@ -1096,7 +2290,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.add3.u2"
-      valueReference="33554432"
+      valueReference="33554437"
       description="Connector of Real input signal 2"
       alias="alias">
       <Real
@@ -1105,14 +2299,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.add3.y"
-      valueReference="637534245"
+      valueReference="637534358"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.add3.k1"
-      valueReference="16777288"
+      valueReference="16777296"
       description="Gain of input signal 1"
       variability="parameter">
       <Real start="1"
@@ -1120,7 +2314,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.add3.k2"
-      valueReference="16777289"
+      valueReference="16777297"
       description="Gain of input signal 2"
       variability="parameter">
       <Real start="-1"
@@ -1128,7 +2322,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.integrator.k"
-      valueReference="100663334"
+      valueReference="100663447"
       description="Integrator gain"
       variability="parameter">
       <Real
@@ -1136,7 +2330,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.integrator.initType"
-      valueReference="100663337"
+      valueReference="100663450"
       description="Type of initialization (1: no init, 2: steady state, 3,4: initial output)"
       variability="constant">
       <Enumeration
@@ -1145,7 +2339,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.integrator.y_start"
-      valueReference="100663338"
+      valueReference="100663451"
       description="Initial or guess value of output (= state)"
       variability="parameter">
       <Real
@@ -1153,7 +2347,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.integrator.u"
-      valueReference="637534245"
+      valueReference="637534358"
       description="Connector of Real input signal"
       alias="alias">
       <Real
@@ -1161,7 +2355,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.integrator.y"
-      valueReference="33554432"
+      valueReference="33554437"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"
@@ -1169,14 +2363,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="der(sT5B.imLimitedLeadLag.integrator.y)"
-      valueReference="587202560"
+      valueReference="587202565"
       description="der(Connector of Real output signal)">
       <Real
         unit="s-1"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.gain1.k"
-      valueReference="100663341"
+      valueReference="100663454"
       description="Gain value multiplied with input signal"
       variability="parameter">
       <Real
@@ -1184,7 +2378,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.gain1.u"
-      valueReference="33554432"
+      valueReference="33554437"
       description="Input signal connector"
       alias="alias">
       <Real
@@ -1193,7 +2387,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.gain1.y"
-      valueReference="369098785"
+      valueReference="637534354"
       description="Output signal connector"
       alias="alias">
       <Real
@@ -1202,7 +2396,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.limiter.uMax"
-      valueReference="100663342"
+      valueReference="100663455"
       description="Upper limits of input signals"
       variability="parameter">
       <Real
@@ -1210,7 +2404,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.limiter.uMin"
-      valueReference="100663343"
+      valueReference="100663456"
       description="Lower limits of input signals"
       variability="parameter">
       <Real
@@ -1218,14 +2412,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.limiter.strict"
-      valueReference="100663344"
+      valueReference="100663457"
       description="= true, if strict limits with noEvent(..)"
       variability="constant">
       <Boolean start="false"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.limiter.homotopyType"
-      valueReference="100663345"
+      valueReference="100663458"
       description="Simplified model for homotopy-based initialization"
       variability="constant">
       <Enumeration
@@ -1234,14 +2428,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.limiter.limitsAtInit"
-      valueReference="100663346"
+      valueReference="100663459"
       description="Has no longer an effect and is only kept for backwards compatibility (the implementation uses now the homotopy operator)"
       variability="constant">
       <Boolean start="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.limiter.u"
-      valueReference="369098788"
+      valueReference="637534357"
       description="Connector of Real input signal"
       alias="alias">
       <Real
@@ -1250,7 +2444,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.limiter.y"
-      valueReference="369098779"
+      valueReference="637534348"
       description="Connector of Real output signal"
       alias="alias">
       <Real
@@ -1259,7 +2453,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag.limiter.simplifiedExpr"
-      valueReference="369098788"
+      valueReference="637534357"
       description="Simplified expression for homotopy-based initialization"
       alias="alias">
       <Real
@@ -1267,7 +2461,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.u"
-      valueReference="369098779"
+      valueReference="637534348"
       description="Connector of Real input signal"
       alias="alias">
       <Real
@@ -1276,7 +2470,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.y"
-      valueReference="369098803"
+      valueReference="637534372"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"
@@ -1284,7 +2478,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.K"
-      valueReference="16777290"
+      valueReference="16777298"
       description="Gain"
       variability="parameter">
       <Real start="1"
@@ -1292,7 +2486,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.T1"
-      valueReference="100663348"
+      valueReference="100663461"
       description="Lead time constant"
       variability="parameter">
       <Real
@@ -1300,7 +2494,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.T2"
-      valueReference="100663349"
+      valueReference="100663462"
       description="Lag time constant"
       variability="parameter">
       <Real
@@ -1308,7 +2502,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.outMax"
-      valueReference="100663350"
+      valueReference="100663463"
       description="Maximum output value"
       variability="parameter">
       <Real
@@ -1316,7 +2510,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.outMin"
-      valueReference="100663351"
+      valueReference="100663464"
       description="Minimum output value"
       variability="parameter">
       <Real
@@ -1324,7 +2518,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.y_start"
-      valueReference="100663352"
+      valueReference="100663465"
       description="Output start value"
       variability="parameter">
       <Real
@@ -1332,7 +2526,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.add2.u1"
-      valueReference="369098779"
+      valueReference="637534348"
       description="Connector of Real input signal 1"
       alias="alias">
       <Real
@@ -1341,7 +2535,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.add2.u2"
-      valueReference="369098809"
+      valueReference="637534378"
       description="Connector of Real input signal 2">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealInput"
@@ -1349,14 +2543,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.add2.y"
-      valueReference="369098810"
+      valueReference="637534379"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.add2.k1"
-      valueReference="16777291"
+      valueReference="16777299"
       description="Gain of input signal 1"
       variability="parameter">
       <Real start="1"
@@ -1364,7 +2558,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.add2.k2"
-      valueReference="16777292"
+      valueReference="16777300"
       description="Gain of input signal 2"
       variability="parameter">
       <Real start="1"
@@ -1372,7 +2566,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.gain.k"
-      valueReference="100663355"
+      valueReference="100663468"
       description="Gain value multiplied with input signal"
       variability="parameter">
       <Real
@@ -1380,7 +2574,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.gain.u"
-      valueReference="369098810"
+      valueReference="637534379"
       description="Input signal connector"
       alias="alias">
       <Real
@@ -1388,7 +2582,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.gain.y"
-      valueReference="369098812"
+      valueReference="637534381"
       description="Output signal connector">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"
@@ -1396,7 +2590,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.add3.u1"
-      valueReference="369098803"
+      valueReference="637534372"
       description="Connector of Real input signal 1"
       alias="alias">
       <Real
@@ -1405,7 +2599,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.add3.u2"
-      valueReference="33554433"
+      valueReference="33554438"
       description="Connector of Real input signal 2"
       alias="alias">
       <Real
@@ -1414,14 +2608,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.add3.y"
-      valueReference="637534269"
+      valueReference="637534382"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.add3.k1"
-      valueReference="16777293"
+      valueReference="16777301"
       description="Gain of input signal 1"
       variability="parameter">
       <Real start="1"
@@ -1429,7 +2623,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.add3.k2"
-      valueReference="16777294"
+      valueReference="16777302"
       description="Gain of input signal 2"
       variability="parameter">
       <Real start="-1"
@@ -1437,7 +2631,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.integrator.k"
-      valueReference="100663358"
+      valueReference="100663471"
       description="Integrator gain"
       variability="parameter">
       <Real
@@ -1445,7 +2639,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.integrator.initType"
-      valueReference="100663361"
+      valueReference="100663474"
       description="Type of initialization (1: no init, 2: steady state, 3,4: initial output)"
       variability="constant">
       <Enumeration
@@ -1454,7 +2648,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.integrator.y_start"
-      valueReference="100663362"
+      valueReference="100663475"
       description="Initial or guess value of output (= state)"
       variability="parameter">
       <Real
@@ -1462,7 +2656,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.integrator.u"
-      valueReference="637534269"
+      valueReference="637534382"
       description="Connector of Real input signal"
       alias="alias">
       <Real
@@ -1470,7 +2664,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.integrator.y"
-      valueReference="33554433"
+      valueReference="33554438"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"
@@ -1478,14 +2672,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="der(sT5B.imLimitedLeadLag2.integrator.y)"
-      valueReference="587202561"
+      valueReference="587202566"
       description="der(Connector of Real output signal)">
       <Real
         unit="s-1"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.gain1.k"
-      valueReference="100663365"
+      valueReference="100663478"
       description="Gain value multiplied with input signal"
       variability="parameter">
       <Real
@@ -1493,7 +2687,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.gain1.u"
-      valueReference="33554433"
+      valueReference="33554438"
       description="Input signal connector"
       alias="alias">
       <Real
@@ -1502,7 +2696,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.gain1.y"
-      valueReference="369098809"
+      valueReference="637534378"
       description="Output signal connector"
       alias="alias">
       <Real
@@ -1511,7 +2705,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.limiter.uMax"
-      valueReference="100663366"
+      valueReference="100663479"
       description="Upper limits of input signals"
       variability="parameter">
       <Real
@@ -1519,7 +2713,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.limiter.uMin"
-      valueReference="100663367"
+      valueReference="100663480"
       description="Lower limits of input signals"
       variability="parameter">
       <Real
@@ -1527,14 +2721,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.limiter.strict"
-      valueReference="100663368"
+      valueReference="100663481"
       description="= true, if strict limits with noEvent(..)"
       variability="constant">
       <Boolean start="false"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.limiter.homotopyType"
-      valueReference="100663369"
+      valueReference="100663482"
       description="Simplified model for homotopy-based initialization"
       variability="constant">
       <Enumeration
@@ -1543,14 +2737,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.limiter.limitsAtInit"
-      valueReference="100663370"
+      valueReference="100663483"
       description="Has no longer an effect and is only kept for backwards compatibility (the implementation uses now the homotopy operator)"
       variability="constant">
       <Boolean start="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.limiter.u"
-      valueReference="369098812"
+      valueReference="637534381"
       description="Connector of Real input signal"
       alias="alias">
       <Real
@@ -1559,7 +2753,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.limiter.y"
-      valueReference="369098803"
+      valueReference="637534372"
       description="Connector of Real output signal"
       alias="alias">
       <Real
@@ -1568,7 +2762,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag2.limiter.simplifiedExpr"
-      valueReference="369098812"
+      valueReference="637534381"
       description="Simplified expression for homotopy-based initialization"
       alias="alias">
       <Real
@@ -1576,7 +2770,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.K_r.k"
-      valueReference="100663371"
+      valueReference="100663484"
       description="Gain value multiplied with input signal"
       variability="parameter">
       <Real
@@ -1584,7 +2778,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.K_r.u"
-      valueReference="369098803"
+      valueReference="637534372"
       description="Input signal connector"
       alias="alias">
       <Real
@@ -1593,7 +2787,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.K_r.y"
-      valueReference="369098828"
+      valueReference="637534397"
       description="Output signal connector">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"
@@ -1601,7 +2795,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.limiter.uMax"
-      valueReference="100663373"
+      valueReference="100663486"
       description="Upper limits of input signals"
       variability="parameter">
       <Real
@@ -1609,7 +2803,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.limiter.uMin"
-      valueReference="100663374"
+      valueReference="100663487"
       description="Lower limits of input signals"
       variability="parameter">
       <Real
@@ -1617,14 +2811,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.limiter.strict"
-      valueReference="100663375"
+      valueReference="100663488"
       description="= true, if strict limits with noEvent(..)"
       variability="constant">
       <Boolean start="false"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.limiter.homotopyType"
-      valueReference="100663376"
+      valueReference="100663489"
       description="Simplified model for homotopy-based initialization"
       variability="constant">
       <Enumeration
@@ -1633,14 +2827,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.limiter.limitsAtInit"
-      valueReference="100663377"
+      valueReference="100663490"
       description="Has no longer an effect and is only kept for backwards compatibility (the implementation uses now the homotopy operator)"
       variability="constant">
       <Boolean start="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.limiter.u"
-      valueReference="369098828"
+      valueReference="637534397"
       description="Connector of Real input signal"
       alias="alias">
       <Real
@@ -1649,7 +2843,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.limiter.y"
-      valueReference="369098834"
+      valueReference="637534403"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"
@@ -1657,7 +2851,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.limiter.simplifiedExpr"
-      valueReference="369098828"
+      valueReference="637534397"
       description="Simplified expression for homotopy-based initialization"
       alias="alias">
       <Real
@@ -1665,14 +2859,15 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.VERR2.u1"
-      valueReference="369098835"
+      valueReference="637534404"
       description="Connector of Real input signal 1">
       <Real
-        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.VERR2.u2"
-      valueReference="369098834"
+      valueReference="637534403"
       description="Connector of Real input signal 2"
       alias="alias">
       <Real
@@ -1681,7 +2876,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.VERR2.y"
-      valueReference="369098836"
+      valueReference="637534405"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"
@@ -1689,7 +2884,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.VERR2.k1"
-      valueReference="16777295"
+      valueReference="16777303"
       description="Gain of input signal 1"
       variability="parameter">
       <Real start="-1"
@@ -1697,7 +2892,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.VERR2.k2"
-      valueReference="16777296"
+      valueReference="16777304"
       description="Gain of input signal 2"
       variability="parameter">
       <Real start="1"
@@ -1705,7 +2900,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.K_c.k"
-      valueReference="100663381"
+      valueReference="100663494"
       description="Gain value multiplied with input signal"
       variability="parameter">
       <Real
@@ -1713,23 +2908,25 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.K_c.u"
-      valueReference="436207617"
+      valueReference="335544321"
       description="Input signal connector"
       alias="alias">
       <Real
-        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.K_c.y"
-      valueReference="369098835"
+      valueReference="637534404"
       description="Output signal connector"
       alias="alias">
       <Real
-        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.u"
-      valueReference="369098777"
+      valueReference="637534346"
       description="Connector of Real input signal"
       alias="alias">
       <Real
@@ -1737,7 +2934,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.y"
-      valueReference="637534294"
+      valueReference="637534407"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"
@@ -1745,7 +2942,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.K"
-      valueReference="16777297"
+      valueReference="16777305"
       description="Gain"
       variability="parameter">
       <Real start="1"
@@ -1753,7 +2950,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.T1"
-      valueReference="100663383"
+      valueReference="100663496"
       description="Lead time constant"
       variability="parameter">
       <Real
@@ -1761,7 +2958,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.T2"
-      valueReference="100663384"
+      valueReference="100663497"
       description="Lag time constant"
       variability="parameter">
       <Real
@@ -1769,7 +2966,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.outMax"
-      valueReference="100663385"
+      valueReference="100663498"
       description="Maximum output value"
       variability="parameter">
       <Real
@@ -1777,7 +2974,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.outMin"
-      valueReference="100663386"
+      valueReference="100663499"
       description="Minimum output value"
       variability="parameter">
       <Real
@@ -1785,7 +2982,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.y_start"
-      valueReference="100663387"
+      valueReference="100663500"
       description="Output start value"
       variability="parameter">
       <Real
@@ -1793,7 +2990,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.add2.u1"
-      valueReference="369098777"
+      valueReference="637534346"
       description="Connector of Real input signal 1"
       alias="alias">
       <Real
@@ -1801,7 +2998,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.add2.u2"
-      valueReference="637534300"
+      valueReference="637534413"
       description="Connector of Real input signal 2">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealInput"
@@ -1809,14 +3006,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.add2.y"
-      valueReference="637534301"
+      valueReference="637534414"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.add2.k1"
-      valueReference="16777298"
+      valueReference="16777306"
       description="Gain of input signal 1"
       variability="parameter">
       <Real start="1"
@@ -1824,7 +3021,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.add2.k2"
-      valueReference="16777299"
+      valueReference="16777307"
       description="Gain of input signal 2"
       variability="parameter">
       <Real start="1"
@@ -1832,7 +3029,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.gain.k"
-      valueReference="100663390"
+      valueReference="100663503"
       description="Gain value multiplied with input signal"
       variability="parameter">
       <Real
@@ -1840,7 +3037,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.gain.u"
-      valueReference="637534301"
+      valueReference="637534414"
       description="Input signal connector"
       alias="alias">
       <Real
@@ -1848,7 +3045,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.gain.y"
-      valueReference="637534303"
+      valueReference="637534416"
       description="Output signal connector">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"
@@ -1856,7 +3053,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.add3.u1"
-      valueReference="637534294"
+      valueReference="637534407"
       description="Connector of Real input signal 1"
       alias="alias">
       <Real
@@ -1865,7 +3062,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.add3.u2"
-      valueReference="33554434"
+      valueReference="33554439"
       description="Connector of Real input signal 2"
       alias="alias">
       <Real
@@ -1874,14 +3071,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.add3.y"
-      valueReference="637534304"
+      valueReference="637534417"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.add3.k1"
-      valueReference="16777300"
+      valueReference="16777308"
       description="Gain of input signal 1"
       variability="parameter">
       <Real start="1"
@@ -1889,7 +3086,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.add3.k2"
-      valueReference="16777301"
+      valueReference="16777309"
       description="Gain of input signal 2"
       variability="parameter">
       <Real start="-1"
@@ -1897,7 +3094,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.integrator.k"
-      valueReference="100663393"
+      valueReference="100663506"
       description="Integrator gain"
       variability="parameter">
       <Real
@@ -1905,7 +3102,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.integrator.initType"
-      valueReference="100663396"
+      valueReference="100663509"
       description="Type of initialization (1: no init, 2: steady state, 3,4: initial output)"
       variability="constant">
       <Enumeration
@@ -1914,7 +3111,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.integrator.y_start"
-      valueReference="100663397"
+      valueReference="100663510"
       description="Initial or guess value of output (= state)"
       variability="parameter">
       <Real
@@ -1922,7 +3119,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.integrator.u"
-      valueReference="637534304"
+      valueReference="637534417"
       description="Connector of Real input signal"
       alias="alias">
       <Real
@@ -1930,7 +3127,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.integrator.y"
-      valueReference="33554434"
+      valueReference="33554439"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"
@@ -1938,14 +3135,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="der(sT5B.imLimitedLeadLag1.integrator.y)"
-      valueReference="587202562"
+      valueReference="587202567"
       description="der(Connector of Real output signal)">
       <Real
         unit="s-1"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.gain1.k"
-      valueReference="100663400"
+      valueReference="100663513"
       description="Gain value multiplied with input signal"
       variability="parameter">
       <Real
@@ -1953,7 +3150,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.gain1.u"
-      valueReference="33554434"
+      valueReference="33554439"
       description="Input signal connector"
       alias="alias">
       <Real
@@ -1962,7 +3159,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.gain1.y"
-      valueReference="637534300"
+      valueReference="637534413"
       description="Output signal connector"
       alias="alias">
       <Real
@@ -1971,7 +3168,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.limiter.uMax"
-      valueReference="100663401"
+      valueReference="100663514"
       description="Upper limits of input signals"
       variability="parameter">
       <Real
@@ -1979,7 +3176,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.limiter.uMin"
-      valueReference="100663402"
+      valueReference="100663515"
       description="Lower limits of input signals"
       variability="parameter">
       <Real
@@ -1987,14 +3184,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.limiter.strict"
-      valueReference="100663403"
+      valueReference="100663516"
       description="= true, if strict limits with noEvent(..)"
       variability="constant">
       <Boolean start="false"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.limiter.homotopyType"
-      valueReference="100663404"
+      valueReference="100663517"
       description="Simplified model for homotopy-based initialization"
       variability="constant">
       <Enumeration
@@ -2003,14 +3200,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.limiter.limitsAtInit"
-      valueReference="100663405"
+      valueReference="100663518"
       description="Has no longer an effect and is only kept for backwards compatibility (the implementation uses now the homotopy operator)"
       variability="constant">
       <Boolean start="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.limiter.u"
-      valueReference="637534303"
+      valueReference="637534416"
       description="Connector of Real input signal"
       alias="alias">
       <Real
@@ -2019,7 +3216,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.limiter.y"
-      valueReference="637534294"
+      valueReference="637534407"
       description="Connector of Real output signal"
       alias="alias">
       <Real
@@ -2028,7 +3225,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag1.limiter.simplifiedExpr"
-      valueReference="637534303"
+      valueReference="637534416"
       description="Simplified expression for homotopy-based initialization"
       alias="alias">
       <Real
@@ -2036,7 +3233,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.u"
-      valueReference="637534294"
+      valueReference="637534407"
       description="Connector of Real input signal"
       alias="alias">
       <Real
@@ -2045,7 +3242,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.y"
-      valueReference="637534318"
+      valueReference="637534431"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"
@@ -2053,7 +3250,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.K"
-      valueReference="16777302"
+      valueReference="16777310"
       description="Gain"
       variability="parameter">
       <Real start="1"
@@ -2061,7 +3258,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.T1"
-      valueReference="100663407"
+      valueReference="100663520"
       description="Lead time constant"
       variability="parameter">
       <Real
@@ -2069,7 +3266,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.T2"
-      valueReference="100663408"
+      valueReference="100663521"
       description="Lag time constant"
       variability="parameter">
       <Real
@@ -2077,7 +3274,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.outMax"
-      valueReference="100663409"
+      valueReference="100663522"
       description="Maximum output value"
       variability="parameter">
       <Real
@@ -2085,7 +3282,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.outMin"
-      valueReference="100663410"
+      valueReference="100663523"
       description="Minimum output value"
       variability="parameter">
       <Real
@@ -2093,7 +3290,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.y_start"
-      valueReference="100663411"
+      valueReference="100663524"
       description="Output start value"
       variability="parameter">
       <Real
@@ -2101,7 +3298,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.add2.u1"
-      valueReference="637534294"
+      valueReference="637534407"
       description="Connector of Real input signal 1"
       alias="alias">
       <Real
@@ -2110,7 +3307,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.add2.u2"
-      valueReference="637534324"
+      valueReference="637534437"
       description="Connector of Real input signal 2">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealInput"
@@ -2118,14 +3315,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.add2.y"
-      valueReference="637534325"
+      valueReference="637534438"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.add2.k1"
-      valueReference="16777303"
+      valueReference="16777311"
       description="Gain of input signal 1"
       variability="parameter">
       <Real start="1"
@@ -2133,7 +3330,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.add2.k2"
-      valueReference="16777304"
+      valueReference="16777312"
       description="Gain of input signal 2"
       variability="parameter">
       <Real start="1"
@@ -2141,7 +3338,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.gain.k"
-      valueReference="100663414"
+      valueReference="100663527"
       description="Gain value multiplied with input signal"
       variability="parameter">
       <Real
@@ -2149,7 +3346,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.gain.u"
-      valueReference="637534325"
+      valueReference="637534438"
       description="Input signal connector"
       alias="alias">
       <Real
@@ -2157,7 +3354,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.gain.y"
-      valueReference="637534327"
+      valueReference="637534440"
       description="Output signal connector">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"
@@ -2165,7 +3362,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.add3.u1"
-      valueReference="637534318"
+      valueReference="637534431"
       description="Connector of Real input signal 1"
       alias="alias">
       <Real
@@ -2174,7 +3371,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.add3.u2"
-      valueReference="33554435"
+      valueReference="33554440"
       description="Connector of Real input signal 2"
       alias="alias">
       <Real
@@ -2183,14 +3380,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.add3.y"
-      valueReference="637534328"
+      valueReference="637534441"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.add3.k1"
-      valueReference="16777305"
+      valueReference="16777313"
       description="Gain of input signal 1"
       variability="parameter">
       <Real start="1"
@@ -2198,7 +3395,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.add3.k2"
-      valueReference="16777306"
+      valueReference="16777314"
       description="Gain of input signal 2"
       variability="parameter">
       <Real start="-1"
@@ -2206,7 +3403,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.integrator.k"
-      valueReference="100663417"
+      valueReference="100663530"
       description="Integrator gain"
       variability="parameter">
       <Real
@@ -2214,7 +3411,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.integrator.initType"
-      valueReference="100663420"
+      valueReference="100663533"
       description="Type of initialization (1: no init, 2: steady state, 3,4: initial output)"
       variability="constant">
       <Enumeration
@@ -2223,7 +3420,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.integrator.y_start"
-      valueReference="100663421"
+      valueReference="100663534"
       description="Initial or guess value of output (= state)"
       variability="parameter">
       <Real
@@ -2231,7 +3428,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.integrator.u"
-      valueReference="637534328"
+      valueReference="637534441"
       description="Connector of Real input signal"
       alias="alias">
       <Real
@@ -2239,7 +3436,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.integrator.y"
-      valueReference="33554435"
+      valueReference="33554440"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"
@@ -2247,14 +3444,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="der(sT5B.imLimitedLeadLag3.integrator.y)"
-      valueReference="587202563"
+      valueReference="587202568"
       description="der(Connector of Real output signal)">
       <Real
         unit="s-1"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.gain1.k"
-      valueReference="100663424"
+      valueReference="100663537"
       description="Gain value multiplied with input signal"
       variability="parameter">
       <Real
@@ -2262,7 +3459,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.gain1.u"
-      valueReference="33554435"
+      valueReference="33554440"
       description="Input signal connector"
       alias="alias">
       <Real
@@ -2271,7 +3468,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.gain1.y"
-      valueReference="637534324"
+      valueReference="637534437"
       description="Output signal connector"
       alias="alias">
       <Real
@@ -2280,7 +3477,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.limiter.uMax"
-      valueReference="100663425"
+      valueReference="100663538"
       description="Upper limits of input signals"
       variability="parameter">
       <Real
@@ -2288,7 +3485,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.limiter.uMin"
-      valueReference="100663426"
+      valueReference="100663539"
       description="Lower limits of input signals"
       variability="parameter">
       <Real
@@ -2296,14 +3493,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.limiter.strict"
-      valueReference="100663427"
+      valueReference="100663540"
       description="= true, if strict limits with noEvent(..)"
       variability="constant">
       <Boolean start="false"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.limiter.homotopyType"
-      valueReference="100663428"
+      valueReference="100663541"
       description="Simplified model for homotopy-based initialization"
       variability="constant">
       <Enumeration
@@ -2312,14 +3509,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.limiter.limitsAtInit"
-      valueReference="100663429"
+      valueReference="100663542"
       description="Has no longer an effect and is only kept for backwards compatibility (the implementation uses now the homotopy operator)"
       variability="constant">
       <Boolean start="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.limiter.u"
-      valueReference="637534327"
+      valueReference="637534440"
       description="Connector of Real input signal"
       alias="alias">
       <Real
@@ -2328,7 +3525,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.limiter.y"
-      valueReference="637534318"
+      valueReference="637534431"
       description="Connector of Real output signal"
       alias="alias">
       <Real
@@ -2337,7 +3534,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag3.limiter.simplifiedExpr"
-      valueReference="637534327"
+      valueReference="637534440"
       description="Simplified expression for homotopy-based initialization"
       alias="alias">
       <Real
@@ -2345,7 +3542,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.u"
-      valueReference="369098777"
+      valueReference="637534346"
       description="Connector of Real input signal"
       alias="alias">
       <Real
@@ -2353,7 +3550,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.y"
-      valueReference="637534342"
+      valueReference="637534455"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"
@@ -2361,7 +3558,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.K"
-      valueReference="16777307"
+      valueReference="16777315"
       description="Gain"
       variability="parameter">
       <Real start="1"
@@ -2369,7 +3566,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.T1"
-      valueReference="100663431"
+      valueReference="100663544"
       description="Lead time constant"
       variability="parameter">
       <Real
@@ -2377,7 +3574,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.T2"
-      valueReference="100663432"
+      valueReference="100663545"
       description="Lag time constant"
       variability="parameter">
       <Real
@@ -2385,7 +3582,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.outMax"
-      valueReference="100663433"
+      valueReference="100663546"
       description="Maximum output value"
       variability="parameter">
       <Real
@@ -2393,7 +3590,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.outMin"
-      valueReference="100663434"
+      valueReference="100663547"
       description="Minimum output value"
       variability="parameter">
       <Real
@@ -2401,7 +3598,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.y_start"
-      valueReference="100663435"
+      valueReference="100663548"
       description="Output start value"
       variability="parameter">
       <Real
@@ -2409,7 +3606,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.add2.u1"
-      valueReference="369098777"
+      valueReference="637534346"
       description="Connector of Real input signal 1"
       alias="alias">
       <Real
@@ -2417,7 +3614,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.add2.u2"
-      valueReference="637534348"
+      valueReference="637534461"
       description="Connector of Real input signal 2">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealInput"
@@ -2425,14 +3622,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.add2.y"
-      valueReference="637534349"
+      valueReference="637534462"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.add2.k1"
-      valueReference="16777308"
+      valueReference="16777316"
       description="Gain of input signal 1"
       variability="parameter">
       <Real start="1"
@@ -2440,7 +3637,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.add2.k2"
-      valueReference="16777309"
+      valueReference="16777317"
       description="Gain of input signal 2"
       variability="parameter">
       <Real start="1"
@@ -2448,7 +3645,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.gain.k"
-      valueReference="100663438"
+      valueReference="100663551"
       description="Gain value multiplied with input signal"
       variability="parameter">
       <Real
@@ -2456,7 +3653,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.gain.u"
-      valueReference="637534349"
+      valueReference="637534462"
       description="Input signal connector"
       alias="alias">
       <Real
@@ -2464,7 +3661,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.gain.y"
-      valueReference="637534351"
+      valueReference="637534464"
       description="Output signal connector">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"
@@ -2472,7 +3669,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.add3.u1"
-      valueReference="637534342"
+      valueReference="637534455"
       description="Connector of Real input signal 1"
       alias="alias">
       <Real
@@ -2481,7 +3678,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.add3.u2"
-      valueReference="33554436"
+      valueReference="33554441"
       description="Connector of Real input signal 2"
       alias="alias">
       <Real
@@ -2490,14 +3687,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.add3.y"
-      valueReference="637534352"
+      valueReference="637534465"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.add3.k1"
-      valueReference="16777310"
+      valueReference="16777318"
       description="Gain of input signal 1"
       variability="parameter">
       <Real start="1"
@@ -2505,7 +3702,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.add3.k2"
-      valueReference="16777311"
+      valueReference="16777319"
       description="Gain of input signal 2"
       variability="parameter">
       <Real start="-1"
@@ -2513,7 +3710,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.integrator.k"
-      valueReference="100663441"
+      valueReference="100663554"
       description="Integrator gain"
       variability="parameter">
       <Real
@@ -2521,7 +3718,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.integrator.initType"
-      valueReference="100663444"
+      valueReference="100663557"
       description="Type of initialization (1: no init, 2: steady state, 3,4: initial output)"
       variability="constant">
       <Enumeration
@@ -2530,7 +3727,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.integrator.y_start"
-      valueReference="100663445"
+      valueReference="100663558"
       description="Initial or guess value of output (= state)"
       variability="parameter">
       <Real
@@ -2538,7 +3735,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.integrator.u"
-      valueReference="637534352"
+      valueReference="637534465"
       description="Connector of Real input signal"
       alias="alias">
       <Real
@@ -2546,7 +3743,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.integrator.y"
-      valueReference="33554436"
+      valueReference="33554441"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"
@@ -2554,14 +3751,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="der(sT5B.imLimitedLeadLag4.integrator.y)"
-      valueReference="587202564"
+      valueReference="587202569"
       description="der(Connector of Real output signal)">
       <Real
         unit="s-1"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.gain1.k"
-      valueReference="100663448"
+      valueReference="100663561"
       description="Gain value multiplied with input signal"
       variability="parameter">
       <Real
@@ -2569,7 +3766,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.gain1.u"
-      valueReference="33554436"
+      valueReference="33554441"
       description="Input signal connector"
       alias="alias">
       <Real
@@ -2578,7 +3775,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.gain1.y"
-      valueReference="637534348"
+      valueReference="637534461"
       description="Output signal connector"
       alias="alias">
       <Real
@@ -2587,7 +3784,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.limiter.uMax"
-      valueReference="100663449"
+      valueReference="100663562"
       description="Upper limits of input signals"
       variability="parameter">
       <Real
@@ -2595,7 +3792,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.limiter.uMin"
-      valueReference="100663450"
+      valueReference="100663563"
       description="Lower limits of input signals"
       variability="parameter">
       <Real
@@ -2603,14 +3800,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.limiter.strict"
-      valueReference="100663451"
+      valueReference="100663564"
       description="= true, if strict limits with noEvent(..)"
       variability="constant">
       <Boolean start="false"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.limiter.homotopyType"
-      valueReference="100663452"
+      valueReference="100663565"
       description="Simplified model for homotopy-based initialization"
       variability="constant">
       <Enumeration
@@ -2619,14 +3816,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.limiter.limitsAtInit"
-      valueReference="100663453"
+      valueReference="100663566"
       description="Has no longer an effect and is only kept for backwards compatibility (the implementation uses now the homotopy operator)"
       variability="constant">
       <Boolean start="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.limiter.u"
-      valueReference="637534351"
+      valueReference="637534464"
       description="Connector of Real input signal"
       alias="alias">
       <Real
@@ -2635,7 +3832,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.limiter.y"
-      valueReference="637534342"
+      valueReference="637534455"
       description="Connector of Real output signal"
       alias="alias">
       <Real
@@ -2644,7 +3841,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag4.limiter.simplifiedExpr"
-      valueReference="637534351"
+      valueReference="637534464"
       description="Simplified expression for homotopy-based initialization"
       alias="alias">
       <Real
@@ -2652,7 +3849,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.u"
-      valueReference="637534342"
+      valueReference="637534455"
       description="Connector of Real input signal"
       alias="alias">
       <Real
@@ -2661,7 +3858,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.y"
-      valueReference="637534366"
+      valueReference="637534479"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"
@@ -2669,7 +3866,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.K"
-      valueReference="16777312"
+      valueReference="16777320"
       description="Gain"
       variability="parameter">
       <Real start="1"
@@ -2677,7 +3874,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.T1"
-      valueReference="100663455"
+      valueReference="100663568"
       description="Lead time constant"
       variability="parameter">
       <Real
@@ -2685,7 +3882,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.T2"
-      valueReference="100663456"
+      valueReference="100663569"
       description="Lag time constant"
       variability="parameter">
       <Real
@@ -2693,7 +3890,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.outMax"
-      valueReference="100663457"
+      valueReference="100663570"
       description="Maximum output value"
       variability="parameter">
       <Real
@@ -2701,7 +3898,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.outMin"
-      valueReference="100663458"
+      valueReference="100663571"
       description="Minimum output value"
       variability="parameter">
       <Real
@@ -2709,7 +3906,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.y_start"
-      valueReference="100663459"
+      valueReference="100663572"
       description="Output start value"
       variability="parameter">
       <Real
@@ -2717,7 +3914,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.add2.u1"
-      valueReference="637534342"
+      valueReference="637534455"
       description="Connector of Real input signal 1"
       alias="alias">
       <Real
@@ -2726,7 +3923,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.add2.u2"
-      valueReference="637534372"
+      valueReference="637534485"
       description="Connector of Real input signal 2">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealInput"
@@ -2734,14 +3931,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.add2.y"
-      valueReference="637534373"
+      valueReference="637534486"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.add2.k1"
-      valueReference="16777313"
+      valueReference="16777321"
       description="Gain of input signal 1"
       variability="parameter">
       <Real start="1"
@@ -2749,7 +3946,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.add2.k2"
-      valueReference="16777314"
+      valueReference="16777322"
       description="Gain of input signal 2"
       variability="parameter">
       <Real start="1"
@@ -2757,7 +3954,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.gain.k"
-      valueReference="100663462"
+      valueReference="100663575"
       description="Gain value multiplied with input signal"
       variability="parameter">
       <Real
@@ -2765,7 +3962,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.gain.u"
-      valueReference="637534373"
+      valueReference="637534486"
       description="Input signal connector"
       alias="alias">
       <Real
@@ -2773,7 +3970,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.gain.y"
-      valueReference="637534375"
+      valueReference="637534488"
       description="Output signal connector">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"
@@ -2781,7 +3978,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.add3.u1"
-      valueReference="637534366"
+      valueReference="637534479"
       description="Connector of Real input signal 1"
       alias="alias">
       <Real
@@ -2790,7 +3987,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.add3.u2"
-      valueReference="33554437"
+      valueReference="33554442"
       description="Connector of Real input signal 2"
       alias="alias">
       <Real
@@ -2799,14 +3996,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.add3.y"
-      valueReference="637534376"
+      valueReference="637534489"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.add3.k1"
-      valueReference="16777315"
+      valueReference="16777323"
       description="Gain of input signal 1"
       variability="parameter">
       <Real start="1"
@@ -2814,7 +4011,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.add3.k2"
-      valueReference="16777316"
+      valueReference="16777324"
       description="Gain of input signal 2"
       variability="parameter">
       <Real start="-1"
@@ -2822,7 +4019,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.integrator.k"
-      valueReference="100663465"
+      valueReference="100663578"
       description="Integrator gain"
       variability="parameter">
       <Real
@@ -2830,7 +4027,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.integrator.initType"
-      valueReference="100663468"
+      valueReference="100663581"
       description="Type of initialization (1: no init, 2: steady state, 3,4: initial output)"
       variability="constant">
       <Enumeration
@@ -2839,7 +4036,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.integrator.y_start"
-      valueReference="100663469"
+      valueReference="100663582"
       description="Initial or guess value of output (= state)"
       variability="parameter">
       <Real
@@ -2847,7 +4044,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.integrator.u"
-      valueReference="637534376"
+      valueReference="637534489"
       description="Connector of Real input signal"
       alias="alias">
       <Real
@@ -2855,7 +4052,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.integrator.y"
-      valueReference="33554437"
+      valueReference="33554442"
       description="Connector of Real output signal">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"
@@ -2863,14 +4060,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="der(sT5B.imLimitedLeadLag5.integrator.y)"
-      valueReference="587202565"
+      valueReference="587202570"
       description="der(Connector of Real output signal)">
       <Real
         unit="s-1"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.gain1.k"
-      valueReference="100663472"
+      valueReference="100663585"
       description="Gain value multiplied with input signal"
       variability="parameter">
       <Real
@@ -2878,7 +4075,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.gain1.u"
-      valueReference="33554437"
+      valueReference="33554442"
       description="Input signal connector"
       alias="alias">
       <Real
@@ -2887,7 +4084,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.gain1.y"
-      valueReference="637534372"
+      valueReference="637534485"
       description="Output signal connector"
       alias="alias">
       <Real
@@ -2896,7 +4093,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.limiter.uMax"
-      valueReference="100663473"
+      valueReference="100663586"
       description="Upper limits of input signals"
       variability="parameter">
       <Real
@@ -2904,7 +4101,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.limiter.uMin"
-      valueReference="100663474"
+      valueReference="100663587"
       description="Lower limits of input signals"
       variability="parameter">
       <Real
@@ -2912,14 +4109,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.limiter.strict"
-      valueReference="100663475"
+      valueReference="100663588"
       description="= true, if strict limits with noEvent(..)"
       variability="constant">
       <Boolean start="false"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.limiter.homotopyType"
-      valueReference="100663476"
+      valueReference="100663589"
       description="Simplified model for homotopy-based initialization"
       variability="constant">
       <Enumeration
@@ -2928,14 +4125,14 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.limiter.limitsAtInit"
-      valueReference="100663477"
+      valueReference="100663590"
       description="Has no longer an effect and is only kept for backwards compatibility (the implementation uses now the homotopy operator)"
       variability="constant">
       <Boolean start="true"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.limiter.u"
-      valueReference="637534375"
+      valueReference="637534488"
       description="Connector of Real input signal"
       alias="alias">
       <Real
@@ -2944,7 +4141,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.limiter.y"
-      valueReference="637534366"
+      valueReference="637534479"
       description="Connector of Real output signal"
       alias="alias">
       <Real
@@ -2953,7 +4150,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.imLimitedLeadLag5.limiter.simplifiedExpr"
-      valueReference="637534375"
+      valueReference="637534488"
       description="Simplified expression for homotopy-based initialization"
       alias="alias">
       <Real
@@ -2961,7 +4158,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.simpleLagLimVar.u"
-      valueReference="369098836"
+      valueReference="637534405"
       description="Connector of Real input signal"
       alias="alias">
       <Real
@@ -2970,7 +4167,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.simpleLagLimVar.y"
-      valueReference="335544320"
+      valueReference="637534319"
       description="Connector of Real output signal"
       alias="alias">
       <Real
@@ -2979,21 +4176,21 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.simpleLagLimVar.outMax"
-      valueReference="369098934">
+      valueReference="637534503">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealInput"
         unit="1"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.simpleLagLimVar.outMin"
-      valueReference="369098935">
+      valueReference="637534504">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealInput"
         unit="1"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.simpleLagLimVar.const.y"
-      valueReference="100663480"
+      valueReference="100663593"
       description="Value of Real output"
       alias="alias">
       <Real
@@ -3002,7 +4199,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.simpleLagLimVar.K"
-      valueReference="16777317"
+      valueReference="16777325"
       description="Gain"
       variability="parameter">
       <Real start="1"
@@ -3010,7 +4207,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.simpleLagLimVar.T"
-      valueReference="100663480"
+      valueReference="100663593"
       description="Lag time constant"
       variability="parameter">
       <Real
@@ -3018,7 +4215,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.simpleLagLimVar.y_start"
-      valueReference="100663481"
+      valueReference="100663594"
       description="Output start value"
       variability="parameter">
       <Real
@@ -3026,26 +4223,26 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.simpleLagLimVar.T_mod"
-      valueReference="100663482"
+      valueReference="100663595"
       variability="parameter">
       <Real
         unit="s"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.simpleLagLimVar.state"
-      valueReference="33554438">
+      valueReference="33554443">
       <Real
         unit="1"/>
     </ScalarVariable>
     <ScalarVariable
       name="der(sT5B.simpleLagLimVar.state)"
-      valueReference="587202566">
+      valueReference="587202571">
       <Real
         unit="s-1"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.high.k"
-      valueReference="100663483"
+      valueReference="100663596"
       description="Gain value multiplied with input signal"
       variability="parameter">
       <Real
@@ -3053,7 +4250,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.high.u"
-      valueReference="436207616"
+      valueReference="637534320"
       description="Input signal connector"
       alias="alias">
       <Real
@@ -3062,7 +4259,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.high.y"
-      valueReference="369098934"
+      valueReference="637534503"
       description="Output signal connector"
       alias="alias">
       <Real
@@ -3071,7 +4268,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.low.k"
-      valueReference="100663484"
+      valueReference="100663597"
       description="Gain value multiplied with input signal"
       variability="parameter">
       <Real
@@ -3079,7 +4276,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.low.u"
-      valueReference="436207616"
+      valueReference="637534320"
       description="Input signal connector"
       alias="alias">
       <Real
@@ -3088,7 +4285,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.low.y"
-      valueReference="369098935"
+      valueReference="637534504"
       description="Output signal connector"
       alias="alias">
       <Real
@@ -3097,7 +4294,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.TransducerDelay.u"
-      valueReference="436207616"
+      valueReference="637534320"
       description="Connector of Real input signal"
       alias="alias">
       <Real
@@ -3106,7 +4303,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.TransducerDelay.y"
-      valueReference="369098753"
+      valueReference="637534322"
       description="Connector of Real output signal"
       alias="alias">
       <Real
@@ -3115,7 +4312,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.TransducerDelay.const.y"
-      valueReference="100663485"
+      valueReference="100663598"
       description="Value of Real output"
       alias="alias">
       <Real
@@ -3124,19 +4321,19 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.TransducerDelay.state"
-      valueReference="33554439">
+      valueReference="33554444">
       <Real
         unit="1"/>
     </ScalarVariable>
     <ScalarVariable
       name="der(sT5B.TransducerDelay.state)"
-      valueReference="587202567">
+      valueReference="587202572">
       <Real
         unit="s-1"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.TransducerDelay.K"
-      valueReference="16777318"
+      valueReference="16777326"
       description="Gain"
       variability="parameter">
       <Real start="1"
@@ -3144,7 +4341,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.TransducerDelay.T"
-      valueReference="100663485"
+      valueReference="100663598"
       description="Lag time constant"
       variability="parameter">
       <Real
@@ -3152,7 +4349,7 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.TransducerDelay.y_start"
-      valueReference="100663486"
+      valueReference="100663599"
       description="Output start value"
       variability="parameter">
       <Real
@@ -3160,21 +4357,21 @@
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.TransducerDelay.T_mod"
-      valueReference="100663487"
+      valueReference="100663600"
       variability="parameter">
       <Real
         unit="s"/>
     </ScalarVariable>
     <ScalarVariable
       name="sT5B.VR0"
-      valueReference="100663488"
+      valueReference="100663601"
       variability="parameter">
       <Real
         declaredType="OpenIPSL.Types.PerUnit"/>
     </ScalarVariable>
     <ScalarVariable
       name="const4.k"
-      valueReference="16777319"
+      valueReference="16777327"
       description="Constant output value"
       variability="parameter">
       <Real start="0"
@@ -3182,25 +4379,32 @@
     </ScalarVariable>
     <ScalarVariable
       name="const4.y"
-      valueReference="234881127"
+      valueReference="234881135"
       description="Connector of Real output signal"
       alias="alias">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
     </ScalarVariable>
     <ScalarVariable
-      name="const3.k"
-      valueReference="16777320"
-      description="Constant output value"
-      variability="parameter">
+      name="add3_1.u1"
+      valueReference="335544320"
+      description="Connector of Real input signal 1"
+      alias="alias">
       <Real
-        unit="1"
-        start="0.9378444"
-        fixed="true"/>
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
     </ScalarVariable>
     <ScalarVariable
-      name="const3.y"
-      valueReference="234881128"
+      name="add3_1.u2"
+      valueReference="637534514"
+      description="Connector of Real input signal 2"
+      variability="discrete">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="add3_1.y"
+      valueReference="637534320"
       description="Connector of Real output signal"
       alias="alias">
       <Real
@@ -3208,16 +4412,570 @@
         unit="1"/>
     </ScalarVariable>
     <ScalarVariable
-      name="Efd"
-      valueReference="335544320"
-      causality="output">
+      name="add3_1.k1"
+      valueReference="16777328"
+      description="Gain of input signal 1"
+      variability="parameter">
+      <Real start="1"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="add3_1.k2"
+      valueReference="16777329"
+      description="Gain of input signal 2"
+      variability="parameter">
+      <Real start="1"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="step1.height"
+      valueReference="16777330"
+      description="Height of step"
+      variability="parameter">
+      <Real start="0.035"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="step1.y"
+      valueReference="637534514"
+      description="Connector of Real output signal"
+      alias="alias">
       <Real
-        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="step1.offset"
+      valueReference="16777331"
+      description="Offset of output signal y"
+      variability="parameter">
+      <Real start="0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="step1.startTime"
+      valueReference="16777332"
+      description="Output y = offset for time &lt; startTime"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.SIunits.Time"
+        start="0.42"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_b"
+      valueReference="100663603"
+      description="System base power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.ApparentPower"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.enableS_b"
+      valueReference="100663604"
+      description="Enable S_b in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.V_b"
+      valueReference="16777333"
+      description="Base voltage of the bus"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Voltage"
+        start="400000.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.enableV_b"
+      valueReference="100663605"
+      description="Enable V_b in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.fn"
+      valueReference="100663606"
+      description="System frequency"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Frequency"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.enablefn"
+      valueReference="100663607"
+      description="Enable fn in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.P_0"
+      valueReference="16777334"
+      description="Initial active power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.ActivePower"
+        start="0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.enableP_0"
+      valueReference="100663608"
+      description="Enable P_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.Q_0"
+      valueReference="16777335"
+      description="Initial reactive power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.ReactivePower"
+        start="0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.enableQ_0"
+      valueReference="100663609"
+      description="Enable Q_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.v_0"
+      valueReference="100663610"
+      description="Initial voltage magnitude"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.enablev_0"
+      valueReference="100663611"
+      description="Enable v_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.angle_0"
+      valueReference="100663612"
+      description="Initial voltage angle"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.Angle"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.enableangle_0"
+      valueReference="100663613"
+      description="Enable angle_0 in parameter list"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.displayPF"
+      valueReference="16777336"
+      description="Display power flow:"
+      variability="parameter">
+      <Boolean start="false"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.enabledisplayPF"
+      valueReference="100663614"
+      description="Enable displayPF in parameter list"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_p.re"
+      valueReference="100663615"
+      description="Real part of complex power (active power)"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.SIunits.ActivePower"
+        displayUnit="MW"
+        nominal="100000000.0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_p.im"
+      valueReference="100663616"
+      description="Imaginary part of complex power (reactive power)"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.SIunits.ReactivePower"
+        displayUnit="MVA"
+        nominal="100000000.0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_i.re"
+      valueReference="16777337"
+      description="Real part of complex power (active power)"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.SIunits.ActivePower"
+        displayUnit="MW"
+        nominal="100000000.0"
+        start="0.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_i.im"
+      valueReference="16777338"
+      description="Imaginary part of complex power (reactive power)"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.SIunits.ReactivePower"
+        displayUnit="MVA"
+        nominal="100000000.0"
+        start="0.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_y.re"
+      valueReference="16777339"
+      description="Real part of complex power (active power)"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.SIunits.ActivePower"
+        displayUnit="MW"
+        nominal="100000000.0"
+        start="0.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_y.im"
+      valueReference="16777340"
+      description="Imaginary part of complex power (reactive power)"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.SIunits.ReactivePower"
+        displayUnit="MVA"
+        nominal="100000000.0"
+        start="0.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.a.re"
+      valueReference="16777341"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real start="1.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.a.im"
+      valueReference="16777342"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real start="0.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.b.re"
+      valueReference="16777343"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real start="0.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.b.im"
+      valueReference="16777344"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real start="1.0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.PQBRAK"
+      valueReference="100663617"
+      description="Constant power characteristic threshold"
+      variability="constant">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"
+        start="0.7"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.characteristic"
+      valueReference="100663618"
+      variability="constant">
+      <Integer start="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.p.vr"
+      valueReference="369098764"
+      description="Real part of the voltage"
+      alias="alias">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.p.vi"
+      valueReference="369098765"
+      description="Imaginary part of the voltage"
+      alias="alias">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.p.ir"
+      valueReference="369099075"
+      description="Real part of the current">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.p.ii"
+      valueReference="369099076"
+      description="Imaginary part of the current">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.angle"
+      valueReference="905969989"
+      description="Bus voltage angle">
+      <Real
+        declaredType="OpenIPSL.Types.Angle"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.v"
+      valueReference="369099078"
+      description="Bus voltage magnitude">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.P"
+      valueReference="905969991"
+      description="Active power consumption">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.Q"
+      valueReference="905969992"
+      description="Reactive power consumption">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.p0"
+      valueReference="100663625"
+      description="Initial active power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.q0"
+      valueReference="100663626"
+      description="Initial reactive power"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.vr0"
+      valueReference="100663627"
+      description="Initial real voltage"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.vi0"
+      valueReference="100663628"
+      description="Initial imaginary voltage"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.ir0"
+      valueReference="100663629"
+      description="Initial real current"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.ii0"
+      valueReference="100663630"
+      description="Initial imaginary current"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_P.re"
+      valueReference="100663631"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real
         unit="1"/>
     </ScalarVariable>
     <ScalarVariable
-      name="V"
+      name="constantLoad.S_P.im"
+      valueReference="100663632"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_I.re"
+      valueReference="100663633"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_I.im"
+      valueReference="100663634"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_Y.re"
+      valueReference="100663635"
+      description="Real part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.S_Y.im"
+      valueReference="100663636"
+      description="Imaginary part of complex number"
+      variability="parameter">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.a2"
+      valueReference="16777345"
+      variability="parameter">
+      <Real start="1.502"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.b2"
+      valueReference="16777346"
+      variability="parameter">
+      <Real start="1.769"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.a0"
+      valueReference="16777347"
+      variability="parameter">
+      <Real start="0.4881"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.a1"
+      valueReference="16777348"
+      variability="parameter">
+      <Real start="-0.4999"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.b1"
+      valueReference="16777349"
+      variability="parameter">
+      <Real start="0.1389"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.wp"
+      valueReference="16777350"
+      variability="parameter">
+      <Real start="3.964"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.kP"
+      valueReference="369099093">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.kI"
+      valueReference="100663638"
+      variability="constant">
+      <Real start="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.d_P"
+      valueReference="16777351"
+      description="Active Load Variation"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"
+        start="0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.t1"
+      valueReference="100663639"
+      description="Time of Load Variation"
+      variability="constant">
+      <Real
+        declaredType="OpenIPSL.Types.Time"
+        start="0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.d_t"
+      valueReference="100663640"
+      description="Time duration of load variation"
+      variability="constant">
+      <Real
+        declaredType="OpenIPSL.Types.Time"
+        start="0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.PF"
+      valueReference="100663641"
+      description="Ration between active and reactive power; Not Power Factor"
+      variability="parameter">
+      <Real
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.d_Q"
+      valueReference="100663642"
+      variability="parameter">
+      <Real
+        declaredType="OpenIPSL.Types.PerUnit"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.u"
+      valueReference="436207617"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantLoad.x"
+      valueReference="436207618"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="EFD"
       valueReference="352321536"
+      description="Generator main field voltage [pu]"
+      causality="input">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="P"
+      valueReference="352321537"
       causality="input">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealInput"
@@ -3226,13 +4984,47 @@
         fixed="true"/>
     </ScalarVariable>
     <ScalarVariable
-      name="Ifd"
-      valueReference="352321537"
+      name="Q"
+      valueReference="352321538"
       causality="input">
       <Real
         declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="1"
         start="0.0"
         fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Vt"
+      valueReference="335544320"
+      causality="output">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+      <DirectDependency>
+        <Name>P</Name>
+        <Name>Q</Name>
+      </DirectDependency>
+    </ScalarVariable>
+    <ScalarVariable
+      name="Ifd"
+      valueReference="335544321"
+      causality="output">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+      <DirectDependency>
+        <Name>P</Name>
+        <Name>Q</Name>
+      </DirectDependency>
+    </ScalarVariable>
+    <ScalarVariable
+      name="speed"
+      valueReference="335544322"
+      causality="output">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="1"/>
+      <DirectDependency/>
     </ScalarVariable>
   </ModelVariables>
 </fmiModelDescription>

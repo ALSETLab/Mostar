@@ -1285,6 +1285,33 @@ model Generator_Correct
     d_P=0,
     t1=0,
     d_t=0)       annotation (Placement(transformation(extent={{-92,10},{-104,22}})));
+  OpenIPSL.Electrical.Controls.PSSE.PSS.PSS2B pSS2B(
+    T_w1=machineData.data.T_w1,
+    T_w2=machineData.data.T_w2,
+    T_6=machineData.data.T_6,
+    T_w3=machineData.data.T_w3,
+    T_w4=machineData.data.T_w4,
+    T_7=machineData.data.T_7,
+    K_S2=machineData.data.K_S2,
+    K_S3=machineData.data.K_S3,
+    T_8=machineData.data.T_8,
+    T_9=machineData.data.T_9,
+    K_S1=machineData.data.K_S1,
+    T_1=machineData.data.T_1,
+    T_2=machineData.data.T_2,
+    T_3=machineData.data.T_3,
+    T_4=machineData.data.T_4,
+    T_10=machineData.data.T_10,
+    T_11=machineData.data.T_11,
+    V_S1MAX=machineData.data.V_S1MAX,
+    V_S1MIN=machineData.data.V_S1MIN,
+    V_S2MAX=machineData.data.V_S2MAX,
+    V_S2MIN=machineData.data.V_S2MIN,
+    V_STMAX=machineData.data.V_STMAX,
+    V_STMIN=machineData.data.V_STMIN,
+    M=machineData.data.M,
+    N=machineData.data.N)
+    annotation (Placement(transformation(extent={{-164,-2},{-130,14}})));
 equation
 
   connect(Gen1.p,bus. p)
@@ -1299,6 +1326,10 @@ equation
           {-84,13.54},{-84,0},{-73,0}}, color={0,0,127}));
   connect(Efd_measured.y[1], Gen1.EFD)
     annotation (Line(points={{-191,52},{-162.4,52}}, color={0,0,127}));
+  connect(pSS2B.V_S1, Pout_real.y[1]) annotation (Line(points={{-165.7,9.2},{
+          -178,9.2},{-178,30},{-73,30}}, color={0,0,127}));
+  connect(pSS2B.V_S2, Gen1.SPEED) annotation (Line(points={{-165.7,2.8},{-182,
+          2.8},{-182,38},{-124,38},{-124,66.4},{-134.8,66.4}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-220,
             -40},{-20,100}})),                                   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-220,-40},{-20,100}})),
